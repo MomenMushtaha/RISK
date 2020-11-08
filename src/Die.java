@@ -1,22 +1,21 @@
+import java.util.Random;
 /**
  * Class Die is a 6 sided die
  *
  * @author Peter Tanyous
  * @version 1.01 October 24, 2020
  */
-import java.util.Random;
 public class Die
 {
-  private Random generator;
+  public Random generator;
 
   /**
    * Constructs a new Die.
    *
-   * @param r The random number generator for this die.
    */
-  public Die(Random r)
+  public Die()
   {
-    this.generator = new Random();
+
   }
 
   /**
@@ -30,7 +29,9 @@ public class Die
      * value between 0 and 5, inclusive. Map this to a value between
      * 1 to 6, inclusive.
      */
-    return generator.nextInt(6) + 1;
+    this.generator = new Random();
+     int w = generator.nextInt(6) + 1;
+    return w;
   }
 }
 

@@ -12,17 +12,16 @@
  * @author Peter Tanyous
  * @version 1.01 October 24, 2020
  */
-import java.util.Random;public class twoDice {
+public class twoDice {
 
-  private Die first;
-  private Die second;
+  public Die first;
+  public Die second;
   private int x ;
   private int y ;
   public twoDice() {
 
-    Random r = new Random();
-    first= new Die(r);
-    second= new Die(r);
+    first= new Die();
+    second= new Die();
 
   }
   public void roll(){

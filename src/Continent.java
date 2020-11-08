@@ -36,7 +36,7 @@ public class Continent {
   }
 
   /**
-   * Retuens a list of the country objects that are on this continent
+   * Returns a list of the country objects that are on this continent
    **/
   public ArrayList<Territory> getMemberTerritories() {
     return territories;

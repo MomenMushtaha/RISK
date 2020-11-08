@@ -5,21 +5,19 @@
  * @author Peter Tanyous
  * @version 1.01 October 24, 2020
  */
-import java.util.Random;
 public class threeDice {
 
-  private Die first;
-  private Die second;
-  private Die third;
+  public Die first;
+  public Die second;
+  public Die third;
   private int x ;
   private int y ;
   private int z ;
   public threeDice() {
 
-    Random r = new Random();
-    first= new Die(r);
-    second= new Die(r);
-    third = new Die(r);
+    first= new Die();
+    second= new Die();
+    third = new Die();
 
   }
   public void roll(){

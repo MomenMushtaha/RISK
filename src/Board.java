@@ -9,10 +9,7 @@ import java.util.ArrayList;
 public class Board {
   private static final int numTerritories = 42;
   public Territory[] territoriesList;
-  private static ArrayList<Continent> continentsList;
-  private Deck deck;
-  //private Hand hand;
-  //private ArrayList<Player> players;
+  private ArrayList<Continent> continentsList;
 
 
   //Troop types
@@ -27,7 +24,6 @@ public class Board {
   public Board(){
     setTerritories();
     setContinents();
-    setDeck();
   }
 
   /**
@@ -45,102 +41,7 @@ public class Board {
   /**
    * Creates the cards and the deck for the Risk Game
    */
-  private void setDeck() {
-    Card Alaska, NorthWestTerritories, GreenLand, Alberta, Ontario, Quebec, WestUSA, EastUSA, CentralAmerica;
-    Card Venezuela, Peru, Brazil, Argentina, NorthAfrica, Egypt, EastAfrica, Congo, SouthAfrica, Madagascar;
-    Card Iceland, Scandinavia, Ukraine, GreatBritain, NorthernEurope, SouthernEurope, WesternEurope, Indonesia, NewGuinea, WesternAustralia, EasternAustralia;
-    Card NewZealand, MiddleEast, Afganistan, Japan, China, India, Mongolia;
-    Card wildCard1, wildCard2;
 
-
-    //Create all Cards
-    wildCard1 = new Card(Unknown, wildCardA);
-    wildCard2 = new Card(Unknown, wildCardB);
-
-    Alaska = new Card(territoriesList[0], cavalry);
-    NorthWestTerritories = new Card(territoriesList[1], cavalry);
-    GreenLand = new Card(territoriesList[2], cavalry);
-    Alberta = new Card(territoriesList[3], cavalry);
-    Ontario = new Card(territoriesList[4], cavalry);
-    Quebec = new Card(territoriesList[5], cavalry);
-    WestUSA = new Card(territoriesList[6], cavalry);
-
-    EastUSA = new Card(territoriesList[7], infantry);
-    CentralAmerica = new Card(territoriesList[8], infantry);
-    Venezuela = new Card(territoriesList[9], infantry);
-    Peru = new Card(territoriesList[10], infantry);
-    Brazil = new Card(territoriesList[11], infantry);
-    Argentina = new Card(territoriesList[12], infantry);
-    NorthAfrica = new Card(territoriesList[13], infantry);
-
-    Egypt = new Card(territoriesList[14], artillery);
-    EastAfrica = new Card(territoriesList[15], artillery);
-    Congo = new Card(territoriesList[16], artillery);
-    SouthAfrica = new Card(territoriesList[17], artillery);
-    Madagascar = new Card(territoriesList[18], artillery);
-    Iceland = new Card(territoriesList[19], artillery);
-    Scandinavia = new Card(territoriesList[20], artillery);
-
-    Ukraine = new Card(territoriesList[21], cavalry);
-    GreatBritain = new Card(territoriesList[22], cavalry);
-    NorthernEurope = new Card(territoriesList[23], cavalry);
-    SouthernEurope = new Card(territoriesList[24], cavalry);
-    WesternEurope = new Card(territoriesList[25], cavalry);
-    Indonesia = new Card(territoriesList[26], cavalry);
-    NewGuinea = new Card(territoriesList[27], cavalry);
-    WesternAustralia = new Card(territoriesList[28], cavalry);
-    EasternAustralia = new Card(territoriesList[29], cavalry);
-    NewZealand = new Card(territoriesList[30], cavalry);
-    MiddleEast = new Card(territoriesList[31], cavalry);
-    Afganistan = new Card(territoriesList[32], cavalry);
-    Japan = new Card(territoriesList[33], cavalry);
-    China = new Card(territoriesList[34], cavalry);
-    India = new Card(territoriesList[35], cavalry);
-    Mongolia = new Card(territoriesList[36], cavalry);
-
-    //Add cards to new Deck
-    deck = new Deck();
-    deck.addCard(wildCard1);
-    deck.addCard(wildCard2);
-    deck.addCard(Alaska);
-    deck.addCard(NorthWestTerritories);
-    deck.addCard(GreenLand);
-    deck.addCard(Alberta);
-    deck.addCard(Ontario);
-    deck.addCard(Quebec);
-    deck.addCard(WestUSA);
-    deck.addCard(EastUSA);
-    deck.addCard(CentralAmerica);
-    deck.addCard(Venezuela);
-    deck.addCard(Peru);
-    deck.addCard(Brazil);
-    deck.addCard(Argentina);
-    deck.addCard(NorthAfrica);
-    deck.addCard(Egypt);
-    deck.addCard(EastAfrica);
-    deck.addCard(Congo);
-    deck.addCard(SouthAfrica);
-    deck.addCard(Madagascar);
-    deck.addCard(Iceland);
-    deck.addCard(Scandinavia);
-    deck.addCard(Ukraine);
-    deck.addCard(GreatBritain);
-    deck.addCard(NorthernEurope);
-    deck.addCard(SouthernEurope);
-    deck.addCard(WesternEurope);
-    deck.addCard(Indonesia);
-    deck.addCard(NewGuinea);
-    deck.addCard(WesternAustralia);
-    deck.addCard(EasternAustralia);
-    deck.addCard(NewZealand);
-    deck.addCard(MiddleEast);
-    deck.addCard(Afganistan);
-    deck.addCard(Japan);
-    deck.addCard(China);
-    deck.addCard(India);
-    deck.addCard(Mongolia);
-
-  }
 
     /* Done in GamePlay()
     private void setTerritoryOwners() {
@@ -215,8 +116,8 @@ public class Board {
     OceNAterritores.add(territoriesList[27]);
     OceNAterritores.add(territoriesList[28]);
     OceNAterritores.add(territoriesList[29]);
-    OceNAterritores.add(territoriesList[30]);
 
+    AsiaNAterritores.add(territoriesList[30]);
     AsiaNAterritores.add(territoriesList[31]);
     AsiaNAterritores.add(territoriesList[32]);
     AsiaNAterritores.add(territoriesList[33]);
@@ -293,9 +194,9 @@ public class Board {
     territoriesList[27] = new Territory("New Guinea");
     territoriesList[28] = new Territory("Western Australia");
     territoriesList[29] = new Territory("Eastern Australia");
-    territoriesList[30] = new Territory("New Zealand");
 
     //Asia
+    territoriesList[30] = new Territory("Siberia");
     territoriesList[31] = new Territory("Middle East");
     territoriesList[32] = new Territory("Afghanistan");
     territoriesList[33] = new Territory("Japan");
@@ -306,7 +207,7 @@ public class Board {
     territoriesList[38] = new Territory("Yakutsk");
     territoriesList[39] = new Territory("Kamchatka");
     territoriesList[40] = new Territory("Irkutsk");
-    territoriesList[41] = new Territory("Serbia");
+    territoriesList[41] = new Territory("SoutheastAsia");
 
     //Add Bordering Territories
     //Alaska
@@ -500,7 +401,7 @@ public class Board {
    * Method to return the Continent list in the Class
    * @return territoriesList
    */
-  public static ArrayList<Continent> getContinentList() {
+  public ArrayList<Continent> getContinentList() {
     return continentsList;
   }
 
