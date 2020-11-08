@@ -55,7 +55,7 @@ public class Gameplay {
           bonus = bonus + currentPlayer.getContinents().get(j).getBonusArmies();
         }
         MILLISECONDS.sleep(300);
-        System.out.println("you received" + bonus + "bonus troops for the continents you are holding");
+        System.out.println("you received " + bonus + " bonus troops for the continents you are holding");
       }
       int troopsNewTurn = (currentPlayer.getTerritories().size() / 3) + bonus;
       MILLISECONDS.sleep(300);
@@ -63,9 +63,9 @@ public class Gameplay {
       DeployTroops(troopsNewTurn);
       //Asks the user for a command
       commander();
-      if((i) == numPlayers)
+      if((i+1) == numPlayers)
       {
-        i=0;
+        i=-1;
       }
     }
   }
@@ -110,6 +110,7 @@ public class Gameplay {
       }
       int troopsAmount = t2.getTroops();
       attack(t1, t2, troopsAmount);
+      commander();
     }
     else if(comm.equalsIgnoreCase("FORTIFY")) {
       fortify();
@@ -413,11 +414,16 @@ public class Gameplay {
    */
   private void fortify() throws InterruptedException {
     MILLISECONDS.sleep(300);
-    System.out.println("Please choose the territory you wish to remove the troops from, the territory you wish to add the troops too, and the number of troops to move");
+    System.out.println("Please choose the territory you wish to remove the troops from, the territory you wish to add the troops to, and the number of troops to move");
     Scanner s = new Scanner(System.in);
     String First = s.nextLine();
     Territory F = mapper(First);
-    while (F == null) {
+    while (F == null || !currentPlayer.getTerritories().contains(F)) {
+      if(F != null && !currentPlayer.getTerritories().contains(F))
+      {
+        MILLISECONDS.sleep(300);
+        System.out.println("you dont own this territory");
+      }
       MILLISECONDS.sleep(300);
       System.out.println("You have entered an invalid territory (wrong owned territory name)");
       MILLISECONDS.sleep(300);
@@ -429,13 +435,24 @@ public class Gameplay {
     MILLISECONDS.sleep(300);
     String Second = s.nextLine();
     Territory S = mapper(Second);
-    while (S == null) {
+    while (S == null || !currentPlayer.getTerritories().contains(S) || F == S) {
+      if(S != null && !currentPlayer.getTerritories().contains(S))
+      {
+        MILLISECONDS.sleep(300);
+        System.out.println("you dont own this territory");
+      }
+      if(F == S)
+      {
+        System.out.println("cant fortify from the same Territory");
+      }
+      MILLISECONDS.sleep(300);
       System.out.println("You have entered an invalid territory (wrong target name)");
       MILLISECONDS.sleep(300);
       System.out.println("Please choose the territory you wish to add troops to");
       Second = s.nextLine();
       S = mapper(Second);
     }
+    MILLISECONDS.sleep(300);
     System.out.println("Please choose the number of troops you wish to move");
     MILLISECONDS.sleep(300);
     int tr = s.nextInt();
@@ -476,7 +493,7 @@ public class Gameplay {
       MILLISECONDS.sleep(300);
       System.out.println("You have entered an invalid territory");
       MILLISECONDS.sleep(300);
-      System.out.println("Enter a territory to add armies too");
+      System.out.println("Enter a territory to add troops to");
       addingToTerritories = s.nextLine();
       g = stringTerritoryMapping(addingToTerritories, newTroops);
     }
@@ -556,9 +573,9 @@ public class Gameplay {
    */
   private void addInitialTerritories(int p) {
     int Num = 0;
-    for (int i = 0; i <= (board.getTerritoriesList().length  -1); i++) {
-      getPlayers(Num).addTerritories(board.getTerritoriesList()[i]);
-      board.getTerritoriesList()[i].changeOwner(players.get(Num));
+    for (int n = 0; n <= (board.getTerritoriesList().length  -1); n++) {
+      getPlayers(Num).addTerritories(board.getTerritoriesList()[n]);
+      board.getTerritoriesList()[n].changeOwner(players.get(Num));
       Num = (Num + 1) % p;
     }}
 
@@ -573,24 +590,24 @@ public class Gameplay {
     //4: 30 troops
     //5: 25
     //6: 20
-    int i;
+    int m;
     if (numPlayers == 2) {
-      for (i = 0; i < 16; i++) {
-        board.getTerritoriesList()[i].addTroops(2);
+      for (m = 0; m < 16; m++) {
+        board.getTerritoriesList()[m].addTroops(2);
       }
-      for (i = 16; i <= 36; i++) {
-        board.getTerritoriesList()[i].addTroops(3);
+      for (m = 16; m <= 36; m++) {
+        board.getTerritoriesList()[m].addTroops(3);
       }
     } else if (numPlayers == 3) {
-      for (i = 0; i < 21; i++) {
-        board.getTerritoriesList()[i].addTroops(3);
+      for (m = 0; m < 21; m++) {
+        board.getTerritoriesList()[m].addTroops(3);
       }
-      for (i = 21; i < 35; i++) {
-        board.getTerritoriesList()[i].addTroops(2);
+      for (m = 21; m < 35; m++) {
+        board.getTerritoriesList()[m].addTroops(2);
       }
     } else if (numPlayers == 4) {
-      for (i = 0; i < 36; i++) {
-        board.getTerritoriesList()[i].addTroops(3);
+      for (m = 0; m < 36; m++) {
+        board.getTerritoriesList()[m].addTroops(3);
       }
       board.getTerritoriesList()[36].addTroops(2);
       board.getTerritoriesList()[37].addTroops(2);
@@ -599,8 +616,8 @@ public class Gameplay {
       board.getTerritoriesList()[40].addTroops(1);
       board.getTerritoriesList()[41].addTroops(1);
     } else if (numPlayers == 5) {
-      for (i = 0; i < 35; i++) {
-        board.getTerritoriesList()[i].addTroops(3);
+      for (m = 0; m < 35; m++) {
+        board.getTerritoriesList()[m].addTroops(3);
       }
       board.getTerritoriesList()[35].addTroops(2);
       board.getTerritoriesList()[36].addTroops(2);
@@ -610,11 +627,11 @@ public class Gameplay {
       board.getTerritoriesList()[40].addTroops(2);
       board.getTerritoriesList()[41].addTroops(2);
     } else if (numPlayers == 6) {
-      for (i = 0; i < 36; i++) {
-        board.getTerritoriesList()[i].addTroops(3);
+      for (m = 0; m < 36; m++) {
+        board.getTerritoriesList()[m].addTroops(3);
       }
-      for (i = 36; i < 42; i++) {
-        board.getTerritoriesList()[i].addTroops(2);
+      for (m = 36; m < 42; m++) {
+        board.getTerritoriesList()[m].addTroops(2);
       }
     }
   }
@@ -630,8 +647,16 @@ public class Gameplay {
     Territory addT = mapper(t);
     if (addT !=null)
     {
+      if (addT.getPlayer() == currentPlayer)
+      {
+
       addT.addTroops(troop);
       return 0;
+    }
+    else{
+      System.out.println("the territory does not belong to the player");
+      return -1;
+    }
     }
     return -1;
   }
@@ -701,11 +726,11 @@ public class Gameplay {
      * prints the status of the game
      */
     private void getGameStatus() throws InterruptedException {
-      for (int i = 0; i < players.size(); i++) {
+      for (int g = 0; g < players.size(); g++) {
         MILLISECONDS.sleep(300);
-        System.out.println(getPlayers(i).getName() + " Territories and Continents");
-        listTheTerritories(getPlayers(i).getTerritories());
-        listTheContinents(getPlayers(i).getContinents());
+        System.out.println(getPlayers(g).getName() + " Territories and Continents");
+        listTheTerritories(getPlayers(g).getTerritories());
+        listTheContinents(getPlayers(g).getContinents());
       }
 
     }
@@ -813,7 +838,7 @@ public void continent_check() {
         }
     if (a == board.getContinentList().get(y).getMemberTerritories().size())
     { System.out.println(board.getContinentList().get(y).getMemberTerritories().size());
-      System.out.println( board.getContinentList().get(y).getName() + " is added to Player " + currentPlayer.getName());
+      System.out.println( board.getContinentList().get(y).getName() + " is added to " + currentPlayer.getName());
       currentPlayer.addContinents(board.getContinentList().get(y));
     }
     a = 0;
