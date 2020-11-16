@@ -26,35 +26,6 @@ public class Board {
     setContinents();
   }
 
-  /**
-   * Sets the amount of initial troops each player can start out with depending on number of players
-   */
-
-  /**
-   * Returns the number of Territories in the game
-   * @return
-   */
-  private int getNumTerritories(){
-    return numTerritories;
-  }
-
-  /**
-   * Creates the cards and the deck for the Risk Game
-   */
-
-
-    /* Done in GamePlay()
-    private void setTerritoryOwners() {
-
-    }
-
-     */
-
-    /* Done in GamePlay()
-    private void setPlayers() {
-
-    }
-     */
 
   /**
    * Creates the continents for the game and assigns the territories to each Continent
