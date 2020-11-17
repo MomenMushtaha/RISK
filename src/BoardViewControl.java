@@ -6,13 +6,10 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 class BoardViewControl implements ActionListener {
 
   public Gameplay game;
-  public BoardView view;
-  public TerritoryView tv;
   public int troopsNewTurn;
 
   public BoardViewControl(BoardView view, Gameplay game) throws InterruptedException {
     this.game = game;
-    this.view = view;
     view.BoardViewActionListeners(this);
     game.printWelcome();
     game.printRules();
@@ -23,6 +20,23 @@ class BoardViewControl implements ActionListener {
       " if you rule a whole continent you will get more bonus troops.");
     MILLISECONDS.sleep(300);
     System.out.println("The game will start with player 1");
+    for (int i = 0; i < numPlayers; i++) {
+      game.currentPlayer = game.getPlayers(i);
+      System.out.println("this is " + game.currentPlayer.getName());
+      MILLISECONDS.sleep(300);
+      System.out.println("It is " + game.getPlayers(i).getName() + " turn");
+      int bonus = 0;
+      if (game.currentPlayer.getContinents().size() > 0) {
+        for (int j = 0; j < game.currentPlayer.getContinents().size(); j++) {
+          bonus = bonus + game.currentPlayer.getContinents().get(j).getBonusArmies();
+        }
+        MILLISECONDS.sleep(300);
+        System.out.println("you received " + bonus + " bonus troops for the continents you are holding");
+      }
+      troopsNewTurn = (game.currentPlayer.getTerritories().size() / 3) + bonus;
+      MILLISECONDS.sleep(300);
+      System.out.println(game.getPlayers(i).getName() + " receives " + troopsNewTurn + " troops");
+    }
   }
   public void actionPerformed(ActionEvent evt) {
 
@@ -30,12 +44,18 @@ class BoardViewControl implements ActionListener {
     if (actionEvent.equals("tradeBtn")) {
 
     } else if(actionEvent.equals("deployBtn")){
-      new DeployControl(game,new DeployView(game), troopsNewTurn);
+      if (troopsNewTurn ==0)
+      {
+        System.out.println("no troops to deploy");
+      }
+      else {
+        new DeployControl(game,new DeployView(game, troopsNewTurn), troopsNewTurn);
+      }
     }else if (actionEvent.equals("attackBtn")) {
-      new TerritoryControl(new TerritoryView(game));
+      new TerritoryControl(game, new TerritoryView(game));
 
     } else if (actionEvent.equals("fortifyBtn")) {
-      new TerritoryControl(new TerritoryView(game));
+      new TerritoryControl(game, new TerritoryView(game));
 
     } else if (actionEvent.equals("passBtn")) {
       try {

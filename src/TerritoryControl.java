@@ -1,50 +1,44 @@
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.lang.Integer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
-public class TerritoryControl implements MouseListener {
+public class TerritoryControl implements ActionListener {
 
   public Gameplay game;
   public TerritoryView view;
 
   //Constructor
-  public TerritoryControl(TerritoryView view) {
+  public TerritoryControl(Gameplay game,TerritoryView view) {
+    this.game = game;
     System.out.println("Risk!");
     this.view = view;
-    //Add this class' actionListener to riskView's buttons
-    view.TerritoryViewMouseListeners(this);
+    //Add this class' actionListener to TerritoryView's buttons
+    view.TerritoryViewActionListeners(this::actionPerformed);
   }
 
+
   @Override
-  public void mouseClicked(MouseEvent e) {
-        if(e.getClickCount()==2){
-          JList list = (JList)e.getSource();
-          System.out.println( list.getSelectedValue());
+  public void actionPerformed(ActionEvent e) {
+    String actionEvent = e.getActionCommand();
+    if (actionEvent.equals("Proceed to choose where to attack")) {
+      int a = view.getplayerterritoryIndex();
+      int b = game.getcurrentPlayer().getTerritories().get(a).getTroops();
+      if (a != -1) {
+        if (b > 1) {
+          view.setVisible(false);
+          new AttackControl(game, new AttackView(game,b,a),b,a);
+        }
+        else{
+          System.out.println("you dont have enough troops to attack");
+          System.out.println("Try a different territory");
+          view.setVisible(false);
+          new TerritoryControl(game, new TerritoryView(game));
         }
       }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-
+      else {
+        System.out.println("no territoy was chosen" );
+        view.setVisible(false);
+        new TerritoryControl(game, new TerritoryView(game));
+      }}
+  else {
+  System.out.println("not working");}
   }}

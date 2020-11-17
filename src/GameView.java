@@ -6,21 +6,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+
 /**
  * GameView of the GUI of Risk!.
  * @author Momin Mushtaha
  **/
 public class GameView extends JFrame {
+  //initialize panel
   private JPanel startPanel;
+  //initialize layout
   private GridLayout startLayout;
-  // labels
-  static JLabel l;
-  //buttons
+  //initialize labels
+  static JLabel label;
+  //initialize buttons
   private JButton newGameButton;
   private String newGameString = "newGameBtn";
-  //comboBox
+  //initialize comboBox
   public JComboBox playerComboBox;
   private String[] players = { "2", "3" , "4" , "5" , "6" };
+  //game
   public Gameplay game;
 
   public GameView(Gameplay game)
@@ -41,7 +45,7 @@ public class GameView extends JFrame {
   {
     // Creates the panel, Labels and Layouts
     startPanel = new JPanel();
-    l = new JLabel("Please select how many players are playing ");
+    label = new JLabel("Please select how many players are playing ");
     // Sets Layout
     startLayout = new GridLayout(3, 1, 5, 5);
     startPanel.setLayout(startLayout);
@@ -52,7 +56,7 @@ public class GameView extends JFrame {
     // Setting button commands
     newGameButton.setActionCommand(newGameString);
     //buttons on startPanel
-    startPanel.add(l);
+    startPanel.add(label);
     startPanel.add(playerComboBox);
     startPanel.add(newGameButton);
     return startPanel;

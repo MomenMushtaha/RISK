@@ -1,71 +1,89 @@
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
 
 public class DeployView extends JFrame {
-  private GridLayout DeployLayout;
-  public Gameplay game;
-  // labels
-  static JLabel l;
-  private GridBagConstraints cons;
-  static JLabel playerTerritoryLabel;
-  //ScrollingPanes
+  //initialize panel
+  private JPanel deployPanel;
+  //initialize layout
+  private GridLayout deployLayout;
+  //initialize labels
+  static JLabel label;
+  //initialize buttons
+  private JButton deployButton;
+  private String deployString = "Deploy Now!";
+  //initialize ComboBox
+  public JComboBox troopsComboBox;
+  private String[] items;
+  //initialize Lists
+  public JList currentPlayerTerritoryList;
+  //initialize scroll panes
   private JScrollPane currentPlayerTerritoryListScrollPane;
-  private JList currentPlayerTerritoryList;
+  //troops to be added
+  private int troops;
+  //game
+  public Gameplay game;
 
-  public DeployView(Gameplay game) {
+
+  public DeployView(Gameplay game, int troops) {
+    items =new String[troops];
+    this.troops = troops;
     this.game = game;
-    setTitle("Risk Starts");
-    setPreferredSize(new Dimension(500, 500));
+    setPreferredSize(new Dimension(300, 300));
     setResizable(false);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
     setVisible(true);
-
     add(DeployDialog());
     //to make sure the dialog is appearing at the front
     toFront();
   }
 
   private JPanel DeployDialog() {
-
-
     // Creates the panel, Labels and Layouts
-    JPanel deployPanel = new JPanel();
-    l = new JLabel("Please select the Territory to deploy troops into");
-    playerTerritoryLabel = new JLabel("Owned Territories:");
+    deployPanel = new JPanel();
+    label = new JLabel("Please choose how many troops and where to place them");
     // Sets Layout
-    DeployLayout = new GridLayout();
-    String[] listt = game.listTheTerritories(game.getPlayers(0).getTerritories());
-    System.out.println(listt);
-    currentPlayerTerritoryList = new JList(listt);
+    deployLayout = new GridLayout(4, 1);
+    deployPanel.setLayout(deployLayout);
+    String[] s = game.listTheTerritories(game.getcurrentPlayer().getTerritories());
+    currentPlayerTerritoryList = new JList(s);
     currentPlayerTerritoryList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     currentPlayerTerritoryList.setLayoutOrientation(JList.VERTICAL_WRAP);
-    currentPlayerTerritoryList.setVisibleRowCount(42);
+    //ScrollingPanes
+    deployButton = new JButton("Deploy Now!");
+    // Setting button commands
+    deployButton.setActionCommand(deployString);
     currentPlayerTerritoryListScrollPane = new JScrollPane(currentPlayerTerritoryList);
-    currentPlayerTerritoryList.setVisibleRowCount(42);
-    cons = new GridBagConstraints();
-
-    deployPanel.add(l);
-    deployPanel.add(playerTerritoryLabel);
+    currentPlayerTerritoryList.setVisibleRowCount(s.length);
+    deployPanel.add(troopsComboBox(troops));
     deployPanel.add(currentPlayerTerritoryListScrollPane);
-   return deployPanel;
+    deployPanel.add(deployButton);
+    return deployPanel;
   }
 
-  // Action listeners for GameView
-  public void DeployViewMouseListeners(MouseListener evt) {
-    currentPlayerTerritoryList.addMouseListener(evt);
+  // Action listeners for DeployView
+  public void DeployViewActionListeners(ActionListener evt) {
+    deployButton.addActionListener(evt);
+    validate();
+    repaint();
   }
 
   public int getplayerterritoryIndex() {
     return currentPlayerTerritoryList.getSelectedIndex();
   }
 
-
-  public String getplayerterritory() {
-    return currentPlayerTerritoryList.getSelectedValue().toString();
+  public JComboBox troopsComboBox(int troops) {
+    int num = 0;
+    int i = 0;
+    String[] r = new String[troops];
+    while (num < troops) {
+      num += 1;
+      r[i] = String.valueOf(num);
+      i++;
+    }
+    troopsComboBox = new JComboBox(r);
+    return troopsComboBox;
   }
 }
 

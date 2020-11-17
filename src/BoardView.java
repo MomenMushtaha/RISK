@@ -5,54 +5,56 @@ import java.awt.event.ActionListener;
 import java.io.PrintStream;
 
 class BoardView extends JDialog {
+  //initialize panels
   private JPanel printOutputPanel;
   private JPanel riskMapPanel;
   private JPanel commandsPanel;
-  private GridBagConstraints cons;
+  //initialize Layouts
   private GridBagLayout gameLayout;
   private GridBagLayout printOutputLayout;
   private GridBagLayout commandsLayout;
-  private JButton attackBtn;
-  private JButton deployBtn;
-  private JButton helpBtn;
-  private JButton quitBtn;
-  private JButton printBtn;
-  private JButton fortifyBtn;
+  //initialize buttons
   private JButton tradeBtn;
+  private JButton deployBtn;
+  private JButton attackBtn;
+  private JButton fortifyBtn;
   private JButton passBtn;
-  private String attackName = "attackBtn";
-  private String deployName = "deployBtn";
-  private String printName = "printBtn";
-  private String quitName = "quitBtn";
-  private String fortifyName = "fortifyBtn";
+  private JButton quitBtn;
+  private JButton helpBtn;
+  private JButton printBtn;
   private String tradeName = "turnInBtn";
+  private String deployName = "deployBtn";
+  private String attackName = "attackBtn";
+  private String fortifyName = "fortifyBtn";
   private String passName = "passBtn";
+  private String quitName = "quitBtn";
   private String helpName = "helpBtn";
-  private JTextArea printTextArea;
+  private String printName = "printBtn";
+  // initialize scrolling panes
   private JScrollPane riskScrollPane;
   private JScrollPane printOutputScrollPane;
+  // initialize Text area
+  private JTextArea printTextArea;
+  // initialize caret
   private DefaultCaret caret;
+  //initialize image
   private ImageIcon riskImageIcon;
+  //initialize constraints
+  private GridBagConstraints cons;
+  //game
   public Gameplay game;
 
   /**
    * Constructs the Risk game board.
    **/
   public BoardView(Gameplay game) {
-
-    //super(owner, modality);
     setTitle("Java-Risk");
-    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.game = game;
-
     //  GridBagLayout allows a flexible sizing of components
     gameLayout = new GridBagLayout();
     setLayout(gameLayout);
-
     cons = new GridBagConstraints();
-
     cons.fill = GridBagConstraints.BOTH;
     cons.anchor = GridBagConstraints.LINE_START;
     cons.insets = new Insets(5, 5, 5, 5);
@@ -61,7 +63,6 @@ class BoardView extends JDialog {
     cons.gridx = 0;
     cons.gridy = 0;
     add(PrintOutputPanel());
-
     cons.fill = GridBagConstraints.BOTH;
     cons.anchor = GridBagConstraints.CENTER;
     cons.insets = new Insets(5, 5, 5, 5);
@@ -69,9 +70,7 @@ class BoardView extends JDialog {
     cons.weighty = 0.5;
     cons.gridx = 1;
     cons.gridy = 0;
-    System.out.println("r");
     add(riskMapPanel());
-
     cons.fill = GridBagConstraints.BOTH;
     cons.anchor = GridBagConstraints.LINE_END;
     cons.insets = new Insets(5, 5, 5, 5);
@@ -81,11 +80,8 @@ class BoardView extends JDialog {
     cons.gridy = 0;
     add(commandsPanel());
     setVisible(true);
-
-
-    setLocationRelativeTo(null);
-
     pack();
+    toFront();
   }
 
 

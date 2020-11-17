@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -228,13 +229,10 @@ public class Gameplay {
         removePlayer(OldOwner);
       }
       if (players.size() == 1) {
-
         //Declares if we have a winner
         MILLISECONDS.sleep(300);
         System.out.println(currentPlayer.getName() + " has won");
-
       }
-
       if (tt.getTroops() > 3) {
         MoveAfterAttack(t, tt);
       } else if (tt.getTroops() == 3) {
@@ -439,8 +437,10 @@ public Player getcurrentPlayer()
     //5: 25
     //6: 20
     int m;
+    numPlayers = players.size();
     if (numPlayers == 2) {
       for (m = 0; m < 16; m++) {
+        board.territoriesList[m].addTroops(2);
         board.getTerritoriesList()[m].addTroops(2);
       }
       for (m = 16; m <= 36; m++) {
@@ -482,6 +482,7 @@ public Player getcurrentPlayer()
         board.getTerritoriesList()[m].addTroops(2);
       }
     }
+    System.out.println(board.getTerritoriesList()[3].getTroops());
   }
 
 
@@ -529,21 +530,22 @@ public Player getcurrentPlayer()
    * @param territoryList a list of Territories
    */
   public String[] listTheTerritories(ArrayList<Territory> territoryList) {
-    String[] s = new String[]{};
+    String[] territoryListing =new String[territoryList.size()];
     int t = 0;
-    for (Territory terr : territoryList) {
-      s[t] = terr.getName() + ": Troops = " + terr.getTroops();
-    }
-    return s;
+      for (Territory terr : territoryList) {
+        territoryListing[t] = (terr.getName() + ": Troops = " + terr.getTroops());
+        t++;
+      }
+    return territoryListing;
   }
 
   public String[] listBorderingTerritories(Territory terr) {
-    String[] sb = new String[]{};
+    String[] boarderingListing = new String[terr.getBorderTerritories().size()];
     for (int b = 0; b < terr.getBorderTerritories().size(); b++) {
       Territory bordering = terr.getBorderTerritories().get(b);
-      sb[b] = bordering.getName() + ": Troops = " + bordering.getTroops();
+      boarderingListing[b] = bordering.getName() + ": Troops = " + bordering.getTroops();
     }
-    return sb;
+    return boarderingListing;
   }
 
 

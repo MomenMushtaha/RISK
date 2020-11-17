@@ -1,116 +1,69 @@
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
 
 public class TerritoryView extends JFrame{
-  private JPanel TerritoryPanel;
-  private GridLayout TerritoryLayout;
-  public Gameplay game;
+  //initialize panel
+  private JPanel territoryPanel;
+  //initialize layout
+  private GridLayout territoryLayout;
   // labels
-  static JLabel l;
-  private GridBagConstraints cons;
-  static JLabel playerTerritoryLabel;
-  static JLabel targetingLabel;
-  //ScrollingPanes
-  private JScrollPane currentPlayerTerritoryListScrollPane;
-  private JScrollPane targetingScrollPane;
+  private JLabel label;
+  //initialize buttons
+  private JButton attackButton;
+  private String attackString = "Proceed to choose where to attack";
+  //initialize lists
   private JList currentPlayerTerritoryList;
-  private JList targetingList;
-
-  //comboBox
+  //initializing scrolling Panes
+  private JScrollPane currentPlayerTerritoryListScrollPane;
+  //game
+  public Gameplay game;
 
   public TerritoryView(Gameplay game)
   {
-    setTitle("Risk Starts");
+    this.game = game;
     setPreferredSize(new Dimension(300, 300));
     setResizable(false);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    add(TerritoryDialog());
     pack();
     setVisible(true);
     //to make sure the dialog is appearing at the front
     toFront();
+    add(TerritoryDialog());
   }
 
   private JPanel TerritoryDialog()
   {
-
-
-
     // Creates the panel, Labels and Layouts
-    TerritoryPanel = new JPanel();
-    l = new JLabel("Please select The First and Second Territory");
-    playerTerritoryLabel = new JLabel("Owned Territories:");
-    targetingLabel = new JLabel("Bordering Territories:");
+    territoryPanel = new JPanel();
+    label = new JLabel("Please select the Territory to attack from");
     // Sets Layout
-    TerritoryLayout = new GridLayout();
-    String[] listt = game.listTheTerritories(game.currentPlayer.getTerritories());
-    currentPlayerTerritoryList = new JList(listt);
+    territoryLayout = new GridLayout(3,1);
+    territoryPanel.setLayout(territoryLayout);
+    String[] s = game.listTheTerritories(game.getcurrentPlayer().getTerritories());
+    currentPlayerTerritoryList = new JList(s);
     currentPlayerTerritoryList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     currentPlayerTerritoryList.setLayoutOrientation(JList.VERTICAL_WRAP);
-    currentPlayerTerritoryList.setVisibleRowCount(42);
+    attackButton = new JButton("Proceed to choose where to attack");
+    attackButton.setActionCommand(attackString);
+    //ScrollingPanes
     currentPlayerTerritoryListScrollPane = new JScrollPane(currentPlayerTerritoryList);
+    currentPlayerTerritoryList.setVisibleRowCount(s.length);
 
-    targetingList = new JList();
-    currentPlayerTerritoryList.setVisibleRowCount(42);
-    targetingScrollPane = new JScrollPane(targetingList);
+    territoryPanel.add(label);
+    territoryPanel.add(currentPlayerTerritoryListScrollPane);
+    territoryPanel.add(attackButton);
 
+    return territoryPanel;}
 
-    cons = new GridBagConstraints();
-
-    cons.fill = GridBagConstraints.BOTH;
-    cons.insets = new Insets(5, 5, 5, 5);
-    cons.weightx = 0.5;
-    cons.weighty = 0.5;
-    cons.gridx = 0;
-    cons.gridy = 4;
-    TerritoryPanel.add(playerTerritoryLabel, cons);
-
-    cons.fill = GridBagConstraints.BOTH;
-    cons.insets = new Insets(5, 5, 5, 5);
-    cons.weightx = 0.5;
-    cons.weighty = 10;
-    cons.gridx = 0;
-    cons.gridy = 5;
-    TerritoryPanel.add(currentPlayerTerritoryListScrollPane, cons);
-
-    cons.fill = GridBagConstraints.BOTH;
-    cons.insets = new Insets(5, 5, 5, 5);
-    cons.weightx = 0.5;
-    cons.weighty = 10;
-    cons.gridx = 0;
-    cons.gridy = 6;
-    TerritoryPanel.add(targetingScrollPane, cons);
-
-    cons.fill = GridBagConstraints.BOTH;
-    cons.insets = new Insets(5, 5, 5, 5);
-    cons.weightx = 0.5;
-    cons.weighty = 0.5;
-    cons.gridx = 0;
-    cons.gridy = 7;
-    TerritoryPanel.add(targetingLabel, cons);
-    return TerritoryPanel;
-  }
-
-  // Action listeners for GameView
-  public void TerritoryViewMouseListeners(MouseListener evt)
-  {
-    currentPlayerTerritoryList.addMouseListener(evt);
+  public void TerritoryViewActionListeners(ActionListener evt) {
+    attackButton.addActionListener(evt);
+    validate();
+    repaint();
   }
 
   public int getplayerterritoryIndex() {
     return currentPlayerTerritoryList.getSelectedIndex();
-  }
-
-
-  public String getplayerterritory() {
-    return currentPlayerTerritoryList.getSelectedValue().toString();
-  }
-
-
-  public JList getTargeting() {
-    return targetingList;
   }
 }
 
