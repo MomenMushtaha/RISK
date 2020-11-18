@@ -31,7 +31,7 @@ public class DeployView extends JFrame {
     this.game = game;
     setPreferredSize(new Dimension(300, 300));
     setResizable(false);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     pack();
     setVisible(true);
     add(DeployDialog());

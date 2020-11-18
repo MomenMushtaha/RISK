@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.SplittableRandom;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -7,6 +8,7 @@ class BoardViewControl implements ActionListener {
 
   public Gameplay game;
   public int troopsNewTurn;
+  public String passed;
 
   public BoardViewControl(BoardView view, Gameplay game) throws InterruptedException {
     this.game = game;
@@ -52,11 +54,11 @@ class BoardViewControl implements ActionListener {
         new DeployControl(game,new DeployView(game, troopsNewTurn), troopsNewTurn);
       }
     }else if (actionEvent.equals("attackBtn")) {
-      new TerritoryControl(game, new TerritoryView(game));
-
+      passed = "attackBtn";
+      new TerritoryControl(game, new TerritoryView(game), passed);
     } else if (actionEvent.equals("fortifyBtn")) {
-      new TerritoryControl(game, new TerritoryView(game));
-
+      passed = "fortifyBtn";
+      new TerritoryControl(game, new TerritoryView(game), passed);
     } else if (actionEvent.equals("passBtn")) {
       try {
         game.nextPlayerTurn();

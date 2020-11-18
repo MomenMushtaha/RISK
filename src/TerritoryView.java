@@ -11,7 +11,7 @@ public class TerritoryView extends JFrame{
   private JLabel label;
   //initialize buttons
   private JButton attackButton;
-  private String attackString = "Proceed to choose where to attack";
+  private String attackString = "Proceed";
   //initialize lists
   private JList currentPlayerTerritoryList;
   //initializing scrolling Panes
@@ -24,7 +24,7 @@ public class TerritoryView extends JFrame{
     this.game = game;
     setPreferredSize(new Dimension(300, 300));
     setResizable(false);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     pack();
     setVisible(true);
     //to make sure the dialog is appearing at the front
@@ -44,7 +44,7 @@ public class TerritoryView extends JFrame{
     currentPlayerTerritoryList = new JList(s);
     currentPlayerTerritoryList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     currentPlayerTerritoryList.setLayoutOrientation(JList.VERTICAL_WRAP);
-    attackButton = new JButton("Proceed to choose where to attack");
+    attackButton = new JButton("Proceed");
     attackButton.setActionCommand(attackString);
     //ScrollingPanes
     currentPlayerTerritoryListScrollPane = new JScrollPane(currentPlayerTerritoryList);

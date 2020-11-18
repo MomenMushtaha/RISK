@@ -280,66 +280,10 @@ public class Gameplay {
 
   /**
    * Fortifies the troops when the command is passed
-   *
-   * @throws InterruptedException for sleep method
    */
-  public void fortify() throws InterruptedException {
-    MILLISECONDS.sleep(300);
-    System.out.println("Please choose the territory you wish to remove the troops from, the territory you wish to add the troops to, and the number of troops to move");
-    Scanner s = new Scanner(System.in);
-    String First = s.nextLine();
-    Territory F = mapper(First);
-    while (F == null || !currentPlayer.getTerritories().contains(F)) {
-      if (F != null && !currentPlayer.getTerritories().contains(F)) {
-        MILLISECONDS.sleep(300);
-        System.out.println("you dont own this territory");
-      }
-      MILLISECONDS.sleep(300);
-      System.out.println("You have entered an invalid territory (wrong owned territory name)");
-      MILLISECONDS.sleep(300);
-      System.out.println("Enter a territory to remove the troops from");
-      First = s.nextLine();
-      F = mapper(First);
-    }
-    System.out.println("Please choose the territory you wish to add troops to");
-    MILLISECONDS.sleep(300);
-    String Second = s.nextLine();
-    Territory S = mapper(Second);
-    while (S == null || !currentPlayer.getTerritories().contains(S) || F == S) {
-      if (S != null && !currentPlayer.getTerritories().contains(S)) {
-        MILLISECONDS.sleep(300);
-        System.out.println("you dont own this territory");
-      }
-      if (F == S) {
-        System.out.println("cant fortify from the same Territory");
-      }
-      MILLISECONDS.sleep(300);
-      System.out.println("You have entered an invalid territory (wrong target name)");
-      MILLISECONDS.sleep(300);
-      System.out.println("Please choose the territory you wish to add troops to");
-      Second = s.nextLine();
-      S = mapper(Second);
-    }
-    MILLISECONDS.sleep(300);
-    System.out.println("Please choose the number of troops you wish to move");
-    MILLISECONDS.sleep(300);
-    int tr = s.nextInt();
-    while (tr >= F.getTroops()) {
-      MILLISECONDS.sleep(300);
-      System.out.println("You have entered more troops than you have or you can move");
-      MILLISECONDS.sleep(300);
-      System.out.println("Please choose the number of troops you wish to move");
-      tr = s.nextInt();
-    }
-    while (!F.getBorderTerritories().contains(S)) {
-      MILLISECONDS.sleep(300);
-      System.out.println(F.getName() + " and " + S.getName() + " dont border each other");
-      MILLISECONDS.sleep(300);
-      System.out.println("Please choose bordering territories");
-      fortify();
-    }
-    F.removeTroops(tr);
-    S.addTroops(tr);
+  public void fortify(Territory t1, Territory t2, int tr){
+    t1.removeTroops(tr);
+    t2.addTroops(tr);
   }
 public Player getcurrentPlayer()
 {
