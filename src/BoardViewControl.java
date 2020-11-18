@@ -60,11 +60,11 @@ class BoardViewControl implements ActionListener {
       passed = "fortifyBtn";
       new TerritoryControl(game, new TerritoryView(game), passed);
     } else if (actionEvent.equals("passBtn")) {
-      try {
         game.nextPlayerTurn();
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+    } else if (actionEvent.equals("passBtn")) {
+      game.nextPlayerTurn();
+    } else if (actionEvent.equals("passBtn")) {
+      game.nextPlayerTurn();
 
     } else {
       System.out.println("actionEvent not found: " + actionEvent);

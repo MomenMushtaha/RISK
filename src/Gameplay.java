@@ -624,9 +624,8 @@ public Player getcurrentPlayer()
   /**
    * Signals that currentPlayer wants to pass the turn
    *
-   * @throws InterruptedException for sleep method
    */
-  public void nextPlayerTurn() throws InterruptedException {
+  public void nextPlayerTurn() {
     System.out.println("NEXTTTTT!!");
     //if pass is entered cycle to the next player
     System.out.println(currentPlayer.getName() + " passes");
