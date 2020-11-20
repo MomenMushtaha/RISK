@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -16,6 +14,9 @@ public class Gameplay {
   public Player currentPlayer;
   public ArrayList<Player> players;
   public static int numPlayers;
+  public int troopsNewTurn;
+  public ArrayList<Territory> pathListing;
+  public String[] listpath;
 
 
   /**
@@ -285,6 +286,33 @@ public class Gameplay {
     t1.removeTroops(tr);
     t2.addTroops(tr);
   }
+  /**
+   * Method to find if there a path between two countries or not
+   *
+   * @param source: The country which armies are being moved from
+   * @param destination: The country which armies are being moved to
+   * @return Returns true if there is a path to move the armies between countries
+   */
+  public boolean hasPathBFS2(Territory source, Territory destination) {
+    LinkedList<Territory> nexttovisit = new LinkedList<Territory>();
+    HashSet<String> visited = new HashSet<String>();
+    nexttovisit.add(source);
+    while (!nexttovisit.isEmpty()) {
+      Territory node = nexttovisit.remove();
+      if (node.getName().equals(destination.getName())) {
+        return true;
+      }
+      if (visited.contains(node.getName()))
+        continue;
+      visited.add(node.getName());
+      for (Territory child : node.getBorderTerritories()) {
+        if (child.getPlayer() == node.getPlayer()) {
+          nexttovisit.add(child);
+        }
+      }
+    }
+    return false;
+  }
 public Player getcurrentPlayer()
 {
   return currentPlayer;
@@ -294,7 +322,6 @@ public Player getcurrentPlayer()
    * Deploy troops at the beginning of each Player's turn
    *
    * @param newTroops an Integer of the number of troops to be deployed on the Territory specified in the method
-   * @throws InterruptedException for sleep method
    */
   /*private void DeployTroops(int newTroops) throws InterruptedException {
     new DeployControl(new DeployView(currentPlayer,this), newTroops);
@@ -335,10 +362,8 @@ public Player getcurrentPlayer()
    * Removes a Player from the game
    *
    * @param player the Player to be removed
-   * @throws InterruptedException for sleep method
    */
-  public void removePlayer(Player player) throws InterruptedException {
-    MILLISECONDS.sleep(300);
+  public void removePlayer(Player player) {
     System.out.println(player.getName() + " is removed");
     players.remove(player);
   }
@@ -382,52 +407,71 @@ public Player getcurrentPlayer()
     //6: 20
     int m;
     numPlayers = players.size();
+    for (int pl = 0; pl < numPlayers; pl++ )
     if (numPlayers == 2) {
-      for (m = 0; m < 16; m++) {
-        board.territoriesList[m].addTroops(2);
-        board.getTerritoriesList()[m].addTroops(2);
-      }
-      for (m = 16; m <= 36; m++) {
-        board.getTerritoriesList()[m].addTroops(3);
-      }
+        for (m = 0; m < 13; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(2);
+        }
+        for (m = 13; m < 21; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(3);
+        }
     } else if (numPlayers == 3) {
-      for (m = 0; m < 21; m++) {
-        board.getTerritoriesList()[m].addTroops(3);
+      for (m = 0; m < 7; m++) {
+        players.get(pl).getTerritories().get(m).addTroops(2);
       }
-      for (m = 21; m < 35; m++) {
-        board.getTerritoriesList()[m].addTroops(2);
+      for (m = 7; m < 14; m++) {
+        players.get(pl).getTerritories().get(m).addTroops(3);
       }
     } else if (numPlayers == 4) {
-      for (m = 0; m < 36; m++) {
-        board.getTerritoriesList()[m].addTroops(3);
+      if(players.get(pl).getTerritories().size() < 11) {
+        for (m = 0; m < 3; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(4);
+        }
+        for (m = 3; m < 7; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(3);
+        }
+        players.get(pl).getTerritories().get(7).addTroops(2);
+        players.get(pl).getTerritories().get(8).addTroops(2);
+        players.get(pl).getTerritories().get(9).addTroops(2);
       }
-      board.getTerritoriesList()[36].addTroops(2);
-      board.getTerritoriesList()[37].addTroops(2);
-      board.getTerritoriesList()[38].addTroops(3);
-      board.getTerritoriesList()[39].addTroops(3);
-      board.getTerritoriesList()[40].addTroops(1);
-      board.getTerritoriesList()[41].addTroops(1);
+      else if(players.get(pl).getTerritories().size() == 11){
+        for (m = 0; m < 2; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(4);
+        }
+        for (m = 2; m < 6; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(3);
+        }
+        for (m = 6; m < 11; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(2);
+        }
+      }
     } else if (numPlayers == 5) {
-      for (m = 0; m < 35; m++) {
-        board.getTerritoriesList()[m].addTroops(3);
+      if(players.get(pl).getTerritories().size() < 9) {
+        for (m = 0; m < 4; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(4);
+        }
+        for (m = 4; m < 7; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(2);
+        }
+        players.get(pl).getTerritories().get(7).addTroops(3);
       }
-      board.getTerritoriesList()[35].addTroops(2);
-      board.getTerritoriesList()[36].addTroops(2);
-      board.getTerritoriesList()[37].addTroops(4);
-      board.getTerritoriesList()[38].addTroops(4);
-      board.getTerritoriesList()[39].addTroops(4);
-      board.getTerritoriesList()[40].addTroops(2);
-      board.getTerritoriesList()[41].addTroops(2);
-    } else if (numPlayers == 6) {
-      for (m = 0; m < 36; m++) {
-        board.getTerritoriesList()[m].addTroops(3);
+    else if(players.get(pl).getTerritories().size() == 9){
+        for (m = 0; m < 3; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(4);
+        }
+        for (m = 3; m < 6; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(3);
+        }
+        for (m = 6; m < 8; m++) {
+          players.get(pl).getTerritories().get(m).addTroops(2);
+        }
+      }}
+    else if (numPlayers == 6) {
+      for (m = 0; m < 6; m++) {
+        getPlayers(pl).getTerritories().get(m).addTroops(3);
       }
-      for (m = 36; m < 42; m++) {
-        board.getTerritoriesList()[m].addTroops(2);
-      }
-    }
-    System.out.println(board.getTerritoriesList()[3].getTroops());
-  }
+      getPlayers(pl).getTerritories().get(6).addTroops(2);
+    }}
 
 
   /**
@@ -452,7 +496,6 @@ public Player getcurrentPlayer()
     return -1;
   }
 
-
   /**
    * looks for the territory using its String name
    *
@@ -465,6 +508,37 @@ public Player getcurrentPlayer()
         return terr;
       }
     return null;
+  }
+
+  /**
+   * Prints the continents a player owns
+   *
+   * @param continentList a list of continents
+   */
+  private void printTheContinents(ArrayList<Continent> continentList) {
+    System.out.println();
+
+    if (continentList == null) {
+      System.out.println("No Continents Owned");
+    } else {
+      for (Continent cont : continentList) {
+        System.out.println("Continent");
+        System.out.println(cont.getName());
+      }
+    }
+  }
+  /**
+   * Prints the Territories a player owns
+   *
+   * @param territoryList a list of Territories
+   */
+  public void printTheTerritories(ArrayList<Territory> territoryList) {
+    String[] territoryListing =new String[territoryList.size()];
+    int t = 0;
+    for (Territory terr : territoryList) {
+      System.out.println(territoryListing[t] = (terr.getName() + ": Troops = " + terr.getTroops()));
+      t++;
+    }
   }
 
 
@@ -485,11 +559,35 @@ public Player getcurrentPlayer()
 
   public String[] listBorderingTerritories(Territory terr) {
     String[] boarderingListing = new String[terr.getBorderTerritories().size()];
+    int add = 0;
     for (int b = 0; b < terr.getBorderTerritories().size(); b++) {
       Territory bordering = terr.getBorderTerritories().get(b);
-      boarderingListing[b] = bordering.getName() + ": Troops = " + bordering.getTroops();
+      if (!currentPlayer.getTerritories().contains(bordering)) {
+        boarderingListing[add] = bordering.getName() + ": Troops = " + bordering.getTroops();
+        add++;
+      }
     }
     return boarderingListing;
+  }
+
+  public String[] listPathTerritories(Territory sor) {
+    pathListing = new ArrayList<>();
+    for (Territory terr : board.getTerritoriesList()) {
+      if (hasPathBFS2(sor, terr)) {
+        pathListing.add(terr);
+      }
+    }
+    listpath = new String[pathListing.size()];
+    for (int p = 0 ; p < listpath.length; p++)
+    {
+      listpath[p] = (pathListing.get(p).getName() + ": Troops = " + pathListing.get(p).getTroops());
+    }
+    return listpath;
+  }
+
+  public ArrayList<Territory> getPathListing()
+  {
+    return pathListing;
   }
 
 
@@ -497,19 +595,15 @@ public Player getcurrentPlayer()
    * lists the continents a player owns
    *
    * @param continentList a list of continents
-   * @throws InterruptedException for sleep method
    */
-  private void listTheContinents(ArrayList<Continent> continentList) throws InterruptedException {
-    MILLISECONDS.sleep(300);
+  private void listTheContinents(ArrayList<Continent> continentList) {
     System.out.println();
 
     if (continentList == null) {
-      MILLISECONDS.sleep(300);
       System.out.println("No Continents Owned");
     } else {
       for (Continent cont : continentList) {
         System.out.println("Continent");
-        MILLISECONDS.sleep(300);
         System.out.println(cont.getName());
       }
     }
@@ -519,23 +613,19 @@ public Player getcurrentPlayer()
   /**
    * prints the status of the game
    */
-  public void getGameStatus() throws InterruptedException {
+  public void getGameStatus() {
     for (int g = 0; g < players.size(); g++) {
-      MILLISECONDS.sleep(300);
       System.out.println(getPlayers(g).getName() + " Territories and Continents");
-      listTheTerritories(getPlayers(g).getTerritories());
-      listTheContinents(getPlayers(g).getContinents());
+      printTheTerritories(getPlayers(g).getTerritories());
+      printTheContinents(getPlayers(g).getContinents());
     }
 
   }
 
   /**
    * Prints the commands possible for the game
-   *
-   * @throws InterruptedException for sleep method
    */
-  void printCommands() throws InterruptedException {
-    MILLISECONDS.sleep(300);
+  public void printCommands() {
     System.out.println("""
       THESE ARE THE POSSIBLE COMMANDS:
       ATTACK: ATTACKS A COUNTRY
@@ -549,11 +639,8 @@ public Player getcurrentPlayer()
 
   /**
    * Prints the rules of the game
-   *
-   * @throws InterruptedException for sleep method
    */
-  public void printRules() throws InterruptedException {
-    MILLISECONDS.sleep(300);
+  public void printRules() {
     System.out.println
       ("""
         Rules\s
@@ -566,20 +653,15 @@ public Player getcurrentPlayer()
         7. When you capture a territory, you must move at least as many armies as dice you rolled in your last attack.
                                          \s"""
       );
-    MILLISECONDS.sleep(300);
   }
 
   /**
    * Signals that currentPlayer wants to quit the game
-   *
-   * @throws InterruptedException for sleep method
    */
-  private void quit() throws InterruptedException {
-    MILLISECONDS.sleep(300);
+  public void quit(){
     System.out.println(currentPlayer.getName() + " has left the game");
     removePlayer(currentPlayer);
     if ((players.size() == 1)) {
-      MILLISECONDS.sleep(300);
       System.out.println(getPlayers(0).getName() + " has won the game");
       System.exit(0);
     }
@@ -587,35 +669,27 @@ public Player getcurrentPlayer()
 
   /**
    * Prints welcoming phrases at the beginning of each ga,e
-   *
-   * @throws InterruptedException for sleep method
    */
-  void printWelcome() throws InterruptedException {
+  void printWelcome(){
     System.out.println();
-    MILLISECONDS.sleep(300);
     System.out.println("Welcome to Risk!");
-    MILLISECONDS.sleep(300);
     System.out.println("Everybody wants to rule the world!");
-    MILLISECONDS.sleep(300);
     System.out.println("Type 'help' if you need help.");
-    MILLISECONDS.sleep(300);
+    System.out.println("At the start of each turn each player receives 3 or more troops and" +
+      " if you rule a whole continent you will get more bonus troops.");
+    System.out.println("The game will start with player 1");
     System.out.println();
-    MILLISECONDS.sleep(300);
+    currentPlayer = getPlayers(0);
   }
 
 
   /**
    * Prints Help then followed by the commands possible for the game
-   *
-   * @throws InterruptedException for sleep method
    */
-  private void printHelp() throws InterruptedException {
+  public void printHelp(){
     {
-      MILLISECONDS.sleep(300);
       System.out.println("ARE YOU LOST?");
-      MILLISECONDS.sleep(300);
       System.out.println("I CAN HELP YOU");
-      MILLISECONDS.sleep(300);
       System.out.println();
       printCommands();
     }
@@ -626,9 +700,91 @@ public Player getcurrentPlayer()
    *
    */
   public void nextPlayerTurn() {
+    System.out.println(getcurrentPlayer().getName() + " passes");
+    if (players.size() == 6)
+    {
+      if (currentPlayer == getPlayers(5))
+      {currentPlayer = getPlayers(0);}
+      else if (currentPlayer == getPlayers(4))
+      {currentPlayer = getPlayers(5);}
+      else if (currentPlayer == getPlayers(3))
+    {currentPlayer = getPlayers(4);}
+      else if (currentPlayer == getPlayers(2))
+    {currentPlayer = getPlayers(3);}
+     else if (currentPlayer == getPlayers(1))
+    {currentPlayer = getPlayers(2);}
+     else if (currentPlayer == getPlayers(0))
+    {currentPlayer = getPlayers(1);}
+    }
+    else if (players.size() == 5)
+    {
+      if (currentPlayer == getPlayers(4))
+    {currentPlayer = getPlayers(0);}
+    else if (currentPlayer == getPlayers(3))
+    {currentPlayer = getPlayers(4);}
+    else if (currentPlayer == getPlayers(2))
+    {currentPlayer = getPlayers(3);}
+    else if (currentPlayer == getPlayers(1))
+    {currentPlayer = getPlayers(2);}
+    else if (currentPlayer == getPlayers(0))
+    {currentPlayer = getPlayers(1);}
+    }
+    else if(players.size() == 4)
+    {
+      if (currentPlayer == getPlayers(3))
+    {currentPlayer = getPlayers(0);}
+    else if (currentPlayer == getPlayers(2))
+    {currentPlayer = getPlayers(3);}
+    else if (currentPlayer == getPlayers(1))
+    {currentPlayer = getPlayers(2);}
+    else if (currentPlayer == getPlayers(0))
+    {currentPlayer = getPlayers(1);}
+    }
+    else if(players.size() == 3)
+    {
+      if (currentPlayer == getPlayers(2))
+      {currentPlayer = getPlayers(0);}
+      else if (currentPlayer == getPlayers(1))
+      {currentPlayer = getPlayers(2);}
+      else if (currentPlayer == getPlayers(0))
+      {currentPlayer = getPlayers(1);}
+    }
+    else if(players.size() == 2)
+    {
+      if (currentPlayer == getPlayers(1))
+    {currentPlayer = getPlayers(0);}
+    else if (currentPlayer == getPlayers(0))
+    {currentPlayer = getPlayers(1);}}
+    else
+    {
+      System.out.println(currentPlayer.getName() + " has won");
+    }
     System.out.println("NEXTTTTT!!");
+    troopsNewTurn = get_bonus(currentPlayer);
     //if pass is entered cycle to the next player
-    System.out.println(currentPlayer.getName() + " passes");
+  }
+
+
+
+  public int get_bonus(Player p)
+  {
+    int troopsNewTurn = 0;
+    System.out.println("It is " +p.getName() + " turn");
+    int bonus = 0;
+    if (p.getContinents().size() > 0) {
+      for (int j = 0; j < p.getContinents().size(); j++) {
+        bonus = bonus + p.getContinents().get(j).getBonusArmies();
+      }
+      System.out.println
+        ("you received " + bonus + " bonus troops for the continents you are holding");
+    }
+    troopsNewTurn = (p.getTerritories().size() / 3) + bonus;
+    if (troopsNewTurn < 3)
+    {
+      troopsNewTurn = 3;
+    }
+    System.out.println(p.getName() + " receives " + troopsNewTurn + " troops");
+    return troopsNewTurn;
   }
 
   public void continent_check() {
@@ -649,4 +805,7 @@ public Player getcurrentPlayer()
   }
 
 
+  public int getupdateTroopsNewTurn() {
+    return 0;
+  }
 }

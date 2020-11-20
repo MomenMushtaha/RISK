@@ -36,7 +36,7 @@ public class TerritoryView extends JFrame{
   {
     // Creates the panel, Labels and Layouts
     territoryPanel = new JPanel();
-    label = new JLabel("Please select the Territory to attack from");
+    label = new JLabel("Please select your source Territory");
     // Sets Layout
     territoryLayout = new GridLayout(3,1);
     territoryPanel.setLayout(territoryLayout);

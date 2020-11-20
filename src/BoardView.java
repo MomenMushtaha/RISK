@@ -15,7 +15,7 @@ class BoardView extends JDialog {
   private GridBagLayout commandsLayout;
   //initialize buttons
   private JButton tradeBtn;
-  private JButton deployBtn;
+  public JButton deployBtn;
   private JButton attackBtn;
   private JButton fortifyBtn;
   private JButton passBtn;
@@ -41,6 +41,8 @@ class BoardView extends JDialog {
   private ImageIcon riskImageIcon;
   //initialize constraints
   private GridBagConstraints cons;
+  //player
+  public Player p;
   //game
   public Gameplay game;
 
@@ -79,6 +81,7 @@ class BoardView extends JDialog {
     cons.gridx = 2;
     cons.gridy = 0;
     add(commandsPanel());
+    setResizable(false);
     setVisible(true);
     pack();
     toFront();

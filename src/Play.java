@@ -7,9 +7,8 @@ public class Play {
 
   /**
    * Starts the game and Initializes the Board and the Players
-   * @throws InterruptedException for sleep method
    */
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
     game = new Gameplay();
     new GameControl(new GameView(game), game);
 

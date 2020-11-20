@@ -44,7 +44,7 @@ public class AttackView extends JFrame {
   private JPanel AttackDialog(String[] r) {
     // Creates the panel, Labels and Layouts
     attackPanel = new JPanel();
-    label = new JLabel("pease choose what territory you want to attack");
+    label = new JLabel("please choose what territory you want to attack");
     // Sets Layout
     attackLayout = new GridLayout(4, 1);
     attackPanel.setLayout(attackLayout);
@@ -58,6 +58,7 @@ public class AttackView extends JFrame {
     attackButton.setActionCommand(attackString);
     boarderingTerritoryListScrollPane = new JScrollPane(boarderingTerritoryList);
     boarderingTerritoryList.setVisibleRowCount(s.length);
+    attackPanel.add(label);
     attackPanel.add(troopsComboBox(troops));
     attackPanel.add(boarderingTerritoryListScrollPane);
     attackPanel.add(attackButton);

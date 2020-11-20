@@ -16,11 +16,12 @@ public class FortifyView extends JFrame {
   public JComboBox troopsComboBox;
   private String[] items;
   //initialize lists
-  public JList boarderingTerritoryList;
+  public JList pathTerritoryList;
   //initialize scroll pane
-  private JScrollPane boarderingTerritoryListScrollPane;
+  private JScrollPane pathTerritoryListScrollPane;
   //troops
   private int troops;
+  public String[] pathlist;
   //fortifying territory index
   private int fortifyIndex;
   //game
@@ -44,22 +45,23 @@ public class FortifyView extends JFrame {
   private JPanel FortifyDialog(String[] r) {
     // Creates the panel, Labels and Layouts
     fortifyPanel = new JPanel();
-    label = new JLabel("please choose what territory you want to attack");
+    label = new JLabel("please choose what territory to add troops to");
     // Sets Layout
     fortifyLayout = new GridLayout(4, 1);
     fortifyPanel.setLayout(fortifyLayout);
-    String[] s = game.listBorderingTerritories(game.getcurrentPlayer().getTerritories().get(fortifyIndex));
-    boarderingTerritoryList = new JList(s);
-    boarderingTerritoryList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-    boarderingTerritoryList.setLayoutOrientation(JList.VERTICAL_WRAP);
+    pathlist = game.listPathTerritories(game.getcurrentPlayer().getTerritories().get(fortifyIndex));
+    pathTerritoryList = new JList(pathlist);
+    pathTerritoryList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+    pathTerritoryList.setLayoutOrientation(JList.VERTICAL_WRAP);
     //ScrollingPanes
     fortifyButton = new JButton("Fortify!");
     // Setting button commands
     fortifyButton.setActionCommand(fortifyString);
-    boarderingTerritoryListScrollPane = new JScrollPane(boarderingTerritoryList);
-    boarderingTerritoryList.setVisibleRowCount(s.length);
+    pathTerritoryListScrollPane = new JScrollPane(pathTerritoryList);
+    pathTerritoryList.setVisibleRowCount(pathlist.length);
+    fortifyPanel.add(label);
     fortifyPanel.add(troopsComboBox(troops));
-    fortifyPanel.add(boarderingTerritoryListScrollPane);
+    fortifyPanel.add(pathTerritoryListScrollPane);
     fortifyPanel.add(fortifyButton);
     return fortifyPanel;
   }
@@ -71,8 +73,8 @@ public class FortifyView extends JFrame {
     repaint();
   }
 
-  public int getBoarderingTerritoryIndex() {
-    return boarderingTerritoryList.getSelectedIndex();
+  public int getPathTerritoryIndex() {
+    return pathTerritoryList.getSelectedIndex();
   }
   public int getFortifyingIndex()
   {

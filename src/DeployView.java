@@ -20,14 +20,14 @@ public class DeployView extends JFrame {
   //initialize scroll panes
   private JScrollPane currentPlayerTerritoryListScrollPane;
   //troops to be added
-  private int troops;
+  public int troops;
   //game
   public Gameplay game;
 
 
-  public DeployView(Gameplay game, int troops) {
+  public DeployView(Gameplay game) {
     items =new String[troops];
-    this.troops = troops;
+    troops = game.troopsNewTurn;
     this.game = game;
     setPreferredSize(new Dimension(300, 300));
     setResizable(false);
@@ -56,6 +56,7 @@ public class DeployView extends JFrame {
     deployButton.setActionCommand(deployString);
     currentPlayerTerritoryListScrollPane = new JScrollPane(currentPlayerTerritoryList);
     currentPlayerTerritoryList.setVisibleRowCount(s.length);
+    deployPanel.add(label);
     deployPanel.add(troopsComboBox(troops));
     deployPanel.add(currentPlayerTerritoryListScrollPane);
     deployPanel.add(deployButton);

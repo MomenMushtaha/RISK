@@ -3,7 +3,6 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class FortifyControl implements ActionListener {
-
   public Gameplay game;
   public FortifyView view;
   public int troops;
@@ -16,7 +15,7 @@ public class FortifyControl implements ActionListener {
     System.out.println("Risk!");
     this.view = view;
     this.troops = troops;
-    //Add this class' actionListener to AttackView's buttons
+    //Add this class' actionListener to FortifyView's buttons
     view.FortifyViewActionListeners(this);
   }
 
@@ -24,22 +23,17 @@ public class FortifyControl implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     String actionEvent = e.getActionCommand();
     if (actionEvent.equals("Fortify!")) {
-      int f = view.getBoarderingTerritoryIndex();
+      int f = view.getPathTerritoryIndex();
       if (f != -1) {
         int x = view.getFortifyingIndex();
         Territory fortifying  = game.getcurrentPlayer().getTerritories().get(x);
+        Territory target = game.pathListing.get(f);
         String selected = Objects.requireNonNull(view.troopsComboBox.getSelectedItem()).toString();
-        Territory target = fortifying.getBorderTerritories().get(f);
-        if (!game.getcurrentPlayer().getTerritories().contains(target)) {
-          System.out.println("you dont own this boardering territory, please choose another territory");
-          new FortifyControl(game, new FortifyView(game, troops, fortifyIndex ),troops, fortifyIndex);
-        } else {
-          System.out.println("Fortify");
-            game.fortify(fortifying,target, Integer.parseInt(selected));
-      }
+        game.fortify(fortifying,target, Integer.parseInt(selected));
         view.setVisible(false);
+      }
       } else {
-        System.out.println("no territoy was chosen" );
+        System.out.println("no territoy was chosen");
         view.setVisible(false);
         new FortifyControl(game, new FortifyView(game, troops, fortifyIndex ),troops, fortifyIndex);
-      }}}}
+      }}}

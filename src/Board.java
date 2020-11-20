@@ -95,7 +95,11 @@ public class Board {
     AsiaNAterritores.add(territoriesList[34]);
     AsiaNAterritores.add(territoriesList[35]);
     AsiaNAterritores.add(territoriesList[36]);
-
+    AsiaNAterritores.add(territoriesList[37]);
+    AsiaNAterritores.add(territoriesList[38]);
+    AsiaNAterritores.add(territoriesList[39]);
+    AsiaNAterritores.add(territoriesList[40]);
+    AsiaNAterritores.add(territoriesList[41]);
 
     //Initialize the Continents
     NorthAmerica = new Continent("North America", bonusArmiesNA, NAterritores);
@@ -167,127 +171,124 @@ public class Board {
     territoriesList[29] = new Territory("Eastern Australia");
 
     //Asia
-    territoriesList[30] = new Territory("Siberia");
-    territoriesList[31] = new Territory("Middle East");
-    territoriesList[32] = new Territory("Afghanistan");
-    territoriesList[33] = new Territory("Japan");
-    territoriesList[34] = new Territory("China");
-    territoriesList[35] = new Territory("India");
-    territoriesList[36] = new Territory("Mongolia");
-    territoriesList[37] = new Territory("Ural");
-    territoriesList[38] = new Territory("Yakutsk");
-    territoriesList[39] = new Territory("Kamchatka");
-    territoriesList[40] = new Territory("Irkutsk");
-    territoriesList[41] = new Territory("SoutheastAsia");
-
+    territoriesList[30] = new Territory("Middle East");
+    territoriesList[31] = new Territory("Afghanistan");
+    territoriesList[32] = new Territory("Ural");
+    territoriesList[33] = new Territory("Siberia");
+    territoriesList[34] = new Territory("India");
+    territoriesList[35] = new Territory("SIAM");
+    territoriesList[36] = new Territory("China");
+    territoriesList[37] = new Territory("Mongolia");
+    territoriesList[38] = new Territory("Japan");
+    territoriesList[39] = new Territory("Irkutsk");
+    territoriesList[40] = new Territory("Yakutsk");
+    territoriesList[41] = new Territory("Kamchatka");
     //Add Bordering Territories
+
     //Alaska
     territoriesList[0].addBorderTerritories(territoriesList[1]);
     territoriesList[0].addBorderTerritories(territoriesList[3]);
-    territoriesList[0].addBorderTerritories(territoriesList[33]);
-
+    territoriesList[0].addBorderTerritories(territoriesList[41]);
     //NorthWestTerr.
     territoriesList[1].addBorderTerritories(territoriesList[0]);
+    territoriesList[1].addBorderTerritories(territoriesList[2]);
     territoriesList[1].addBorderTerritories(territoriesList[3]);
-    territoriesList[1].addBorderTerritories(territoriesList[4]);
     territoriesList[1].addBorderTerritories(territoriesList[4]);
     //Greenland
     territoriesList[2].addBorderTerritories(territoriesList[1]);
     territoriesList[2].addBorderTerritories(territoriesList[4]);
     territoriesList[2].addBorderTerritories(territoriesList[5]);
     territoriesList[2].addBorderTerritories(territoriesList[19]);
-
     //Alberta
-    territoriesList[3].addBorderTerritories(territoriesList[6]);
-    territoriesList[3].addBorderTerritories(territoriesList[4]);
-    territoriesList[3].addBorderTerritories(territoriesList[1]);
     territoriesList[3].addBorderTerritories(territoriesList[0]);
-
+    territoriesList[3].addBorderTerritories(territoriesList[1]);
+    territoriesList[3].addBorderTerritories(territoriesList[4]);
+    territoriesList[3].addBorderTerritories(territoriesList[6]);
     //Ontario
+    territoriesList[4].addBorderTerritories(territoriesList[1]);
     territoriesList[4].addBorderTerritories(territoriesList[2]);
-    territoriesList[4].addBorderTerritories(territoriesList[4]);
+    territoriesList[4].addBorderTerritories(territoriesList[3]);
     territoriesList[4].addBorderTerritories(territoriesList[5]);
     territoriesList[4].addBorderTerritories(territoriesList[6]);
-    territoriesList[4].addBorderTerritories(territoriesList[8]);
+    territoriesList[4].addBorderTerritories(territoriesList[7]);
     //Quebec
-    territoriesList[5].addBorderTerritories(territoriesList[7]);
-    territoriesList[5].addBorderTerritories(territoriesList[4]);
     territoriesList[5].addBorderTerritories(territoriesList[2]);
+    territoriesList[5].addBorderTerritories(territoriesList[4]);
+    territoriesList[5].addBorderTerritories(territoriesList[7]);
     //WESTUSA
-    territoriesList[6].addBorderTerritories(territoriesList[8]);
-    territoriesList[6].addBorderTerritories(territoriesList[7]);
-    territoriesList[6].addBorderTerritories(territoriesList[4]);
     territoriesList[6].addBorderTerritories(territoriesList[3]);
+    territoriesList[6].addBorderTerritories(territoriesList[4]);
+    territoriesList[6].addBorderTerritories(territoriesList[7]);
+    territoriesList[6].addBorderTerritories(territoriesList[8]);
     //EASTUSA
+    territoriesList[7].addBorderTerritories(territoriesList[4]);
+    territoriesList[7].addBorderTerritories(territoriesList[5]);
     territoriesList[7].addBorderTerritories(territoriesList[6]);
     territoriesList[7].addBorderTerritories(territoriesList[8]);
-    territoriesList[7].addBorderTerritories(territoriesList[5]);
-    territoriesList[7].addBorderTerritories(territoriesList[4]);
     //CENTRALAMERICA
     territoriesList[8].addBorderTerritories(territoriesList[6]);
     territoriesList[8].addBorderTerritories(territoriesList[7]);
     territoriesList[8].addBorderTerritories(territoriesList[9]);
-
-
     //Venezuela
     territoriesList[9].addBorderTerritories(territoriesList[8]);
-    territoriesList[9].addBorderTerritories(territoriesList[11]);
     territoriesList[9].addBorderTerritories(territoriesList[10]);
+    territoriesList[9].addBorderTerritories(territoriesList[11]);
     //Peru
+    territoriesList[10].addBorderTerritories(territoriesList[9]);
     territoriesList[10].addBorderTerritories(territoriesList[11]);
     territoriesList[10].addBorderTerritories(territoriesList[12]);
-    territoriesList[10].addBorderTerritories(territoriesList[9]);
     //Brazil
-    territoriesList[11].addBorderTerritories(territoriesList[12]);
-    territoriesList[11].addBorderTerritories(territoriesList[10]);
     territoriesList[11].addBorderTerritories(territoriesList[9]);
+    territoriesList[11].addBorderTerritories(territoriesList[10]);
+    territoriesList[11].addBorderTerritories(territoriesList[12]);
     territoriesList[11].addBorderTerritories(territoriesList[13]);
     //Argentina
-    territoriesList[12].addBorderTerritories(territoriesList[11]);
     territoriesList[12].addBorderTerritories(territoriesList[10]);
-
+    territoriesList[12].addBorderTerritories(territoriesList[11]);
     //NorthAFRICA
+    territoriesList[13].addBorderTerritories(territoriesList[11]);
     territoriesList[13].addBorderTerritories(territoriesList[14]);
     territoriesList[13].addBorderTerritories(territoriesList[15]);
     territoriesList[13].addBorderTerritories(territoriesList[16]);
     territoriesList[13].addBorderTerritories(territoriesList[24]);
-    territoriesList[13].addBorderTerritories(territoriesList[11]);
+    territoriesList[13].addBorderTerritories(territoriesList[25]);
     //EGYPT
     territoriesList[14].addBorderTerritories(territoriesList[13]);
     territoriesList[14].addBorderTerritories(territoriesList[15]);
     territoriesList[14].addBorderTerritories(territoriesList[24]);
-    territoriesList[14].addBorderTerritories(territoriesList[31]);
-
+    territoriesList[14].addBorderTerritories(territoriesList[30]);
     //EAST-AFRIC
-    territoriesList[15].addBorderTerritories(territoriesList[14]);
     territoriesList[15].addBorderTerritories(territoriesList[13]);
+    territoriesList[15].addBorderTerritories(territoriesList[14]);
     territoriesList[15].addBorderTerritories(territoriesList[16]);
     territoriesList[15].addBorderTerritories(territoriesList[17]);
     territoriesList[15].addBorderTerritories(territoriesList[18]);
-    territoriesList[15].addBorderTerritories(territoriesList[31]);
+    territoriesList[15].addBorderTerritories(territoriesList[30]);
     //Congo
-    territoriesList[16].addBorderTerritories(territoriesList[17]);
-    territoriesList[16].addBorderTerritories(territoriesList[15]);
     territoriesList[16].addBorderTerritories(territoriesList[13]);
+    territoriesList[16].addBorderTerritories(territoriesList[15]);
+    territoriesList[16].addBorderTerritories(territoriesList[17]);
     //SouthAFRICA
     territoriesList[17].addBorderTerritories(territoriesList[16]);
-    territoriesList[17].addBorderTerritories(territoriesList[18]);
     territoriesList[17].addBorderTerritories(territoriesList[15]);
+    territoriesList[17].addBorderTerritories(territoriesList[18]);
     //Madagascar
-    territoriesList[18].addBorderTerritories(territoriesList[17]);
     territoriesList[18].addBorderTerritories(territoriesList[15]);
+    territoriesList[18].addBorderTerritories(territoriesList[17]);
     //ICELAND
     territoriesList[19].addBorderTerritories(territoriesList[2]);
-    territoriesList[19].addBorderTerritories(territoriesList[22]);
     territoriesList[19].addBorderTerritories(territoriesList[20]);
+    territoriesList[19].addBorderTerritories(territoriesList[22]);
     //Scand
-    territoriesList[20].addBorderTerritories(territoriesList[22]);
+    territoriesList[20].addBorderTerritories(territoriesList[19]);
     territoriesList[20].addBorderTerritories(territoriesList[21]);
-    territoriesList[20].addBorderTerritories(territoriesList[33]);
+    territoriesList[20].addBorderTerritories(territoriesList[22]);
+    territoriesList[20].addBorderTerritories(territoriesList[23]);
     //Ukrain
     territoriesList[21].addBorderTerritories(territoriesList[20]);
     territoriesList[21].addBorderTerritories(territoriesList[23]);
     territoriesList[21].addBorderTerritories(territoriesList[24]);
+    territoriesList[21].addBorderTerritories(territoriesList[30]);
     territoriesList[21].addBorderTerritories(territoriesList[31]);
     territoriesList[21].addBorderTerritories(territoriesList[32]);
     //GB
@@ -307,6 +308,7 @@ public class Board {
     territoriesList[24].addBorderTerritories(territoriesList[21]);
     territoriesList[24].addBorderTerritories(territoriesList[23]);
     territoriesList[24].addBorderTerritories(territoriesList[25]);
+    territoriesList[24].addBorderTerritories(territoriesList[30]);
     //Weuro
     territoriesList[25].addBorderTerritories(territoriesList[13]);
     territoriesList[25].addBorderTerritories(territoriesList[22]);
@@ -316,50 +318,83 @@ public class Board {
     territoriesList[26].addBorderTerritories(territoriesList[27]);
     territoriesList[26].addBorderTerritories(territoriesList[28]);
     territoriesList[26].addBorderTerritories(territoriesList[34]);
-    territoriesList[26].addBorderTerritories(territoriesList[29]);
     //newG
     territoriesList[27].addBorderTerritories(territoriesList[26]);
     territoriesList[27].addBorderTerritories(territoriesList[28]);
     territoriesList[27].addBorderTerritories(territoriesList[29]);
     //Waustrialia
-    territoriesList[28].addBorderTerritories(territoriesList[29]);
     territoriesList[28].addBorderTerritories(territoriesList[26]);
+    territoriesList[28].addBorderTerritories(territoriesList[27]);
+    territoriesList[28].addBorderTerritories(territoriesList[29]);
     //Eaustralia
     territoriesList[29].addBorderTerritories(territoriesList[27]);
     territoriesList[29].addBorderTerritories(territoriesList[28]);
-    territoriesList[29].addBorderTerritories(territoriesList[30]);
-    //NewZealand
-    territoriesList[30].addBorderTerritories(territoriesList[29]);
     //middleEast
-    territoriesList[31].addBorderTerritories(territoriesList[14]);
-    territoriesList[31].addBorderTerritories(territoriesList[15]);
-    territoriesList[31].addBorderTerritories(territoriesList[24]);
-    territoriesList[31].addBorderTerritories(territoriesList[21]);
-    territoriesList[31].addBorderTerritories(territoriesList[32]);
-    territoriesList[31].addBorderTerritories(territoriesList[35]);
+    territoriesList[30].addBorderTerritories(territoriesList[14]);
+    territoriesList[30].addBorderTerritories(territoriesList[15]);
+    territoriesList[30].addBorderTerritories(territoriesList[21]);
+    territoriesList[30].addBorderTerritories(territoriesList[24]);
+    territoriesList[30].addBorderTerritories(territoriesList[31]);
+    territoriesList[30].addBorderTerritories(territoriesList[34]);
     //afghan
+    territoriesList[31].addBorderTerritories(territoriesList[21]);
+    territoriesList[31].addBorderTerritories(territoriesList[30]);
+    territoriesList[31].addBorderTerritories(territoriesList[32]);
+    territoriesList[31].addBorderTerritories(territoriesList[34]);
+    territoriesList[31].addBorderTerritories(territoriesList[36]);
+    //Ural
     territoriesList[32].addBorderTerritories(territoriesList[21]);
-    territoriesList[32].addBorderTerritories(territoriesList[34]);
-    territoriesList[32].addBorderTerritories(territoriesList[35]);
     territoriesList[32].addBorderTerritories(territoriesList[31]);
-    //jap
+    territoriesList[32].addBorderTerritories(territoriesList[33]);
+    territoriesList[32].addBorderTerritories(territoriesList[36]);
+    //Siberia
+    territoriesList[33].addBorderTerritories(territoriesList[32]);
     territoriesList[33].addBorderTerritories(territoriesList[36]);
-    territoriesList[33].addBorderTerritories(territoriesList[0]);
-    //china
-    territoriesList[34].addBorderTerritories(territoriesList[26]);
-    territoriesList[34].addBorderTerritories(territoriesList[32]);
+    territoriesList[33].addBorderTerritories(territoriesList[37]);
+    territoriesList[33].addBorderTerritories(territoriesList[39]);
+    territoriesList[33].addBorderTerritories(territoriesList[40]);
+    //India
+    territoriesList[34].addBorderTerritories(territoriesList[30]);
+    territoriesList[34].addBorderTerritories(territoriesList[31]);
     territoriesList[34].addBorderTerritories(territoriesList[35]);
     territoriesList[34].addBorderTerritories(territoriesList[36]);
-    //India
-    territoriesList[35].addBorderTerritories(territoriesList[31]);
-    territoriesList[35].addBorderTerritories(territoriesList[32]);
+    //SIAM
+    territoriesList[35].addBorderTerritories(territoriesList[26]);
     territoriesList[35].addBorderTerritories(territoriesList[34]);
-    //Mongolia
-    territoriesList[36].addBorderTerritories(territoriesList[34]);
+    territoriesList[35].addBorderTerritories(territoriesList[36]);
+    //China
+    territoriesList[36].addBorderTerritories(territoriesList[31]);
+    territoriesList[36].addBorderTerritories(territoriesList[32]);
     territoriesList[36].addBorderTerritories(territoriesList[33]);
-
-
+    territoriesList[36].addBorderTerritories(territoriesList[34]);
+    territoriesList[36].addBorderTerritories(territoriesList[35]);
+    territoriesList[36].addBorderTerritories(territoriesList[37]);
+    //Mongolia
+    territoriesList[37].addBorderTerritories(territoriesList[33]);
+    territoriesList[37].addBorderTerritories(territoriesList[36]);
+    territoriesList[37].addBorderTerritories(territoriesList[38]);
+    territoriesList[37].addBorderTerritories(territoriesList[39]);
+    territoriesList[37].addBorderTerritories(territoriesList[41]);
+    //Japan
+    territoriesList[38].addBorderTerritories(territoriesList[37]);
+    territoriesList[38].addBorderTerritories(territoriesList[41]);
+    //Irkutsk
+    territoriesList[39].addBorderTerritories(territoriesList[33]);
+    territoriesList[39].addBorderTerritories(territoriesList[37]);
+    territoriesList[39].addBorderTerritories(territoriesList[40]);
+    territoriesList[39].addBorderTerritories(territoriesList[41]);
+    //Yakutsk
+    territoriesList[40].addBorderTerritories(territoriesList[33]);
+    territoriesList[40].addBorderTerritories(territoriesList[39]);
+    territoriesList[40].addBorderTerritories(territoriesList[41]);
+    //Kamchatka
+    territoriesList[41].addBorderTerritories(territoriesList[0]);
+    territoriesList[41].addBorderTerritories(territoriesList[37]);
+    territoriesList[41].addBorderTerritories(territoriesList[38]);
+    territoriesList[41].addBorderTerritories(territoriesList[39]);
+    territoriesList[41].addBorderTerritories(territoriesList[40]);
   }
+
   /**
    * Method to return the Territory list in the Class
    * @return territoriesList
