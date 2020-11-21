@@ -5,13 +5,15 @@ import java.util.* ;
  * Class Hand class represent each player's hand and a list of cards available in the
  * player's hand in addition to a boolean which is set true if player can trade in matching cards
  *
- * @author Peter Tanyous
+ * @author Momin Mushtaha
  * @version 1
  */
 public class Hand
 {
   private ArrayList<Card> cards;
+  private boolean condition;
   private boolean canTurnInCards;
+  private int value;
   /**
    * Constructor for objects of class Hand
    */
@@ -20,7 +22,6 @@ public class Hand
     cards = new ArrayList<>();
     canTurnInCards = false;
   }
-
   /**
    *add Card to Player's Hand
    *
@@ -31,48 +32,7 @@ public class Hand
     cards.add(newCard);
 
   }
-  /**
-   *empty cards player have when player trades in
-   */
-  public void removeCards(){
-    checkCardSet();
-    if(canTurnInCards = true){
-      cards.clear();
-    }
-  }
-  /**
-   *Checks the cards player have in hands and alter the canTurnInCards boolean attribute
-   *
-   */
-  public boolean checkCardSet(){
-    int i = 0;
-    int c = 0;
-    int a = 0;
-    int w = 0;
-    if(cards.size() == 5){
-      canTurnInCards = true;
-    }
-    else{
-      for (Card card : cards) {
-        if (card.getTypeWorth() == 1) {
-          i = i + 1;
-        }
-        if (card.getTypeWorth() == 5) {
-          c = c + 1;
-        }
-        if (card.getTypeWorth() == 10) {
-          a = a + 1;
-        }
-        if (card.getTypeWorth() == 0) {
-          w = w + 1;
-        }
-      }
-      if(((i + w )>= 3) || ((c + w )>= 3) || ((a + w )>= 3)){
-        canTurnInCards = true;
-      }
-    }
-return canTurnInCards;
-  }
+
 
   public ArrayList<Card> getCards()
   {
@@ -80,9 +40,57 @@ return canTurnInCards;
   }
 
 
-  /*public String[] generateOptions()
-  {
+  /**
+   * Removes the cards at the given indices from the hand
+   **/
+  public boolean removeCardsFromHand(int index1, int index2, int index3) {
 
-  }*/
-}
+    if (canTurnInCards(index1, index2, index3)) {
+      cards.remove(index3);
+      cards.remove(index2);
+      cards.remove(index1);
+      return true;
+
+    } else {
+      System.out.println("You must trade in three cards of the same type or one of each type.");
+      return false;
+    }
+  }
+
+
+  /**
+   * returns true if the player can turn in cards
+   **/
+  public boolean canTurnInCards(int index1, int index2, int index3) {
+
+    condition = false;
+
+    if (cards.size() >= 3) {
+      if (cards.get(index1).getType().equals(cards.get(index2).getType()) && cards.get(index1).getType().equals(cards.get(index3).getType())) {
+        System.out.println("Extra Troops added");
+        //If all three cards have the same type
+        condition = true;
+
+      } else if (
+        !cards.get(index1).getType().equals(cards.get(index2).getType()) && !cards.get(index1).getType().equals(cards.get(index3).getType()) && !cards.get(index2).getType().equals(cards.get(index3).getType())) {
+        System.out.println("Extra Troops added");
+        //If all three cards have different types
+        condition = true;
+      }
+    }
+    return condition;
+  }
+
+  /**
+   * Returns true if the player must turn in cards
+   **/
+  public boolean mustTurnInCards() {
+
+    condition = false;
+
+    if (cards.size() >= 5) {
+      condition = true;
+    }
+    return condition;
+}}
 

@@ -10,12 +10,14 @@ import java.util.* ;
  */
 public class Player
 {
+  private int tradeTimes;
   private final String name;
   private Hand playerHand;
   private final ArrayList<Territory> territoriesOwned;
   private final ArrayList<Continent> ContinentsOwned;
   private int bonusTroops;
   private boolean isAlive;
+  public int newTroopers;
 
 
   /**
@@ -27,6 +29,7 @@ public class Player
     territoriesOwned= new ArrayList<>();
     ContinentsOwned= new ArrayList<>();
     this.playerHand = new Hand();
+    this.newTroopers = 0;
   }
 
   /**
@@ -124,11 +127,54 @@ public class Player
 
     playerHand.addCard(riskCard);
   }
-
-
+public void addToTradeTimes()
+{
+  tradeTimes += 1;
+  checkTradeTimes();
+}
+public void checkTradeTimes()
+{
+  if (tradeTimes < 6)
+  {
+  if (tradeTimes ==1)
+  {
+    newTroopers += 4;
+  }
+  else if (tradeTimes ==2)
+  {
+    newTroopers += 2;
+  }
+  else if (tradeTimes ==3)
+  {
+    newTroopers += 2;
+  }
+  else if (tradeTimes ==4)
+  {
+    newTroopers += 2;
+  }
+  else if (tradeTimes ==5)
+  {
+    newTroopers += 2;
+  }
+  if (tradeTimes ==6)
+  {
+    newTroopers += 3;
+  }}
+  else {
+    newTroopers +=5;
+  }
+}
+public int getTradeTimes() {
+  return tradeTimes;
+}
   public Hand getHand()
   {
     return playerHand;
+  }
+
+  public int getNewTroopers()
+  {
+    return newTroopers;
   }
 
   /**

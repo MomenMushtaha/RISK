@@ -17,7 +17,6 @@ public class Gameplay {
   private String state;
   private String trade;
   private Boolean addCard;
-  private ArrayList<Territory> currentPlayerTerritories;
   private ArrayList<Territory> borderTerritories;
 
 
@@ -483,6 +482,12 @@ public Player getCurrentPlayer()
     return pathListing.get(Index);
   }
 
+  public void trade()
+  {
+    currentPlayer.addToTradeTimes();
+    troopsNewTurn = currentPlayer.getNewTroopers();
+  }
+
 public String getTrade()
 {
   return trade;
@@ -654,7 +659,6 @@ public String getTrade()
     System.out.println("NEXTTTTT!!");
     state  = "";
     troopsNewTurn = get_bonus(getCurrentPlayer());
-    currentPlayerTerritories = new ArrayList<>();
     addCard = false;
     checkTradeCards();
     //if pass is entered cycle to the next player
@@ -665,19 +669,12 @@ public String getTrade()
       trade = "";
     }
     else{
-    if (getCurrentPlayer().getHand().checkCardSet())
-    {
-      if(getCurrentPlayer().getHand().getCards().size() == 5) {
-        trade = "must Trade";
-      }
-      else{
-        trade = "can Trade";
+      trade = "can Trade";
+    if (getCurrentPlayer().getHand().mustTurnInCards()) {
+      trade = "must Trade";
+    }
       }
     }
-    else {
-      trade = "";
-    }
-  }}
 
   public void setCurrentPlayer(int Index)
   {

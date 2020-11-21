@@ -15,11 +15,7 @@ public class Board {
 
 
   //Troop types
-  private Cavalry cavalry;
-  private wildCard wildCardA;
-  private infantry infantry;
-  private artillery artillery;
-  private wildCard wildCardB;
+
 
 
   public Board(){

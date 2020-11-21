@@ -35,9 +35,16 @@ class BoardViewControl implements ActionListener {
           System.out.println("you cant trade cards right now");
         }
         else {
-          String[] options = {"1","2"};
+          if(game.getCurrentPlayer().getHand().getCards().size() < 3)
+          {
+            System.out.println("you have less than 3 cards");
+          }
+          else {
+          String[] options = {"first Card, second Card , third Card" ,"first Card, second Card , fourth Card","first Card, second Card, fifth Card" ,
+            "first Card, third Card, fourth Card","first Card, third Card, fifth Card","first Card, fourth Card, fifth Card","second Card, third Card, fourth Card"
+          , "second Card, third Card, fifth Card", "second Card, fourth Card, fifth Card"};
           new TradeControl(game, new TradeView(game,options), options);
-        }
+        }}
         break;
       case "deployBtn":
         if(game.getTrade().equals("must Trade"))
