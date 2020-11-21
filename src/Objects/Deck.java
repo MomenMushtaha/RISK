@@ -12,13 +12,9 @@ public class Deck {
 
   private int i;
 
-  private String input;
-  private String name;
-
   private final Troops[] typesArray;
 
   private ArrayList<Card> deck;
-  private Territory[] territories;
 
   private Card drawCard;
 
@@ -27,8 +23,9 @@ public class Deck {
    * a type of Infantry, Cavalry, or Artillery. Ensure that the number of
    * Infantry, Cavalry, and Artillery are the same
    *
-   * @param territories*/
-  public Deck (Territory[] territories) {
+   * @param territories
+   */
+  public Deck(Territory[] territories) {
     Collections.shuffle(Arrays.asList(territories));
     //Types of cards
     typesArray = new Troops[]{new Cavalry(), new artillery(), new infantry()};
@@ -36,7 +33,7 @@ public class Deck {
     Random generator = new Random();
     for (i = 0; i < territories.length; i++) {
       // Add new cards to deck
-      deck.add(new Card(territories[i],typesArray[generator.nextInt(3)]));
+      deck.add(new Card(territories[i], typesArray[generator.nextInt(3)]));
       System.out.println("Added new card to deck: " + deck.get(i).getTerritoryName());
     }
     Collections.shuffle(deck);
@@ -58,11 +55,5 @@ public class Deck {
   public void add(Card card) {
     deck.add(card);
   }
-
-  /**
-   * Shuffle the deck of cards
-   **/
-  public void shuffle() {
-    Collections.shuffle(deck);
-  }
 }
+
