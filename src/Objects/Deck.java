@@ -10,27 +10,22 @@ import java.util.Random;
  **/
 public class Deck {
 
-  private int i;
-
-  private final Troops[] typesArray;
-
   private ArrayList<Card> deck;
-
-  private Card drawCard;
 
   /**
    * Creates all 42 cards, one for each territory. Each card has either
    * a type of Infantry, Cavalry, or Artillery. Ensure that the number of
    * Infantry, Cavalry, and Artillery are the same
    *
-   * @param territories
+   * @param territories territories List passed
    */
   public Deck(Territory[] territories) {
     Collections.shuffle(Arrays.asList(territories));
     //Types of cards
-    typesArray = new Troops[]{new Cavalry(), new artillery(), new infantry()};
+    Troops[] typesArray = new Troops[]{new Cavalry(), new artillery(), new infantry()};
     deck = new ArrayList<>();
     Random generator = new Random();
+    int i;
     for (i = 0; i < territories.length; i++) {
       // Add new cards to deck
       deck.add(new Card(territories[i], typesArray[generator.nextInt(3)]));
@@ -44,7 +39,7 @@ public class Deck {
    **/
   public Card draw() {
 
-    drawCard = deck.get(0);
+    Card drawCard = deck.get(0);
     deck.remove(0);
     return drawCard;
   }

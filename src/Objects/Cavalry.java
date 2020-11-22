@@ -19,7 +19,8 @@ public class Cavalry extends Troops
   {
     worth = 5;
   }
-  /*
+
+  /**
    * returns the worth of an Cavalry troop
    *
    * @return int the worth of the troop

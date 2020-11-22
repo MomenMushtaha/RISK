@@ -145,10 +145,11 @@ public class Gameplay {
     }
     attackResult(targetTerritory, attackingTerritory);
   }
+
+
   /**
    * Shows the results of the attack command performed and indicates what happens next
-   *
-   * @param targetTerritory  is the defending Territory
+   *  @param targetTerritory  is the defending Territory
    * @param attackingTerritory is the attacking Territory
    */
   public void attackResult(Territory targetTerritory, Territory attackingTerritory) {
@@ -178,7 +179,7 @@ public class Gameplay {
         System.out.println(getCurrentPlayer().getName() + " has won");
       }
       if (attackingTerritory.getTroops() > 3) {
-        return;
+        //do nothing
       } else if (attackingTerritory.getTroops() == 3) {
         targetTerritory.addTroops(2);
         attackingTerritory.removeTroops(2);
@@ -193,7 +194,12 @@ public class Gameplay {
     }
   }
 
-
+  /**
+   * moving the troops from the attacking territory to the conquered one
+   * @param newTerritory moving troops to
+   * @param sourceTerritory moving troops from
+   * @param TroopsToMove how many troops to move
+   */
   public void MoveAfterAttack(Territory newTerritory, Territory sourceTerritory, int TroopsToMove) {
     //how many troops to move to Territory t
     if (TroopsToMove >= 3) {
@@ -212,6 +218,8 @@ public class Gameplay {
     sourceTerritory.removeTroops(fortifiedTroops);
     targetTerritory.addTroops(fortifiedTroops);
   }
+
+
   /**
    * Method to find if there a path between two countries or not
    *
@@ -239,10 +247,17 @@ public class Gameplay {
     }
     return false;
   }
-public Player getCurrentPlayer()
+
+
+  /**
+   * gets the current player
+   * @return the current player playing
+   */
+  public Player getCurrentPlayer()
 {
   return currentPlayer;
 }
+
 
   /**
    * Deploy troops at the beginning of each Player's turn
@@ -254,6 +269,7 @@ public Player getCurrentPlayer()
     state = "deployed";
     terr.addTroops(newTroop);
   }
+
 
   /**
    * Gets a Player for players ArrayList
@@ -288,6 +304,7 @@ public Player getCurrentPlayer()
     }
   }
 
+
   /**
    * Initializes troops to territories at the start of the game
    *
@@ -301,6 +318,7 @@ public Player getCurrentPlayer()
       Num = (Num + 1) % p;
     }
   }
+
 
   /**
    * Sets the amount of initial troops each player can start out with depending on number of players
@@ -390,6 +408,7 @@ public Player getCurrentPlayer()
     return null;
   }
 
+
   /**
    * Prints the continents a player owns
    *
@@ -407,6 +426,8 @@ public Player getCurrentPlayer()
       }
     }
   }
+
+
   /**
    * Prints the Territories a player owns
    *
@@ -418,6 +439,9 @@ public Player getCurrentPlayer()
     }
   }
 
+  /**
+   * lists the cards the player has in his hands
+   */
   public void listTheCards() {
     if (getCurrentPlayer().getHand() == null)
     {
@@ -430,6 +454,7 @@ public Player getCurrentPlayer()
       System.out.println(card.getTerritoryName() + ": " + card.getType() + " Troops = " + card.getTypeWorth());
     }
   }}
+
 
   /**
    * lists the Territories a player owns
@@ -446,6 +471,11 @@ public Player getCurrentPlayer()
     return territoryListing;
   }
 
+  /**
+   * lists the board territories of the territory passed
+   * @param terr the territory wished to list its border territories
+   * @return a string array of border territories
+   */
   public String[] listBorderingTerritories(Territory terr) {
     String[] borderingListing = new String[terr.getBorderTerritories().size()];
     borderTerritories = new ArrayList<>();
@@ -453,6 +483,8 @@ public Player getCurrentPlayer()
     for (int b = 0; b < terr.getBorderTerritories().size(); b++) {
       Territory bordering = terr.getBorderTerritories().get(b);
       if (getCurrentPlayer().getTerritories().contains(bordering)) {
+        //do nothing
+        // could just invert the if statement but its considered code smell
       }else{
         borderingListing[add] = bordering.getName() + ": Troops = " + bordering.getTroops();
         borderTerritories.add(bordering);
@@ -462,6 +494,12 @@ public Player getCurrentPlayer()
     return borderingListing;
   }
 
+
+  /**
+   * list the path a territory has when fortifying is clicked
+   * @param sor source territory to list the path for
+   * @returns String list of the path territories
+   */
   public String[] listPathTerritories(Territory sor) {
     pathListing = new ArrayList<>();
     for (Territory terr : board.getTerritoriesList()) {
@@ -477,22 +515,38 @@ public Player getCurrentPlayer()
     return listPath;
   }
 
+  /**
+   * get a territory for the pathListing at a specific index
+   * @param Index territory wished to be retrieved index
+   * @return the territory at the index specified
+   */
   public Territory getPathListingAtIndex(int Index)
   {
     return pathListing.get(Index);
   }
 
+
+  /**
+   * trades cards for current player
+   */
   public void trade()
   {
     currentPlayer.addToTradeTimes();
     troopsNewTurn = currentPlayer.getNewTroopers();
   }
 
+
+  /**
+   * get the state of the trade string
+   * @return string indicating the state of trade
+   */
 public String getTrade()
 {
   return trade;
 }
-  /**
+
+
+   /**
    * prints the status of the game
    */
   public void getGameStatus() {
@@ -501,8 +555,8 @@ public String getTrade()
       printTheTerritories(getPlayers(g).getTerritories());
       printTheContinents(getPlayers(g).getContinents());
     }
-
   }
+
 
   /**
    * Prints the commands possible for the game
@@ -518,6 +572,7 @@ public String getTrade()
       FORTIFY: MOVE TROOPS BETWEEN YOUR TERRITORIES (ONLY ONE MOVE IS ALLOWED)\s
       """);
   }
+
 
   /**
    * Prints the rules of the game
@@ -537,6 +592,7 @@ public String getTrade()
       );
   }
 
+
   /**
    * Signals that currentPlayer wants to quit the game
    */
@@ -548,6 +604,7 @@ public String getTrade()
       System.exit(0);
     }
   }
+
 
   /**
    * Prints welcoming phrases at the beginning of each ga,e
@@ -577,6 +634,9 @@ public String getTrade()
     }
   }
 
+  /**
+   * checks if the player conquered at least one territory in his turn and adds a card to current player
+   */
   private void checkAddCards()
   {
 
@@ -590,6 +650,7 @@ public String getTrade()
       System.out.println("no cards are added to " + getCurrentPlayer().getName());
     }
   }
+
 
   /**
    * Signals that currentPlayer wants to pass the turn
@@ -664,6 +725,10 @@ public String getTrade()
     //if pass is entered cycle to the next player
   }
 
+
+  /**
+   *checks if cards are tradeable or not
+   */
   private void checkTradeCards() {
     if(getCurrentPlayer().getHand() == null) {
       trade = "";
@@ -676,12 +741,22 @@ public String getTrade()
       }
     }
 
+
+  /**
+   * sets the new current player at the start of the turn
+   * @param Index index indicating which player is to be set
+   */
   public void setCurrentPlayer(int Index)
   {
     currentPlayer = getPlayers(Index);
   }
 
 
+  /**
+   * calculates the bonus troops of the new turn
+   * @param p is the current player
+   * @return integer of the bonus troops at the start of the turn
+   */
   public int get_bonus(Player p)
   {
     System.out.println("It is " +p.getName() + " turn");
@@ -702,6 +777,10 @@ public String getTrade()
     return troopsNewTurn;
   }
 
+
+  /**
+   * checks any continents are to be added to the current player
+   */
   public void continent_check() {
     int a = 0;
     for (int y = 0; y < board.getContinentList().size(); y++) {
@@ -719,30 +798,60 @@ public String getTrade()
     }
   }
 
-public int getTroopsNewTurn()
+
+  /**
+   * get the troops of the new turn
+   * @return an integer of the troops of the new turn
+   */
+  public int getTroopsNewTurn()
 {
   return troopsNewTurn;
 }
+
+
+/**
+ *updates the troops after they are added
+ */
   public void updateTroopsNewTurn(int addedTroops) {
     troopsNewTurn = troopsNewTurn - addedTroops;
   }
 
 
+  /**
+   * calculates the size of players ArrayList
+   * @return integer number of the size of players
+   */
 public int playersSize()
 {
   return players.size();
 }
 
-public String getState()
+
+  /**
+   * getter for state string
+   * @return a string indicating the state of the turn
+   */
+  public String getState()
 {
   return state;
 }
-public ArrayList<Territory> getBorderTerritories()
+
+
+  /**
+   * getter for border territories
+   * @return an ArrayList of the border territories
+   */
+  public ArrayList<Territory> getBorderTerritories()
 {
   return borderTerritories;
 }
 
-public void startGame(int numPlayers)
+
+  /**
+   * initialize the game at its start
+   * @param numPlayers is the number of players playing
+   */
+  public void startGame(int numPlayers)
   {
     InitializePlayers(numPlayers) ;
     addInitialTerritories(numPlayers);
@@ -750,4 +859,5 @@ public void startGame(int numPlayers)
     setCurrentPlayer(numPlayers-1);
     get_bonus(getCurrentPlayer());
     addCard = false;
-  }}
+  }
+}

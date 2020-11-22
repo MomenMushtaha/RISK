@@ -16,7 +16,6 @@ public class Player
   private final ArrayList<Territory> territoriesOwned;
   private final ArrayList<Continent> ContinentsOwned;
   private int bonusTroops;
-  private boolean isAlive;
   public int newTroopers;
 
 
@@ -42,15 +41,7 @@ public class Player
     return name;
   }
 
-  /**
-   * returns true if player is dead
-   *
-   * @return boolean true if player is dead else false
-   */
-  public boolean isDead()
-  {
-    return isAlive != true;
-  }
+
   /**
    * @return  a territory the player own at index
    */
@@ -134,7 +125,7 @@ public void addToTradeTimes()
 }
 public void checkTradeTimes()
 {
-  if (tradeTimes < 6)
+  if (tradeTimes <= 6)
   {
   if (tradeTimes ==1)
   {
@@ -156,7 +147,7 @@ public void checkTradeTimes()
   {
     newTroopers += 2;
   }
-  if (tradeTimes ==6)
+  else if (tradeTimes ==6)
   {
     newTroopers += 3;
   }}

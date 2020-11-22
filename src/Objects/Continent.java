@@ -17,6 +17,7 @@ public class Continent {
   private final int bonusArmies;
   private final ArrayList<Territory> territories;
 
+
   public Continent(String name, int bonusArmies, ArrayList<Territory> territories) {
     this.name = name;
     this.bonusArmies = bonusArmies;

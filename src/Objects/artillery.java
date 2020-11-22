@@ -13,11 +13,12 @@ public class artillery extends Troops
   /**
    * Constructor for objects of class artillery
    */
-  public artillery()
-  {
+  public artillery() {
     worth = 10;
   }
-  /*
+
+
+  /**
    * returns the worth of an artillery troop
    *
    * @return int the worth of the troop

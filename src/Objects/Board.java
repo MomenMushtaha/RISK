@@ -13,11 +13,9 @@ public class Board {
   public Territory[] territoriesList;
   private ArrayList<Continent> continentsList;
 
-
-  //Troop types
-
-
-
+  /**
+   * Constructor for board class
+   */
   public Board(){
     setTerritories();
     setContinents();
@@ -120,11 +118,6 @@ public class Board {
    * Creates the Territories for the game and adds neighbouring territories for each Territory
    */
   private void setTerritories() {
-
-    //Creating Unknown territory for WildCard
-    Territory Unknown2 = new Territory("Unknown");
-
-
     territoriesList = new Territory[42];
 
     //North America

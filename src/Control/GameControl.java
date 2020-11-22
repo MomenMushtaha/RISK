@@ -40,4 +40,15 @@ public class GameControl implements ActionListener {
         default -> {
           System.out.println("Error: " + actionEvent + " actionEvent not found!");
           new GameControl(new GameView(game),game);
-        }}}}}
+        }}}}
+
+
+    /**
+     * Starts the game and Initializes the Board and the Players
+     */
+    public static void main(String[] args) {
+      Logic.Gameplay game = new Logic.Gameplay();
+      new GameControl(new GameView(game), game);
+
+    }
+  }
