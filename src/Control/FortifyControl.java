@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class FortifyControl implements ActionListener {
-  public Gameplay game;
-  public FortifyView view;
-  public int troops;
-  public int fortifyIndex;
+  public final Gameplay game;
+  public final FortifyView view;
+  public final int troops;
+  public final int fortifyIndex;
 
   //Constructor
   public FortifyControl(Gameplay game, FortifyView view, int troops, int fortifyingIndex) {

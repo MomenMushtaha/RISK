@@ -1,7 +1,7 @@
 package Control;
 
 import Logic.Gameplay;
-import View.BoardView;
+import View.AIView;
 import View.GameView;
 
 import java.awt.event.ActionEvent;
@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class GameControl implements ActionListener {
 
-  public Gameplay game;
+  public final Gameplay game;
   private final GameView view;
 
   //Constructor
@@ -34,14 +34,13 @@ public class GameControl implements ActionListener {
           int numPlayers = Integer.parseInt(selected);
           game.startGame(numPlayers);
           view.setVisible(false);
-            new BoardViewControl(new BoardView(game), game);
-            System.out.println("Loading BoardViewControl...");
+          new AIControl(game, new AIView(numPlayers));
+            System.out.println("Loading AIControl...");
         }
         default -> {
           System.out.println("Error: " + actionEvent + " actionEvent not found!");
           new GameControl(new GameView(game),game);
         }}}}
-
 
     /**
      * Starts the game and Initializes the Board and the Players

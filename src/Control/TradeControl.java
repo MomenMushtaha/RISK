@@ -5,25 +5,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TradeControl implements ActionListener {
-  public Gameplay game;
-  public TradeView view;
-  public String[] options;
+  public final Gameplay game;
+  public final TradeView view;
+  private String[] options;
+  public boolean trade = false;
 
   //Constructor
   public TradeControl(Gameplay game, TradeView view, String[] options) {
     this.game = game;
     System.out.println("Trade Panel!");
     this.view = view;
+    if(game.getCurrentPlayer().getIsAI())
+    {
+      view.setVisible(false);
+    }
+    else {
     this.options = options;
     //Add this class' actionListener to TradeView's buttons
     view.TradeViewActionListeners(this);
-  }
-
+  }}
   @Override
   public void actionPerformed(ActionEvent e) {
-    view.setVisible(false);
-    indexer(view.tradeComboBox.getSelectedIndex());
-      }
+      String actionEvent = e.getActionCommand();
+      if (actionEvent.equals("Deploy Now!")) {
+        view.setVisible(false);
+        indexer(view.tradeComboBox.getSelectedIndex());
+      }}
 
 public void indexer(int index)
 {
@@ -39,11 +46,15 @@ public void indexer(int index)
   if (index == 7) { x = game.getCurrentPlayer().getHand().removeCards(2,3,5); }
   if (index == 8) { x = game.getCurrentPlayer().getHand().removeCards(2,4,5); }
   if (index == 9) { x = game.getCurrentPlayer().getHand().removeCards(3,4,5); }
-  {
     if (x) {
       game.trade();
+      trade = true;
     } else {
-      new TradeControl(game, new TradeView(game, options), options);
+      if (game.getCurrentPlayer().getIsAI()) {
+        //do nothing
+      } else {
+        new TradeControl(game, new TradeView(game, options), options);
+      }
     }
   }
-}}
+}

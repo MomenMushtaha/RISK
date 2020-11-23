@@ -8,10 +8,10 @@ import java.util.Objects;
 
 public class AttackControl implements ActionListener {
 
-  public Gameplay game;
-  public AttackView view;
-  public int troops;
-  public int attackingIndex;
+  public final Gameplay game;
+  public final AttackView view;
+  public final int troops;
+  public final int attackingIndex;
 
   //Constructor
   public AttackControl(Gameplay game, AttackView view, int troops, int attackingIndex) {

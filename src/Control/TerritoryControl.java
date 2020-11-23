@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 
 public class TerritoryControl implements ActionListener {
 
-  public Gameplay game;
-  public TerritoryView view;
-  public String passed;
+  public final Gameplay game;
+  public final TerritoryView view;
+  public final String passed;
 
   //Constructor
   public TerritoryControl(Gameplay game,TerritoryView view, String passed) {

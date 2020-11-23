@@ -10,7 +10,7 @@ public class TerritoryView extends JFrame{
   //initialize lists
   private JList<String> currentPlayerTerritoryList;
   //game
-  public Gameplay game;
+  public final Gameplay game;
 
   public TerritoryView(Gameplay game)
   {

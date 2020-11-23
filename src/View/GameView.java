@@ -22,13 +22,10 @@ public class GameView extends JFrame {
   //initialize comboBox
   public JComboBox<String> playerComboBox;
   private final String[] players = { "2", "3" , "4" , "5" , "6" };
-  //game
-  public Gameplay game;
 
-  public GameView(Gameplay game)
+    public GameView(Gameplay game)
   {
-    this.game = game;
-    setTitle("Risk Starts");
+      setTitle("Risk Starts");
     setPreferredSize(new Dimension(300, 300));
     setResizable(false);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

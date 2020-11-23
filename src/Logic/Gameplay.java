@@ -18,6 +18,7 @@ public class Gameplay {
   private String trade;
   private Boolean addCard;
   private ArrayList<Territory> borderTerritories;
+  public AI ai;
 
 
   /**
@@ -498,7 +499,7 @@ public class Gameplay {
   /**
    * list the path a territory has when fortifying is clicked
    * @param sor source territory to list the path for
-   * @returns String list of the path territories
+   * @returns String[] list of the path territories
    */
   public String[] listPathTerritories(Territory sor) {
     pathListing = new ArrayList<>();
@@ -618,7 +619,6 @@ public String getTrade()
       " if you rule a whole continent you will get more bonus troops.");
     System.out.println("The game will start with player 1");
     System.out.println();
-    setCurrentPlayer(0);
   }
 
 
@@ -722,6 +722,12 @@ public String getTrade()
     troopsNewTurn = get_bonus(getCurrentPlayer());
     addCard = false;
     checkTradeCards();
+    if(getCurrentPlayer().getIsAI())
+    {
+      this.ai = new AI(this);
+      ai.makeMove();
+    }
+
     //if pass is entered cycle to the next player
   }
 
@@ -856,7 +862,7 @@ public int playersSize()
     InitializePlayers(numPlayers) ;
     addInitialTerritories(numPlayers);
     NumberInitialTroops(numPlayers);
-    setCurrentPlayer(numPlayers-1);
+    setCurrentPlayer(0);
     get_bonus(getCurrentPlayer());
     addCard = false;
   }

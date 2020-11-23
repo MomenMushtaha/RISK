@@ -7,18 +7,16 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MoveAfterControl implements ActionListener {
-  public Gameplay game;
-  public MoveAfterView view;
-  public Territory target;
-  public Territory source;
-  public int troops;
+  public final Gameplay game;
+  public final MoveAfterView view;
+  public final Territory target;
+  public final Territory source;
 
   //Constructor
   public MoveAfterControl(Gameplay game,MoveAfterView view, int troops, Territory target, Territory source) {
     this.game = game;
     System.out.println("Move After Attack Dialog");
     this.view = view;
-    this.troops = troops;
     this.target = target;
     this.source = source;
     //Add this class' actionListener to MoveAfterView's buttons

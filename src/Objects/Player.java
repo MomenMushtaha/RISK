@@ -8,15 +8,16 @@ import java.util.* ;
  * @author Peter Tanyous
  * @version 1
  */
+@SuppressWarnings("ALL")
 public class Player
 {
   private int tradeTimes;
   private final String name;
-  private Hand playerHand;
+  private final Hand playerHand;
   private final ArrayList<Territory> territoriesOwned;
   private final ArrayList<Continent> ContinentsOwned;
-  private int bonusTroops;
   public int newTroopers;
+  public Boolean isAI;
 
 
   /**
@@ -29,6 +30,7 @@ public class Player
     ContinentsOwned= new ArrayList<>();
     this.playerHand = new Hand();
     this.newTroopers = 0;
+    this.isAI = false;
   }
 
   /**
@@ -74,20 +76,7 @@ public class Player
   public void addContinents(Continent continent){
     ContinentsOwned.add(continent);
   }
-  /**
-   * removes continent from the list of continents the player control
-   * when a player loses a territory in a certain continent that player was controlling
-   *
-   *
-   * @param removal to be removed from the list of owned continents
-   */
-  public void removeContinent(Continent removal){
-    for (int j = 0; j < ContinentsOwned.size(); j++){
-      if(ContinentsOwned.get(j).getName().equals(removal.getName())){
-        ContinentsOwned.remove(j);
-      }
-    }
-  }
+
   /**
    * adds territory to the list of territories the player own
    * when a player wins an attack on a certain territory
@@ -155,9 +144,7 @@ public void checkTradeTimes()
     newTroopers +=5;
   }
 }
-public int getTradeTimes() {
-  return tradeTimes;
-}
+
   public Hand getHand()
   {
     return playerHand;
@@ -168,11 +155,15 @@ public int getTradeTimes() {
     return newTroopers;
   }
 
-  /**
-   * Removed a set of risk cards from the players hand to reflect risk cards being turned in
-   **/
-  public void removeCards(int[] cardsTurnedInIndex) {
-
-    //playerHand.removeCards(cardsTurnedInIndex[0], cardsTurnedInIndex[1], cardsTurnedInIndex[2]);
-  }
+public void setAI()
+{
+  isAI= true;
 }
+public boolean getIsAI()
+{
+  return isAI;
+}
+
+}
+
+

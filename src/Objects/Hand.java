@@ -10,7 +10,7 @@ import java.util.* ;
  */
 public class Hand
 {
-  private ArrayList<Card> cards;
+  private final ArrayList<Card> cards;
   private boolean condition;
   /**
    * Constructor for objects of class Hand
@@ -84,8 +84,7 @@ public class Hand
    * Returns true if the player must turn in cards
    **/
   public boolean mustTurnInCards() {
-    condition = false;
-    if (cards.size() >= 5) condition = true;
+    condition = cards.size() >= 5;
     return condition;
 }}
 

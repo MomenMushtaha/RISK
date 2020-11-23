@@ -10,7 +10,7 @@ import java.util.Random;
  **/
 public class Deck {
 
-  private ArrayList<Card> deck;
+  private final ArrayList<Card> deck;
 
   /**
    * Creates all 42 cards, one for each territory. Each card has either
@@ -44,11 +44,5 @@ public class Deck {
     return drawCard;
   }
 
-  /**
-   * Add a card to the deck
-   **/
-  public void add(Card card) {
-    deck.add(card);
-  }
 }
 

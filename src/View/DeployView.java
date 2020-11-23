@@ -14,9 +14,9 @@ public class DeployView extends JFrame {
   //initialize Lists
   public JList<String> currentPlayerTerritoryList;
   //troops to be added
-  public int troops;
+  public final int troops;
   //game
-  public Gameplay game;
+  public final Gameplay game;
 
 
   public DeployView(Gameplay game) {

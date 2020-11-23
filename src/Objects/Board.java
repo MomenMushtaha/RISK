@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 
 public class Board {
-  public Objects.Deck deck;
+  public final Objects.Deck deck;
   public Territory[] territoriesList;
   private ArrayList<Continent> continentsList;
 

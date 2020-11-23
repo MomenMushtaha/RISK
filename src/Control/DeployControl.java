@@ -1,26 +1,31 @@
 package Control;
-import Objects.*;
-import Logic.*;
-import View.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
+import java.util.Random;
+
 import Objects.*;
 import Logic.*;
 import View.*;
 public class DeployControl implements ActionListener {
 
-  public Gameplay game;
-  public DeployView view;
+  public final Gameplay game;
+  public final DeployView view;
 
   //Constructor
   public DeployControl(Gameplay game, DeployView view) {
     this.game = game;
     System.out.println("Deploy Panel");
     this.view = view;
+    Random t = new Random();
+    if(game.getCurrentPlayer().getIsAI()) {
+      view.setVisible(false);
+
+    }
+    else {
     //Add this class' actionListener to DeployView's buttons
     view.DeployViewActionListeners(this);
-  }
+  }}
 
   @Override
   public void actionPerformed(ActionEvent e) {

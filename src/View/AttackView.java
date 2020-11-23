@@ -18,7 +18,7 @@ public class AttackView extends JFrame {
   //attacking territory index
   private final int attackingIndex;
   //game
-  public Gameplay game;
+  public final Gameplay game;
 
   public AttackView(Gameplay game, int troops, int attackingIndex) {
     this.attackingIndex = attackingIndex;

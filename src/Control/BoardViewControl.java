@@ -1,5 +1,6 @@
 package Control;
 
+import Logic.AI;
 import Logic.Gameplay;
 import View.BoardView;
 import View.DeployView;
@@ -11,14 +12,15 @@ import java.awt.event.ActionListener;
 
 class BoardViewControl implements ActionListener {
 
-  public Gameplay game;
-  public BoardView view;
-  public DeployControl deploy;
+  public final Gameplay game;
   public String passed;
+  public String[] options;
 
   public BoardViewControl(BoardView view, Gameplay game){
     this.game = game;
-    this.view = view;
+    options = new String[]{"first Card, second Card , third Card", "first Card, second Card , fourth Card", "first Card, second Card, fifth Card",
+      "first Card, third Card, fourth Card", "first Card, third Card, fifth Card", "first Card, fourth Card, fifth Card", "second Card, third Card, fourth Card"
+      , "second Card, third Card, fifth Card", "second Card, fourth Card, fifth Card"};
     game.printRules();
     game.printCommands();
     game.printWelcome();
@@ -32,7 +34,7 @@ class BoardViewControl implements ActionListener {
         game.listTheCards();
         if(game.getTrade().equals(""))
         {
-          System.out.println("you cant trade cards right now");
+          System.out.println("you can't trade cards right now");
         }
         else {
           if(game.getCurrentPlayer().getHand().getCards().size() < 3)
@@ -40,10 +42,7 @@ class BoardViewControl implements ActionListener {
             System.out.println("you have less than 3 cards");
           }
           else {
-          String[] options = {"first Card, second Card , third Card" ,"first Card, second Card , fourth Card","first Card, second Card, fifth Card" ,
-            "first Card, third Card, fourth Card","first Card, third Card, fifth Card","first Card, fourth Card, fifth Card","second Card, third Card, fourth Card"
-          , "second Card, third Card, fifth Card", "second Card, fourth Card, fifth Card"};
-          new TradeControl(game, new TradeView(game,options), options);
+            new TradeControl(game, new TradeView(game,options), options);
         }}
         break;
       case "deployBtn":
@@ -58,7 +57,7 @@ class BoardViewControl implements ActionListener {
             System.out.println("no troops to deploy");
             game.updateTroopsNewTurn(game.getTroopsNewTurn());
           } else {
-            deploy = new DeployControl(game, new DeployView(game));
+            new DeployControl(game, new DeployView(game));
           }
         } else {
           System.out.println("Deploying phase is already done");

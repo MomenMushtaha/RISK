@@ -18,8 +18,6 @@ public class BoardView extends JDialog {
   private JButton printBtn;
   //initialize constraints
   private GridBagConstraints cons;
-  //game
-  public Gameplay game;
 
   /**
    * Constructs the Risk game board.
@@ -27,7 +25,6 @@ public class BoardView extends JDialog {
   public BoardView(Gameplay game) {
     setTitle("Java-Risk");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    this.game = game;
     //  GridBagLayout allows a flexible sizing of components
     //initialize Layouts
     GridBagLayout gameLayout = new GridBagLayout();

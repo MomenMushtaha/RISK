@@ -20,7 +20,7 @@ public class FortifyView extends JFrame {
   //fortifying territory index
   private final int fortifyIndex;
   //game
-  public Gameplay game;
+  public final Gameplay game;
 
   public FortifyView(Gameplay game, int troops, int fortifyIndex) {
     this.fortifyIndex = fortifyIndex;

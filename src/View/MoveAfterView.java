@@ -14,13 +14,10 @@ public class MoveAfterView extends JFrame {
   public JComboBox<String> troopsComboBox;
   //troops
   private final int troops;
-  //game
-  public Gameplay game;
 
-  public MoveAfterView(Gameplay game, int troops) {
+    public MoveAfterView(Gameplay game, int troops) {
     this.troops = troops;
-    this.game = game;
-    setPreferredSize(new Dimension(300, 300));
+        setPreferredSize(new Dimension(300, 300));
     setResizable(false);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     pack();

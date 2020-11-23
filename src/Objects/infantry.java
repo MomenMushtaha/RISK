@@ -8,7 +8,7 @@ package Objects;
  */
 public class infantry extends Troops
 {
-  public int worth;
+  public final int worth;
 
   /**
    * Constructor for objects of class infantry

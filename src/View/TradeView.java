@@ -1,7 +1,5 @@
 package View;
 import Logic.*;
-import Objects.Card;
-import Objects.Hand;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,9 +13,9 @@ public class TradeView extends JFrame {
   // initialize combobox
   public JComboBox<String> tradeComboBox;
   //hand
-  private String[] options;
+  private final String[] options;
   //game
-  public Gameplay game;
+  public final Gameplay game;
 
   public TradeView(Gameplay game, String[] options) {
     this.game = game;
@@ -46,7 +44,6 @@ public class TradeView extends JFrame {
     // Setting button commands
     String fortifyString = "Trade!";
     tradeButton.setActionCommand(fortifyString);
-    Hand cards = game.getCurrentPlayer().getHand();
     //initialize scroll pane
     tradePanel.add(label);
     tradeComboBox = new JComboBox<>(options);
