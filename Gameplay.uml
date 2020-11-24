@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Logic.Gameplay</OriginalElement>
+  <nodes>
+    <node x="-255.0" y="-138.33333333333331">Logic.Gameplay</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="0.5653710247349824" x="-106.5" y="417.0" />
+  <SelectedNodes>
+    <node>Logic.Gameplay</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
