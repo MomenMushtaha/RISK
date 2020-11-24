@@ -1,26 +1,27 @@
 package View;
 
+import Logic.Gameplay;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import Logic.*;
 
 public class FortifyView extends JFrame {
   // initialize labels
   static JLabel label;
-  // initialize buttons
-  private JButton fortifyButton;
+  //game
+  public final Gameplay game;
+  //troops
+  private final int troops;
+  //fortifying territory index
+  private final int fortifyIndex;
   // initialize combobox
   public JComboBox<String> troopsComboBox;
   //initialize lists
   public JList<String> pathTerritoryList;
-  //troops
-  private final int troops;
   public String[] pathlist;
-  //fortifying territory index
-  private final int fortifyIndex;
-  //game
-  public final Gameplay game;
+  // initialize buttons
+  private JButton fortifyButton;
 
   public FortifyView(Gameplay game, int troops, int fortifyIndex) {
     this.fortifyIndex = fortifyIndex;
@@ -74,16 +75,16 @@ public class FortifyView extends JFrame {
   public int getPathTerritoryIndex() {
     return pathTerritoryList.getSelectedIndex();
   }
-  public int getFortifyingIndex()
-  {
+
+  public int getFortifyingIndex() {
     return fortifyIndex;
   }
 
   public JComboBox<String> troopsComboBox(int troops) {
     int num = 1;
     int i = 0;
-    String[] r = new String[troops-1];
-    while (num < troops ) {
+    String[] r = new String[troops - 1];
+    while (num < troops) {
       r[i] = String.valueOf(num);
       num += 1;
       i++;

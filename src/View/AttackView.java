@@ -1,5 +1,7 @@
 package View;
-import Logic.*;
+
+import Logic.Gameplay;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -7,18 +9,18 @@ import java.awt.event.ActionListener;
 public class AttackView extends JFrame {
   // initialize labels
   static JLabel label;
-  // initialize buttons
-  private JButton attackButton;
-  // initialize combobox
-  public JComboBox<String> troopsComboBox;
-  //initialize lists
-  public JList<String> boarderingTerritoryList;
+  //game
+  public final Gameplay game;
   //troops
   private final int troops;
   //attacking territory index
   private final int attackingIndex;
-  //game
-  public final Gameplay game;
+  // initialize combobox
+  public JComboBox<String> troopsComboBox;
+  //initialize lists
+  public JList<String> boarderingTerritoryList;
+  // initialize buttons
+  private JButton attackButton;
 
   public AttackView(Gameplay game, int troops, int attackingIndex) {
     this.attackingIndex = attackingIndex;
@@ -72,8 +74,8 @@ public class AttackView extends JFrame {
   public int getBoarderingTerritoryIndex() {
     return boarderingTerritoryList.getSelectedIndex();
   }
-  public int getAttackingIndex()
-  {
+
+  public int getAttackingIndex() {
     return attackingIndex;
   }
 
@@ -87,7 +89,7 @@ public class AttackView extends JFrame {
       r[i] = String.valueOf(num);
       i++;
     }
-    troopsComboBox = new JComboBox<>( r);
+    troopsComboBox = new JComboBox<>(r);
     return troopsComboBox;
   }
 }

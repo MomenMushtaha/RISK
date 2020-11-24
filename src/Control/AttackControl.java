@@ -1,7 +1,10 @@
 package Control;
-import View.*;
-import Objects.*;
-import Logic.*;
+
+import Logic.Gameplay;
+import Objects.Territory;
+import View.AttackView;
+import View.MoveAfterView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
@@ -31,22 +34,24 @@ public class AttackControl implements ActionListener {
       int f = view.getBoarderingTerritoryIndex();
       if (f != -1) {
         int x = view.getAttackingIndex();
-        Territory attacking  = game.getCurrentPlayer().getTerritories().get(x);
+        Territory attacking = game.getCurrentPlayer().getTerritories().get(x);
         String selected = Objects.requireNonNull(view.troopsComboBox.getSelectedItem()).toString();
         Territory target = game.getBorderTerritories().get(f);
-          System.out.println("Attacking");
+        System.out.println("Attacking");
         view.setVisible(false);
         game.attack(target, attacking, Integer.parseInt(selected));
-        if(target.getPlayer() == game.getCurrentPlayer()) {
-          if(attacking.getTroops() > 3) {
+        if (target.getPlayer() == game.getCurrentPlayer()) {
+          if (attacking.getTroops() > 3) {
             new MoveAfterControl(game, new MoveAfterView(game, attacking.getTroops()), attacking.getTroops(), target, attacking);
           }
-        }
-        else {
-          new AttackControl(game, new AttackView(game, troops, attackingIndex ),troops, attackingIndex);
+        } else {
+          new AttackControl(game, new AttackView(game, troops, attackingIndex), troops, attackingIndex);
         }
       } else {
-        System.out.println("no territoy was chosen" );
+        System.out.println("no territoy was chosen");
         view.setVisible(false);
-        new AttackControl(game, new AttackView(game, troops, attackingIndex ),troops, attackingIndex);
-      }}}}
+        new AttackControl(game, new AttackView(game, troops, attackingIndex), troops, attackingIndex);
+      }
+    }
+  }
+}

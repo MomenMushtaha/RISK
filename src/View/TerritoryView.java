@@ -1,19 +1,20 @@
 package View;
+
+import Logic.Gameplay;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import Logic.*;
 
-public class TerritoryView extends JFrame{
+public class TerritoryView extends JFrame {
+  //game
+  public final Gameplay game;
   //initialize buttons
   private JButton attackButton;
   //initialize lists
   private JList<String> currentPlayerTerritoryList;
-  //game
-  public final Gameplay game;
 
-  public TerritoryView(Gameplay game)
-  {
+  public TerritoryView(Gameplay game) {
     this.game = game;
     setPreferredSize(new Dimension(300, 300));
     setResizable(false);
@@ -25,8 +26,7 @@ public class TerritoryView extends JFrame{
     add(TerritoryDialog());
   }
 
-  private JPanel TerritoryDialog()
-  {
+  private JPanel TerritoryDialog() {
     // Creates the panel, Labels and Layouts
     //initialize panel
     JPanel territoryPanel = new JPanel();
@@ -52,7 +52,8 @@ public class TerritoryView extends JFrame{
     territoryPanel.add(currentPlayerTerritoryListScrollPane);
     territoryPanel.add(attackButton);
 
-    return territoryPanel;}
+    return territoryPanel;
+  }
 
   public void TerritoryViewActionListeners(ActionListener evt) {
     attackButton.addActionListener(evt);

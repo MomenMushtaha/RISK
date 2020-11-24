@@ -1,5 +1,6 @@
 package Objects;
 
+
 /**
  * Class that all troops types will
  * be extending
@@ -7,15 +8,27 @@ package Objects;
  * @author Peter
  * @version Tanyous
  */
-public class Troops
-{
+public class Troops {
   private final int worth;
 
-  public Troops(){
+
+  /**
+   * constructor for Troops
+   */
+  public Troops() {
     worth = 0;
   }
-  public int getWorth(){
+
+
+  /**
+   * gets the worth of the troop depending on its type
+   *
+   * @return the worth of the troop depending on its type
+   */
+  public int getWorth() {
     return worth;
   }
+
+
 }
 

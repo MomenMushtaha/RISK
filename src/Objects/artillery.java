@@ -1,14 +1,15 @@
 package Objects;
 
+
 /**
  * is a type of troop that is worth 10 infantry
  *
  * @author Peter Tanyous
  * @version version 1
  */
-public class artillery extends Troops
-{
+public class artillery extends Troops {
   private final int worth;
+
 
   /**
    * Constructor for objects of class artillery
@@ -23,8 +24,9 @@ public class artillery extends Troops
    *
    * @return int the worth of the troop
    */
-  public int getWorth()
-  {
+  public int getWorth() {
     return worth;
   }
+
+
 }

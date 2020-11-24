@@ -1,41 +1,43 @@
 package Objects;
 
-import java.util.* ;
+
+import java.util.ArrayList;
+
+
 /**
  * Player Class represents each player playing the game and their Hand of cars and a list of the territories owned and
  * continents a player is controlling to manage the amount of bonus troops a player is to get on a new turn
  *
- * @author Peter Tanyous
- * @version 1
+ * @author Peter Tanyous, Momin Mushtaha
+ * @version 2
  */
-@SuppressWarnings("ALL")
-public class Player
-{
-  private int tradeTimes;
+public class Player {
   private final String name;
   private final Hand playerHand;
   private final ArrayList<Territory> territoriesOwned;
   private final ArrayList<Continent> ContinentsOwned;
-  public int newTroopers;
-  public Boolean isAI;
+  public String trade;
+  private int tradeTimes;
+  private int newTroopers;
+  private Boolean isAI;
 
 
   /**
    * Constructor for objects of class Player
    */
-  public Player(String name)
-  {
+  public Player(String name) {
     this.name = name;
-    territoriesOwned= new ArrayList<>();
-    ContinentsOwned= new ArrayList<>();
+    territoriesOwned = new ArrayList<>();
+    ContinentsOwned = new ArrayList<>();
     this.playerHand = new Hand();
     this.newTroopers = 0;
     this.isAI = false;
+    this.trade = "";
   }
+
 
   /**
    * returns the name of the Player
-   *
    *
    * @return String name of the Player
    */
@@ -45,37 +47,43 @@ public class Player
 
 
   /**
-   * @return  a territory the player own at index
+   * @return a territory the player own at index
    */
-  public Territory getTerritoyAtIndex(int index){
+  public Territory getTerritoyAtIndex(int index) {
     return territoriesOwned.get(index);
   }
+
 
   /**
    * returns the list of territories the player own
    *
    * @return linkedlist of territories the player own
    */
-  public  ArrayList<Territory> getTerritories(){
+  public ArrayList<Territory> getTerritories() {
     return territoriesOwned;
   }
+
+
   /**
    * returns the list of Continents the player control
    *
    * @return linkedlist of Continents the player control
    */
-  public ArrayList<Continent> getContinents(){
+  public ArrayList<Continent> getContinents() {
     return ContinentsOwned;
   }
+
+
   /**
    * adds continent to the list of continents the player control
    * when a player owns all territories in a certain continent
    *
    * @param continent to be added to the list
    */
-  public void addContinents(Continent continent){
+  public void addContinents(Continent continent) {
     ContinentsOwned.add(continent);
   }
+
 
   /**
    * adds territory to the list of territories the player own
@@ -83,23 +91,26 @@ public class Player
    *
    * @param territory to be added to the list
    */
-  public void addTerritories(Territory territory){
+  public void addTerritories(Territory territory) {
     territoriesOwned.add(territory);
   }
+
+
   /**
    * removes territory from the list of territories the player own
    * when a player loses a territory in a battle
    *
-   *
    * @param removal to be removed from the list of owned territories
    */
-  public void removeTerritories(Territory removal){
-    for (int j = 0; j < territoriesOwned.size(); j++){
-      if(territoriesOwned.get(j).getName().equals(removal.getName())){
+  public void removeTerritories(Territory removal) {
+    for (int j = 0; j < territoriesOwned.size(); j++) {
+      if (territoriesOwned.get(j).getName().equals(removal.getName())) {
         territoriesOwned.remove(j);
       }
     }
   }
+
+
   /**
    * Adds a risk card to the players hand
    **/
@@ -107,63 +118,80 @@ public class Player
 
     playerHand.addCard(riskCard);
   }
-public void addToTradeTimes()
-{
-  tradeTimes += 1;
-  checkTradeTimes();
-}
-public void checkTradeTimes()
-{
-  if (tradeTimes <= 6)
-  {
-  if (tradeTimes ==1)
-  {
-    newTroopers += 4;
-  }
-  else if (tradeTimes ==2)
-  {
-    newTroopers += 2;
-  }
-  else if (tradeTimes ==3)
-  {
-    newTroopers += 2;
-  }
-  else if (tradeTimes ==4)
-  {
-    newTroopers += 2;
-  }
-  else if (tradeTimes ==5)
-  {
-    newTroopers += 2;
-  }
-  else if (tradeTimes ==6)
-  {
-    newTroopers += 3;
-  }}
-  else {
-    newTroopers +=5;
-  }
-}
 
-  public Hand getHand()
-  {
+
+  /**
+   * adds 1 to tradeTimes everytime it is executed
+   */
+  public void addToTradeTimes() {
+    tradeTimes += 1;
+    checkTradeTimes();
+  }
+
+
+  /**
+   * Checks the how many card trades have been executed for this player and add newTroopers correspondingly
+   */
+  public void checkTradeTimes() {
+    if (tradeTimes <= 6) {
+      if (tradeTimes == 1) {
+        newTroopers += 4;
+      } else if (tradeTimes == 2) {
+        newTroopers += 2;
+      } else if (tradeTimes == 3) {
+        newTroopers += 2;
+      } else if (tradeTimes == 4) {
+        newTroopers += 2;
+      } else if (tradeTimes == 5) {
+        newTroopers += 2;
+      } else if (tradeTimes == 6) {
+        newTroopers += 3;
+      }
+    } else {
+      newTroopers += 5;
+    }
+  }
+
+
+  /**
+   * return the hand of the player, indicting the cards he is holding
+   *
+   * @return playerHand
+   */
+  public Hand getHand() {
     return playerHand;
   }
 
-  public int getNewTroopers()
-  {
+
+  /**
+   * returns an Integer of how many troops to be added for this trade cycle
+   *
+   * @return int newTroopers
+   */
+  public int getNewTroopers() {
     return newTroopers;
   }
 
-public void setAI()
-{
-  isAI= true;
-}
-public boolean getIsAI()
-{
-  return isAI;
-}
+
+  /**
+   * sets this player to an AI
+   */
+  public void setAI() {
+    isAI = true;
+  }
+
+
+  /**
+   * retrieves boolean is AI to indicate whether the player is an AI or not
+   *
+   * @return isAI Boolean value
+   */
+  public boolean getIsAI() {
+    return isAI;
+  }
+
 
 }
+
 
 

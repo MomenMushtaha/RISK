@@ -1,30 +1,44 @@
 package Logic;
 
+
+import javax.swing.*;
 import java.io.OutputStream;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
 
+
+/**
+ * Outputer Class for showing the text on the messagePanel in BoardView
+ *
+ * @author Momin Mushtaha
+ * @version 1
+ */
 public class Outputer extends OutputStream {
+  private final JTextArea text;
+  private final StringBuilder string = new StringBuilder();
 
-  private final JTextArea textArea;
-  private final StringBuilder stringBuilder = new StringBuilder();
 
-  public Outputer(JTextArea textArea) {
-    this.textArea = textArea;
+  /**
+   * constructor for Outputer
+   *
+   * @param text is the text area to be written at
+   */
+  public Outputer(JTextArea text) {
+    this.text = text;
   }
 
 
-
-  public void write(int b) {
-
-    if (b == '\n') {
-      final String text = stringBuilder.toString();
-
-      SwingUtilities.invokeLater(() -> textArea.append(text));
-
-      stringBuilder.setLength(0);
+  /**
+   * writes the print texts on a panel
+   *
+   * @param line used for the if statement
+   */
+  public void write(int line) {
+    if (line == '\n') {
+      final String texted = string.toString();
+      SwingUtilities.invokeLater(() -> text.append(texted));
+      string.setLength(0);
     }
-
-    stringBuilder.append((char) b);
+    string.append((char) line);
   }
+
+
 }

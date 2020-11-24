@@ -1,29 +1,32 @@
 package Objects;
 
+
 /**
  * infantry class is the basic unit type of troop worth 1
  *
  * @author Peter Tanyous
  * @version version 1
  */
-public class infantry extends Troops
-{
+public class infantry extends Troops {
   public final int worth;
+
 
   /**
    * Constructor for objects of class infantry
    */
-  public infantry()
-  {
+  public infantry() {
     worth = 1;
   }
-  /*
+
+
+  /**
    * returns the worth of an wildCard to be used in checking what Card is in hands
    *
    * @return int the worth of the troop
    */
-  public int getWorth()
-  {
+  public int getWorth() {
     return worth;
   }
+
+
 }

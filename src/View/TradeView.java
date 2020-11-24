@@ -1,5 +1,6 @@
 package View;
-import Logic.*;
+
+import Logic.Gameplay;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +9,14 @@ import java.awt.event.ActionListener;
 public class TradeView extends JFrame {
   // initialize labels
   static JLabel label;
-  // initialize buttons
-  private JButton tradeButton;
-  // initialize combobox
-  public JComboBox<String> tradeComboBox;
-  //hand
-  private final String[] options;
   //game
   public final Gameplay game;
+  //hand
+  private final String[] options;
+  // initialize combobox
+  public JComboBox<String> tradeComboBox;
+  // initialize buttons
+  private JButton tradeButton;
 
   public TradeView(Gameplay game, String[] options) {
     this.game = game;
@@ -42,8 +43,7 @@ public class TradeView extends JFrame {
     //ScrollingPanes
     tradeButton = new JButton("Trade!");
     // Setting button commands
-    String fortifyString = "Trade!";
-    tradeButton.setActionCommand(fortifyString);
+    tradeButton.setActionCommand("Trade!");
     //initialize scroll pane
     tradePanel.add(label);
     tradeComboBox = new JComboBox<>(options);

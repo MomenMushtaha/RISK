@@ -1,5 +1,7 @@
 package View;
-import Logic.*;
+
+import Logic.Gameplay;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -7,16 +9,16 @@ import java.awt.event.ActionListener;
 public class DeployView extends JFrame {
   //initialize labels
   static JLabel label;
-  //initialize buttons
-  private JButton deployButton;
-  //initialize ComboBox
-  public JComboBox<String> troopsComboBox;
-  //initialize Lists
-  public JList<String> currentPlayerTerritoryList;
   //troops to be added
   public final int troops;
   //game
   public final Gameplay game;
+  //initialize ComboBox
+  public JComboBox<String> troopsComboBox;
+  //initialize Lists
+  public JList<String> currentPlayerTerritoryList;
+  //initialize buttons
+  private JButton deployButton;
 
 
   public DeployView(Gameplay game) {

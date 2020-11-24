@@ -1,31 +1,33 @@
 package View;
 
-import Logic.*;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import java.awt.Dimension;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.GridLayout;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
+
 
 /**
  * GameView of the GUI of Risk!.
+ *
  * @author Momin Mushtaha
  **/
 public class GameView extends JFrame {
+  public static final String RISK_STARTS = "Risk Starts";
   //initialize labels
   static JLabel label;
-  //initialize buttons
-  private JButton newGameButton;
+  private final String[] players = {"2", "3", "4", "5", "6"};
   //initialize comboBox
   public JComboBox<String> playerComboBox;
-  private final String[] players = { "2", "3" , "4" , "5" , "6" };
+  //initialize buttons
+  private JButton newGameButton;
 
-    public GameView(Gameplay game)
-  {
-      setTitle("Risk Starts");
+
+  /**
+   * constructor for GameView
+   *
+   */
+  public GameView() {
+    setTitle(RISK_STARTS);
     setPreferredSize(new Dimension(300, 300));
     setResizable(false);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,9 +38,12 @@ public class GameView extends JFrame {
     toFront();
   }
 
-
-  private JPanel startDialog()
-  {
+  /**
+   * Builds the start Dialog that will be shown on the panel
+   *
+   * @return startPanel
+   */
+  private JPanel startDialog() {
     // Creates the panel, Labels and Layouts
     //initialize panel
     JPanel startPanel = new JPanel();
@@ -61,9 +66,12 @@ public class GameView extends JFrame {
     return startPanel;
   }
 
-  // Action listeners for GameView
-  public void GameViewActionListeners(ActionListener evt)
-  {
+  /**
+   * Action listeners for GameView
+   *
+   * @param evt Action listener
+   */
+  public void GameViewActionListeners(ActionListener evt) {
     newGameButton.addActionListener(evt);
   }
 }

@@ -1,23 +1,24 @@
 package View;
 
+import Logic.Gameplay;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import Logic.*;
 
 public class MoveAfterView extends JFrame {
   // initialize labels
   static JLabel label;
-  // initialize buttons
-  private JButton moveAfterButton;
-  // initialize combobox
-  public JComboBox<String> troopsComboBox;
   //troops
   private final int troops;
+  // initialize combobox
+  public JComboBox<String> troopsComboBox;
+  // initialize buttons
+  private JButton moveAfterButton;
 
-    public MoveAfterView(Gameplay game, int troops) {
+  public MoveAfterView(Gameplay game, int troops) {
     this.troops = troops;
-        setPreferredSize(new Dimension(300, 300));
+    setPreferredSize(new Dimension(300, 300));
     setResizable(false);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     pack();
@@ -59,7 +60,7 @@ public class MoveAfterView extends JFrame {
     int num = 3;
     int i = 0;
     String[] r = new String[troops - 3];
-    while (num < troops ) {
+    while (num < troops) {
       r[i] = String.valueOf(num);
       num += 1;
       i++;

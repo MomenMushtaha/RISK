@@ -1,24 +1,28 @@
 package Logic;
 
+
 import Objects.*;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+
 
 /**
  * Gameplay Class contains the logic used to run RISK
+ *
  * @author Momin Mushtaha
- * @version 1
+ * @version 2
  */
 public class Gameplay {
   private final Board board;
+  public final ArrayList<Player> players;
   private Player currentPlayer;
-  private final ArrayList<Player> players;
   private int troopsNewTurn;
-  private ArrayList<Territory> pathListing;
+  public ArrayList<Territory> pathListing;
   private String state;
-  private String trade;
   private Boolean addCard;
   private ArrayList<Territory> borderTerritories;
-  public AI ai;
 
 
   /**
@@ -27,23 +31,22 @@ public class Gameplay {
   public Gameplay() {
     this.board = new Board();
     this.players = new ArrayList<>();
-    state ="";
-    trade ="";
+    state = "";
+    addCard = false;
   }
 
 
   /**
    * Performs an attack command between territories t1 and t2
    *
-   * @param targetTerritory is the Target Territory
+   * @param targetTerritory    is the Target Territory
    * @param attackingTerritory is the attacking Territory
-   * @param attackers The number of troops the t2 has to attack with
+   * @param attackers          The number of troops the attacking Territory has to attack with
    */
   public void attack(Territory targetTerritory, Territory attackingTerritory, int attackers) {
     threeDice dice3 = new threeDice();
     twoDice dice2 = new twoDice();
     Die die = new Die();
-
     int a;
     int d;
     int aa;
@@ -150,7 +153,8 @@ public class Gameplay {
 
   /**
    * Shows the results of the attack command performed and indicates what happens next
-   *  @param targetTerritory  is the defending Territory
+   *
+   * @param targetTerritory    is the defending Territory
    * @param attackingTerritory is the attacking Territory
    */
   public void attackResult(Territory targetTerritory, Territory attackingTerritory) {
@@ -170,43 +174,45 @@ public class Gameplay {
       targetTerritory.getPlayer().removeTerritories(targetTerritory);
       attackingTerritory.getPlayer().addTerritories(targetTerritory);
       targetTerritory.changeOwner(attackingTerritory.getPlayer());
-      continent_check();
+      continent_check(attackingTerritory.getPlayer());
       if (OldOwner.getTerritories().size() == 0) {
         //eliminated if it was the defenders last territory
         removePlayer(OldOwner);
       }
       if (playersSize() == 1) {
         //Declares if we have a winner
-        System.out.println(getCurrentPlayer().getName() + " has won");
+        System.out.println(attackingTerritory.getPlayer().getName() + " has won");
       }
       if (attackingTerritory.getTroops() > 3) {
-        //do nothing
+        System.out.println("Please choose how many troops you would like to move");
       } else if (attackingTerritory.getTroops() == 3) {
         targetTerritory.addTroops(2);
         attackingTerritory.removeTroops(2);
-        System.out.println("Two Troops left to " + targetTerritory.getName() + " and one remaining in " + attackingTerritory.getName());
+        System.out.println("Two Troops went to " + targetTerritory.getName() + " and one remaining in " + attackingTerritory.getName());
       } else if (attackingTerritory.getTroops() == 2) {
         targetTerritory.addTroops(1);
         attackingTerritory.removeTroops(1);
-        System.out.println("One Troop left to " + targetTerritory.getName() + " and one remaining in " + attackingTerritory.getName());
+        System.out.println("One Troop wnt to " + targetTerritory.getName() + " and one remaining in " + attackingTerritory.getName());
       }
     } else {
       attack(mapper(targetTerritory.getName()), mapper(attackingTerritory.getName()), attackingTerritory.getTroops());
     }
   }
 
+
   /**
    * moving the troops from the attacking territory to the conquered one
-   * @param newTerritory moving troops to
+   *
+   * @param newTerritory    moving troops to
    * @param sourceTerritory moving troops from
-   * @param TroopsToMove how many troops to move
+   * @param TroopsToMove    how many troops to move
    */
   public void MoveAfterAttack(Territory newTerritory, Territory sourceTerritory, int TroopsToMove) {
     //how many troops to move to Territory t
     if (TroopsToMove >= 3) {
-        System.out.println(TroopsToMove + " added to " + newTerritory.getName() + " from " + sourceTerritory.getName());
-        newTerritory.addTroops(TroopsToMove);
-        sourceTerritory.removeTroops(TroopsToMove);
+      System.out.println(TroopsToMove + " added to " + newTerritory.getName() + " from " + sourceTerritory.getName());
+      newTerritory.addTroops(TroopsToMove);
+      sourceTerritory.removeTroops(TroopsToMove);
     }
   }
 
@@ -214,7 +220,7 @@ public class Gameplay {
   /**
    * Fortifies the troops when the command is passed
    */
-  public void fortify(Territory sourceTerritory, Territory targetTerritory, int fortifiedTroops){
+  public void fortify(Territory sourceTerritory, Territory targetTerritory, int fortifiedTroops) {
     state = "fortified";
     sourceTerritory.removeTroops(fortifiedTroops);
     targetTerritory.addTroops(fortifiedTroops);
@@ -252,25 +258,32 @@ public class Gameplay {
 
   /**
    * gets the current player
+   *
    * @return the current player playing
    */
-  public Player getCurrentPlayer()
-{
-  return currentPlayer;
-}
+  public Player getCurrentPlayer() {
+    return currentPlayer;
+  }
 
+  /**
+   * sets the new current player at the start of the turn
+   *
+   * @param Index index indicating which player is to be set
+   */
+  public void setCurrentPlayer(int Index) {
+    currentPlayer = getPlayers(Index);
+  }
 
   /**
    * Deploy troops at the beginning of each Player's turn
    *
    * @param newTroop an Integer of the number of troops to be deployed on the Territory specified in the method
+   * @param terr     is the Territory to be deployed at
    */
-  public void deploy(Territory terr,int newTroop)
-  {
+  public void deploy(Territory terr, int newTroop) {
     state = "deployed";
     terr.addTroops(newTroop);
   }
-
 
   /**
    * Gets a Player for players ArrayList
@@ -282,7 +295,6 @@ public class Gameplay {
     return players.get(index);
   }
 
-
   /**
    * Removes a Player from the game
    *
@@ -291,20 +303,19 @@ public class Gameplay {
   public void removePlayer(Player player) {
     System.out.println(player.getName() + " is removed");
     players.remove(player);
+    player.equals(null);
   }
-
 
   /**
    * Initializes the players to the game
    *
    * @param number an integer of the number of players to be initialized
    */
-  public void InitializePlayers(int number){
+  public void InitializePlayers(int number) {
     for (int z = 0; z < number; z++) {
       players.add(new Player("Player " + (z + 1)));
     }
   }
-
 
   /**
    * Initializes troops to territories at the start of the game
@@ -320,80 +331,83 @@ public class Gameplay {
     }
   }
 
+  public Board getBoard()
+  {
+    return board;
+  }
 
   /**
    * Sets the amount of initial troops each player can start out with depending on number of players
+   *
+   * @param numPlayers is the number of players playing the Risk
    */
   public void NumberInitialTroops(int numPlayers) {
     //2 : 50 troops each, 3: 35 troops each, 4: 30 troops, 5: 25, 6: 20
     int m;
-    for (int pl = 0; pl < numPlayers; pl++ )
-    if (numPlayers == 2) {
+    for (int pl = 0; pl < numPlayers; pl++)
+      if (numPlayers == 2) {
         for (m = 0; m < 13; m++) {
           getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
         }
         for (m = 13; m < 21; m++) {
           getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
         }
-    } else if (numPlayers == 3) {
-      for (m = 0; m < 7; m++) {
-        getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-      }
-      for (m = 7; m < 14; m++) {
-        getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
-      }
-    } else if (numPlayers == 4) {
-      if(getPlayers(pl).getTerritories().size() < 11) {
-        for (m = 0; m < 3; m++) {
+      } else if (numPlayers == 3) {
+        for (m = 0; m < 7; m++) {
           getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
         }
-        for (m = 3; m < 7; m++) {
+        for (m = 7; m < 14; m++) {
           getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
         }
+      } else if (numPlayers == 4) {
+        if (getPlayers(pl).getTerritories().size() < 11) {
+          for (m = 0; m < 3; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
+          }
+          for (m = 3; m < 7; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
+          }
           for (m = 7; m < 10; m++) {
             getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
           }
-      }
-      else if(getPlayers(pl).getTerritories().size() == 11){
-        for (m = 0; m < 5; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
+        } else if (getPlayers(pl).getTerritories().size() == 11) {
+          for (m = 0; m < 5; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
+          }
+          for (m = 5; m < 9; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
+          }
+          for (m = 9; m < 11; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
+          }
         }
-        for (m = 5; m < 9; m++) {
+      } else if (numPlayers == 5) {
+        if (getPlayers(pl).getTerritories().size() < 9) {
+          for (m = 0; m < 3; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
+          }
+          getPlayers(pl).getTerritoyAtIndex(3).addTroops(3);
+          for (m = 4; m < 7; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
+          }
+        } else if (getPlayers(pl).getTerritories().size() == 9) {
+          for (m = 0; m < 2; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
+          }
+          for (m = 2; m < 5; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
+          }
+          for (m = 5; m < 8; m++) {
+            getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
+          }
+        }
+      } else if (numPlayers == 6) {
+        getPlayers(pl).getTerritoyAtIndex(0).addTroops(2);
+        for (m = 1; m < 7; m++) {
           getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
         }
-        for (m = 9; m < 11; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
-        }
       }
-    } else if (numPlayers == 5) {
-      if(getPlayers(pl).getTerritories().size() < 9) {
-        for (m = 0; m < 3; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-        }
-        getPlayers(pl).getTerritoyAtIndex(3).addTroops(3);
-        for (m = 4; m < 7; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
-        }
-      }
-    else if(getPlayers(pl).getTerritories().size() == 9){
-        for (m = 0; m < 2; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-        }
-      for (m = 2; m < 5; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
-        }
-        for (m = 5; m < 8; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
-        }
-      }
-    }
-    else if (numPlayers == 6) {
-      getPlayers(pl).getTerritoyAtIndex(0).addTroops(2);
-      for (m = 1; m < 7; m++) {
-        getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
-      }
-    }}
-
+  }
 
   /**
    * looks for the territory using its String name
@@ -409,7 +423,6 @@ public class Gameplay {
     return null;
   }
 
-
   /**
    * Prints the continents a player owns
    *
@@ -417,7 +430,6 @@ public class Gameplay {
    */
   private void printTheContinents(ArrayList<Continent> continentList) {
     System.out.println();
-
     if (continentList == null) {
       System.out.println("No Continents Owned");
     } else {
@@ -427,7 +439,6 @@ public class Gameplay {
       }
     }
   }
-
 
   /**
    * Prints the Territories a player owns
@@ -444,18 +455,16 @@ public class Gameplay {
    * lists the cards the player has in his hands
    */
   public void listTheCards() {
-    if (getCurrentPlayer().getHand() == null)
-    {
+    if (getCurrentPlayer().getHand() == null) {
       System.out.println("you dont have any cards in your hand");
+    } else {
+      ArrayList<Card> cards = getCurrentPlayer().getHand().getCards();
+      System.out.println("Cards: ");
+      for (Card card : cards) {
+        System.out.println(card.getTerritoryName() + ": " + card.getType() + " Troops = " + card.getTypeWorth());
+      }
     }
-    else{
-    ArrayList<Card> cards = getCurrentPlayer().getHand().getCards();
-    System.out.println("Cards: ");
-    for (Card card : cards) {
-      System.out.println(card.getTerritoryName() + ": " + card.getType() + " Troops = " + card.getTypeWorth());
-    }
-  }}
-
+  }
 
   /**
    * lists the Territories a player owns
@@ -463,17 +472,18 @@ public class Gameplay {
    * @param territoryList a list of Territories
    */
   public String[] listTheTerritories(ArrayList<Territory> territoryList) {
-    String[] territoryListing =new String[territoryList.size()];
+    String[] territoryListing = new String[territoryList.size()];
     int t = 0;
-      for (Territory terr : territoryList) {
-        territoryListing[t] = (terr.getName() + ": Troops = " + terr.getTroops());
-        t++;
-      }
+    for (Territory terr : territoryList) {
+      territoryListing[t] = (terr.getName() + ": Troops = " + terr.getTroops());
+      t++;
+    }
     return territoryListing;
   }
 
   /**
    * lists the board territories of the territory passed
+   *
    * @param terr the territory wished to list its border territories
    * @return a string array of border territories
    */
@@ -486,7 +496,7 @@ public class Gameplay {
       if (getCurrentPlayer().getTerritories().contains(bordering)) {
         //do nothing
         // could just invert the if statement but its considered code smell
-      }else{
+      } else {
         borderingListing[add] = bordering.getName() + ": Troops = " + bordering.getTroops();
         borderTerritories.add(bordering);
         add++;
@@ -495,9 +505,9 @@ public class Gameplay {
     return borderingListing;
   }
 
-
   /**
    * list the path a territory has when fortifying is clicked
+   *
    * @param sor source territory to list the path for
    * @returns String[] list of the path territories
    */
@@ -509,8 +519,7 @@ public class Gameplay {
       }
     }
     String[] listPath = new String[pathListing.size()];
-    for (int p = 0; p < listPath.length; p++)
-    {
+    for (int p = 0; p < listPath.length; p++) {
       listPath[p] = (pathListing.get(p).getName() + ": Troops = " + pathListing.get(p).getTroops());
     }
     return listPath;
@@ -518,36 +527,24 @@ public class Gameplay {
 
   /**
    * get a territory for the pathListing at a specific index
+   *
    * @param Index territory wished to be retrieved index
    * @return the territory at the index specified
    */
-  public Territory getPathListingAtIndex(int Index)
-  {
+  public Territory getPathListingAtIndex(int Index) {
     return pathListing.get(Index);
   }
-
 
   /**
    * trades cards for current player
    */
-  public void trade()
-  {
+  public void trade() {
     currentPlayer.addToTradeTimes();
     troopsNewTurn = currentPlayer.getNewTroopers();
+    currentPlayer.trade = "";
   }
 
-
   /**
-   * get the state of the trade string
-   * @return string indicating the state of trade
-   */
-public String getTrade()
-{
-  return trade;
-}
-
-
-   /**
    * prints the status of the game
    */
   public void getGameStatus() {
@@ -557,7 +554,6 @@ public String getTrade()
       printTheContinents(getPlayers(g).getContinents());
     }
   }
-
 
   /**
    * Prints the commands possible for the game
@@ -573,7 +569,6 @@ public String getTrade()
       FORTIFY: MOVE TROOPS BETWEEN YOUR TERRITORIES (ONLY ONE MOVE IS ALLOWED)\s
       """);
   }
-
 
   /**
    * Prints the rules of the game
@@ -593,11 +588,10 @@ public String getTrade()
       );
   }
 
-
   /**
    * Signals that currentPlayer wants to quit the game
    */
-  public void quit(){
+  public void quit() {
     System.out.println(getCurrentPlayer().getName() + " has left the game");
     removePlayer(getCurrentPlayer());
     if ((playersSize() == 1)) {
@@ -606,11 +600,10 @@ public String getTrade()
     }
   }
 
-
   /**
    * Prints welcoming phrases at the beginning of each ga,e
    */
-  public void printWelcome(){
+  public void printWelcome() {
     System.out.println();
     System.out.println("Welcome to Risk!");
     System.out.println("Everybody wants to rule the world!");
@@ -621,11 +614,10 @@ public String getTrade()
     System.out.println();
   }
 
-
   /**
    * Prints Help then followed by the commands possible for the game
    */
-  public void printHelp(){
+  public void printHelp() {
     {
       System.out.println("ARE YOU LOST?");
       System.out.println("I CAN HELP YOU");
@@ -637,135 +629,120 @@ public String getTrade()
   /**
    * checks if the player conquered at least one territory in his turn and adds a card to current player
    */
-  private void checkAddCards()
-  {
-
-    if (addCard)
-    {
+  private void checkAddCards() {
+    if (addCard) {
       getCurrentPlayer().addCardToPlayer(board.deck.draw());
       System.out.println("A card added to " + getCurrentPlayer().getName());
-    }
-    else
-    {
+    } else {
       System.out.println("no cards are added to " + getCurrentPlayer().getName());
     }
   }
 
-
   /**
    * Signals that currentPlayer wants to pass the turn
-   *
    */
   public void nextPlayerTurn() {
     checkAddCards();
     System.out.println(getCurrentPlayer().getName() + " passes");
-    if (playersSize() == 6)
-    {
-      if (getCurrentPlayer() == getPlayers(5))
-      {setCurrentPlayer(0);}
-      else if (getCurrentPlayer() == getPlayers(4))
-      {setCurrentPlayer(5);}
-      else if (getCurrentPlayer() == getPlayers(3))
-      {setCurrentPlayer(4);}
-      else if (getCurrentPlayer() == getPlayers(2))
-    {setCurrentPlayer(3);}
-     else if (getCurrentPlayer() == getPlayers(1))
-    {setCurrentPlayer(2);}
-     else if (getCurrentPlayer() == getPlayers(0))
-    {setCurrentPlayer(1);}
-    }
-    else if (playersSize() == 5)
-    {
-      if (getCurrentPlayer() == getPlayers(4))
-    {setCurrentPlayer(0);}
-    else if (getCurrentPlayer() == getPlayers(3))
-    {setCurrentPlayer(4);}
-    else if (getCurrentPlayer() == getPlayers(2))
-    {setCurrentPlayer(3);}
-    else if (getCurrentPlayer() == getPlayers(1))
-    {setCurrentPlayer(2);}
-    else if (getCurrentPlayer() == getPlayers(0))
-    {setCurrentPlayer(1);}
-    }
-    else if(playersSize() == 4)
-    {
-      if (getCurrentPlayer() == getPlayers(3))
-    {setCurrentPlayer(0);}
-    else if (getCurrentPlayer() == getPlayers(2))
-    {setCurrentPlayer(3);}
-    else if (getCurrentPlayer() == getPlayers(1))
-    {setCurrentPlayer(2);}
-    else if (getCurrentPlayer() == getPlayers(0))
-    {setCurrentPlayer(1);}
-    }
-    else if(playersSize() == 3)
-    {
-      if (getCurrentPlayer() == getPlayers(2))
-      {setCurrentPlayer(0);}
-      else if (getCurrentPlayer() == getPlayers(1))
-      {setCurrentPlayer(2);}
-      else if (getCurrentPlayer() == getPlayers(0))
-      {setCurrentPlayer(1);}
-    }
-    else if(playersSize() == 2)
-    {
-      if (getCurrentPlayer() == getPlayers(1))
-    {setCurrentPlayer(0);}
-    else if (getCurrentPlayer() == getPlayers(0))
-    {setCurrentPlayer(1);}}
-    else
-    {
+    if (playersSize() == 6) {
+      if (getCurrentPlayer() == getPlayers(5)) {
+        setCurrentPlayer(0);
+      } else if (getCurrentPlayer() == getPlayers(4)) {
+        setCurrentPlayer(5);
+      } else if (getCurrentPlayer() == getPlayers(3)) {
+        setCurrentPlayer(4);
+      } else if (getCurrentPlayer() == getPlayers(2)) {
+        setCurrentPlayer(3);
+      } else if (getCurrentPlayer() == getPlayers(1)) {
+        setCurrentPlayer(2);
+      } else if (getCurrentPlayer() == getPlayers(0)) {
+        setCurrentPlayer(1);
+      }
+    } else if (playersSize() == 5) {
+      if (getCurrentPlayer() == getPlayers(4)) {
+        setCurrentPlayer(0);
+      } else if (getCurrentPlayer() == getPlayers(3)) {
+        setCurrentPlayer(4);
+      } else if (getCurrentPlayer() == getPlayers(2)) {
+        setCurrentPlayer(3);
+      } else if (getCurrentPlayer() == getPlayers(1)) {
+        setCurrentPlayer(2);
+      } else if (getCurrentPlayer() == getPlayers(0)) {
+        setCurrentPlayer(1);
+      }
+    } else if (playersSize() == 4) {
+      if (getCurrentPlayer() == getPlayers(3)) {
+        setCurrentPlayer(0);
+      } else if (getCurrentPlayer() == getPlayers(2)) {
+        setCurrentPlayer(3);
+      } else if (getCurrentPlayer() == getPlayers(1)) {
+        setCurrentPlayer(2);
+      } else if (getCurrentPlayer() == getPlayers(0)) {
+        setCurrentPlayer(1);
+      }
+    } else if (playersSize() == 3) {
+      if (getCurrentPlayer() == getPlayers(2)) {
+        setCurrentPlayer(0);
+      } else if (getCurrentPlayer() == getPlayers(1)) {
+        setCurrentPlayer(2);
+      } else if (getCurrentPlayer() == getPlayers(0)) {
+        setCurrentPlayer(1);
+      }
+    } else if (playersSize() == 2) {
+      if (getCurrentPlayer() == getPlayers(1)) {
+        setCurrentPlayer(0);
+      } else if (getCurrentPlayer() == getPlayers(0)) {
+        setCurrentPlayer(1);
+      }
+    } else {
       System.out.println(getCurrentPlayer().getName() + " has won");
     }
     System.out.println("NEXTTTTT!!");
-    state  = "";
+    state = "";
     troopsNewTurn = get_bonus(getCurrentPlayer());
     addCard = false;
     checkTradeCards();
-    if(getCurrentPlayer().getIsAI())
-    {
-      this.ai = new AI(this);
+    if (getCurrentPlayer().getIsAI()) {
+      AI ai = new AI(this);
       ai.makeMove();
-    }
-
-    //if pass is entered cycle to the next player
+    }//if pass is entered cycle to the next player
   }
 
+  /**
+   * get the state of the trade string
+   *
+   * @return string indicating the state of trade
+   */
+  public String getTrade() {
+    return currentPlayer.trade;
+  }
 
   /**
-   *checks if cards are tradeable or not
+   * checks if cards are tradeable or not
    */
   private void checkTradeCards() {
-    if(getCurrentPlayer().getHand() == null) {
-      trade = "";
+    if (getCurrentPlayer().getHand() == null) {
+      System.out.println("you have no cards in your hand");
+      currentPlayer.trade = "";
+    } else if (getCurrentPlayer().getHand().getCards().size() < 3) {
+      System.out.println("you have less than 3 cards");
+      currentPlayer.trade = "";
+    } else if (getCurrentPlayer().getHand().mustTurnInCards()) {
+      System.out.println("you must trade cards this turn");
+      currentPlayer.trade = "must Trade";
+    } else {
+      currentPlayer.trade = "can Trade";
     }
-    else{
-      trade = "can Trade";
-    if (getCurrentPlayer().getHand().mustTurnInCards()) {
-      trade = "must Trade";
-    }
-      }
-    }
-
-
-  /**
-   * sets the new current player at the start of the turn
-   * @param Index index indicating which player is to be set
-   */
-  public void setCurrentPlayer(int Index)
-  {
-    currentPlayer = getPlayers(Index);
   }
-
 
   /**
    * calculates the bonus troops of the new turn
+   *
    * @param p is the current player
    * @return integer of the bonus troops at the start of the turn
    */
-  public int get_bonus(Player p)
-  {
-    System.out.println("It is " +p.getName() + " turn");
+  public int get_bonus(Player p) {
+    System.out.println("It is " + p.getName() + " turn");
     int bonus = 0;
     if (p.getContinents().size() > 0) {
       for (int j = 0; j < p.getContinents().size(); j++) {
@@ -775,8 +752,7 @@ public String getTrade()
         ("you received " + bonus + " bonus troops for the continents you are holding");
     }
     troopsNewTurn = (p.getTerritories().size() / 3) + bonus;
-    if (getTroopsNewTurn() < 3)
-    {
+    if (getTroopsNewTurn() < 3) {
       troopsNewTurn = 3;
     }
     System.out.println(p.getName() + " receives " + getTroopsNewTurn() + " troops");
@@ -787,18 +763,18 @@ public String getTrade()
   /**
    * checks any continents are to be added to the current player
    */
-  public void continent_check() {
+  public void continent_check(Player p) {
     int a = 0;
     for (int y = 0; y < board.getContinentList().size(); y++) {
       for (int z = 0; z < board.getContinentList().get(y).getMemberTerritories().size(); z++) {
-        if (getCurrentPlayer().getTerritories().contains(board.getContinentList().get(y).getMemberTerritories().get(z))) {
+        if (p.getTerritories().contains(board.getContinentList().get(y).getMemberTerritories().get(z))) {
           a += 1;
         }
       }
       if (a == board.getContinentList().get(y).getMemberTerritories().size()) {
         System.out.println(board.getContinentList().get(y).getMemberTerritories().size());
-        System.out.println(board.getContinentList().get(y).getName() + " is added to " + getCurrentPlayer().getName());
-        getCurrentPlayer().addContinents(board.getContinentList().get(y));
+        System.out.println(board.getContinentList().get(y).getName() + " is added to " + p.getName());
+        p.addContinents(board.getContinentList().get(y));
       }
       a = 0;
     }
@@ -807,17 +783,17 @@ public String getTrade()
 
   /**
    * get the troops of the new turn
+   *
    * @return an integer of the troops of the new turn
    */
-  public int getTroopsNewTurn()
-{
-  return troopsNewTurn;
-}
+  public int getTroopsNewTurn() {
+    return troopsNewTurn;
+  }
 
 
-/**
- *updates the troops after they are added
- */
+  /**
+   * updates the troops after they are added
+   */
   public void updateTroopsNewTurn(int addedTroops) {
     troopsNewTurn = troopsNewTurn - addedTroops;
   }
@@ -825,45 +801,88 @@ public String getTrade()
 
   /**
    * calculates the size of players ArrayList
+   *
    * @return integer number of the size of players
    */
-public int playersSize()
-{
-  return players.size();
-}
+  public int playersSize() {
+    return players.size();
+  }
 
 
   /**
    * getter for state string
+   *
    * @return a string indicating the state of the turn
    */
-  public String getState()
-{
-  return state;
-}
+  public String getState() {
+    return state;
+  }
 
 
   /**
    * getter for border territories
+   *
    * @return an ArrayList of the border territories
    */
-  public ArrayList<Territory> getBorderTerritories()
-{
-  return borderTerritories;
-}
+  public ArrayList<Territory> getBorderTerritories() {
+    return borderTerritories;
+  }
+
+
+  /**
+   * removes the card for hand if the option chosen is applicable
+   *
+   * @param index is the index indicating which option was chosen
+   */
+  public boolean indexer(int index) {
+    boolean x = false;
+    //easier to read when the if statement is just one line
+    if (index == 0) {
+      x = getCurrentPlayer().getHand().removeCards(1, 2, 3);
+    }
+    if (index == 1) {
+      x = getCurrentPlayer().getHand().removeCards(1, 2, 4);
+    }
+    if (index == 2) {
+      x = getCurrentPlayer().getHand().removeCards(1, 2, 5);
+    }
+    if (index == 3) {
+      x = getCurrentPlayer().getHand().removeCards(1, 3, 4);
+    }
+    if (index == 4) {
+      x = getCurrentPlayer().getHand().removeCards(1, 3, 5);
+    }
+    if (index == 5) {
+      x = getCurrentPlayer().getHand().removeCards(1, 4, 5);
+    }
+    if (index == 6) {
+      x = getCurrentPlayer().getHand().removeCards(2, 3, 4);
+    }
+    if (index == 7) {
+      x = getCurrentPlayer().getHand().removeCards(2, 3, 5);
+    }
+    if (index == 8) {
+      x = getCurrentPlayer().getHand().removeCards(2, 4, 5);
+    }
+    if (index == 9) {
+      x = getCurrentPlayer().getHand().removeCards(3, 4, 5);
+    }
+    return x;
+  }
 
 
   /**
    * initialize the game at its start
+   *
    * @param numPlayers is the number of players playing
    */
-  public void startGame(int numPlayers)
-  {
-    InitializePlayers(numPlayers) ;
+  public void startGame(int numPlayers) {
+    InitializePlayers(numPlayers);
     addInitialTerritories(numPlayers);
     NumberInitialTroops(numPlayers);
     setCurrentPlayer(0);
     get_bonus(getCurrentPlayer());
-    addCard = false;
   }
+
+
 }

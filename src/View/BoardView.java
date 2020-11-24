@@ -1,5 +1,8 @@
 package View;
-import Logic.*;
+
+import Logic.Gameplay;
+import Logic.Outputer;
+
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
@@ -7,9 +10,9 @@ import java.awt.event.ActionListener;
 import java.io.PrintStream;
 
 public class BoardView extends JDialog {
+  public JButton deployBtn;
   //initialize buttons
   private JButton tradeBtn;
-  public JButton deployBtn;
   private JButton attackBtn;
   private JButton fortifyBtn;
   private JButton passBtn;
@@ -61,12 +64,11 @@ public class BoardView extends JDialog {
   }
 
 
-
   private JPanel PrintOutputPanel() {
 
     //initialize panels
     JPanel printOutputPanel = new JPanel();
-    printOutputPanel.setPreferredSize(new Dimension(400/2, 980/2));
+    printOutputPanel.setPreferredSize(new Dimension(400 / 2, 980 / 2));
     GridBagLayout printOutputLayout = new GridBagLayout();
     printOutputPanel.setLayout(printOutputLayout);
     cons = new GridBagConstraints();
@@ -81,12 +83,13 @@ public class BoardView extends JDialog {
     DefaultCaret caret = (DefaultCaret) printTextArea.getCaret();
     caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     JScrollPane printOutputScrollPane = new JScrollPane(printTextArea);
-    printOutputScrollPane.setPreferredSize(new Dimension(400/2,980/2));
+    printOutputScrollPane.setPreferredSize(new Dimension(400 / 2, 980 / 2));
 
     printOutputPanel.add(printOutputScrollPane);
 
     return printOutputPanel;
   }
+
   /**
    * The panel containing the scrollable Risk map image.
    **/
@@ -110,11 +113,10 @@ public class BoardView extends JDialog {
 
     JPanel commandsPanel = new JPanel();
 
-    commandsPanel.setPreferredSize(new Dimension(200/2, 980/2));
+    commandsPanel.setPreferredSize(new Dimension(200 / 2, 980 / 2));
 
     GridBagLayout commandsLayout = new GridBagLayout();
     commandsPanel.setLayout(commandsLayout);
-
 
 
     tradeBtn = new JButton("TRADE");
@@ -148,7 +150,6 @@ public class BoardView extends JDialog {
     cons = new GridBagConstraints();
 
 
-
     cons.fill = GridBagConstraints.BOTH;
     cons.insets = new Insets(5, 5, 5, 5);
     cons.weightx = 0.5;
@@ -165,7 +166,6 @@ public class BoardView extends JDialog {
     cons.gridx = 0;
     cons.gridy = 1;
     commandsPanel.add(deployBtn, cons);
-
 
 
     cons.fill = GridBagConstraints.BOTH;
@@ -221,7 +221,6 @@ public class BoardView extends JDialog {
   }
 
 
-
   public void BoardViewActionListeners(ActionListener evt1) {
 
     tradeBtn.addActionListener(evt1);
@@ -232,5 +231,6 @@ public class BoardView extends JDialog {
     printBtn.addActionListener(evt1);
     quitBtn.addActionListener(evt1);
     helpBtn.addActionListener(evt1);
-  }}
+  }
+}
 

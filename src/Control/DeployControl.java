@@ -1,12 +1,14 @@
 package Control;
+
+import Logic.Gameplay;
+import Objects.Territory;
+import View.DeployView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 import java.util.Random;
 
-import Objects.*;
-import Logic.*;
-import View.*;
 public class DeployControl implements ActionListener {
 
   public final Gameplay game;
@@ -18,14 +20,14 @@ public class DeployControl implements ActionListener {
     System.out.println("Deploy Panel");
     this.view = view;
     Random t = new Random();
-    if(game.getCurrentPlayer().getIsAI()) {
+    if (game.getCurrentPlayer().getIsAI()) {
       view.setVisible(false);
 
+    } else {
+      //Add this class' actionListener to DeployView's buttons
+      view.DeployViewActionListeners(this);
     }
-    else {
-    //Add this class' actionListener to DeployView's buttons
-    view.DeployViewActionListeners(this);
-  }}
+  }
 
   @Override
   public void actionPerformed(ActionEvent e) {
@@ -35,8 +37,8 @@ public class DeployControl implements ActionListener {
         int q = view.getplayerterritoryIndex();
         String selected = Objects.requireNonNull(view.troopsComboBox.getSelectedItem()).toString();
         int adding = Integer.parseInt(selected);
-        Territory deployedInto  = game.getCurrentPlayer().getTerritories().get(q);
-        game.deploy(deployedInto,adding);
+        Territory deployedInto = game.getCurrentPlayer().getTerritories().get(q);
+        game.deploy(deployedInto, adding);
         game.getCurrentPlayer().getTerritories().get(q).addTroops(adding);
         System.out.println("Deploying");
         game.updateTroopsNewTurn(adding);
@@ -53,7 +55,6 @@ public class DeployControl implements ActionListener {
       }
     }
   }
-
 
 
 }

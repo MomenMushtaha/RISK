@@ -1,7 +1,9 @@
 package Control;
-import Objects.*;
-import Logic.*;
-import View.*;
+
+import Logic.Gameplay;
+import Objects.Territory;
+import View.FortifyView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
@@ -30,14 +32,16 @@ public class FortifyControl implements ActionListener {
       int f = view.getPathTerritoryIndex();
       if (f != -1) {
         int x = view.getFortifyingIndex();
-        Territory fortifying  = game.getCurrentPlayer().getTerritories().get(x);
+        Territory fortifying = game.getCurrentPlayer().getTerritories().get(x);
         Territory target = game.getPathListingAtIndex(f);
         String selected = Objects.requireNonNull(view.troopsComboBox.getSelectedItem()).toString();
-        game.fortify(fortifying,target, Integer.parseInt(selected));
+        game.fortify(fortifying, target, Integer.parseInt(selected));
         view.setVisible(false);
       }
-      } else {
-        System.out.println("no territoy was chosen");
-        view.setVisible(false);
-        new FortifyControl(game, new FortifyView(game, troops, fortifyIndex ),troops, fortifyIndex);
-      }}}
+    } else {
+      System.out.println("no territoy was chosen");
+      view.setVisible(false);
+      new FortifyControl(game, new FortifyView(game, troops, fortifyIndex), troops, fortifyIndex);
+    }
+  }
+}

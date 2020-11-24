@@ -1,22 +1,24 @@
 package Objects;
 
+
 import java.util.ArrayList;
+
 
 /**
  * Board Class: This class creates the Territories, Continents, Cards, Deck, and Hands
  *
- * @author Momin Mushtaha
+ * @author Desmond Blake, Raul Hoyos, Momin Mushtaha
  */
-
 public class Board {
   public final Objects.Deck deck;
   public Territory[] territoriesList;
   private ArrayList<Continent> continentsList;
 
+
   /**
    * Constructor for board class
    */
-  public Board(){
+  public Board() {
     setTerritories();
     setContinents();
     this.deck = new Deck(territoriesList);
@@ -28,16 +30,13 @@ public class Board {
    */
   private void setContinents() {
     Continent NorthAmerica, SouthAmerica, Africa, Europe, Oceania, Asia;
-
     int bonusArmiesNA = 5;
     int bonusArmiesSA = 2;
     int bonusArmiesA = 5;
     int bonusArmiesEur = 5;
     int bonusArmiesOce = 2;
     int bonusArmiesAsia = 7;
-
     continentsList = new ArrayList<>();
-
 
     //Set territories in Continents
     ArrayList<Territory> NAterritores = new ArrayList<>();
@@ -46,7 +45,6 @@ public class Board {
     ArrayList<Territory> EurNAterritores = new ArrayList<>();
     ArrayList<Territory> OceNAterritores = new ArrayList<>();
     ArrayList<Territory> AsiaNAterritores = new ArrayList<>();
-
 
     //Add Territories for each Continent
     NAterritores.add(territoriesList[0]);
@@ -113,6 +111,7 @@ public class Board {
     continentsList.add(Oceania);
     continentsList.add(Asia);
   }
+
 
   /**
    * Creates the Territories for the game and adds neighbouring territories for each Territory
@@ -385,17 +384,21 @@ public class Board {
     territoriesList[41].addBorderTerritories(territoriesList[40]);
   }
 
+
   /**
    * Method to return the Territory list in the Class
+   *
    * @return territoriesList
    */
   public Territory[] getTerritoriesList() {
     return territoriesList;
   }
 
+
   /**
    * Method to return the Continent list in the Class
-   * @return territoriesList
+   *
+   * @return continentsList
    */
   public ArrayList<Continent> getContinentList() {
     return continentsList;

@@ -23,31 +23,32 @@ public class GameControl implements ActionListener {
     //Add this class' actionListener to GameView's buttons
   }
 
+  /**
+   * Starts the game and Initializes the Board and the Players
+   */
+  public static void main(String[] args) {
+    Logic.Gameplay game = new Logic.Gameplay();
+    new GameControl(new GameView(), game);
+
+  }
+
   //GameView's controller
   public void actionPerformed(ActionEvent evt) {
     String actionEvent = evt.getActionCommand();
     if (actionEvent.equals("newGameBtn")) {
       System.out.println("Initializing game");
-      switch (Objects.requireNonNull(view.playerComboBox.getSelectedItem()).toString()) {
-        case "2", "3", "4", "5", "6" -> {
-          String selected = view.playerComboBox.getSelectedItem().toString();
-          int numPlayers = Integer.parseInt(selected);
-          game.startGame(numPlayers);
-          view.setVisible(false);
-          new AIControl(game, new AIView(numPlayers));
+        String s = Objects.requireNonNull(view.playerComboBox.getSelectedItem()).toString();
+        if ("2".equals(s) || "3".equals(s) || "4".equals(s) || "5".equals(s) || "6".equals(s)) {
+            String selected = view.playerComboBox.getSelectedItem().toString();
+            int numPlayers = Integer.parseInt(selected);
+            game.startGame(numPlayers);
+            view.setVisible(false);
+            new AIControl(game, new AIView(numPlayers));
             System.out.println("Loading AIControl...");
+        } else {
+            System.out.println("Error: " + actionEvent + " actionEvent not found!");
+            new GameControl(new GameView(), game);
         }
-        default -> {
-          System.out.println("Error: " + actionEvent + " actionEvent not found!");
-          new GameControl(new GameView(game),game);
-        }}}}
-
-    /**
-     * Starts the game and Initializes the Board and the Players
-     */
-    public static void main(String[] args) {
-      Logic.Gameplay game = new Logic.Gameplay();
-      new GameControl(new GameView(game), game);
-
     }
   }
+}

@@ -1,21 +1,25 @@
 package Objects;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
-/**
- * Allows the creation of the Risk deck containing the 42 cards.
- **/
-public class Deck {
 
+/**
+ * Class Deck creates a Deck containing the 42 Cards.
+ *
+ * @author Momin Mushtaha
+ * @version 2
+ */
+public class Deck {
   private final ArrayList<Card> deck;
 
+
   /**
-   * Creates all 42 cards, one for each territory. Each card has either
-   * a type of Infantry, Cavalry, or Artillery. Ensure that the number of
-   * Infantry, Cavalry, and Artillery are the same
+   * Creates all 42 cards, one for each territory and every card has type
+   * all the types are equivalently distributed
    *
    * @param territories territories List passed
    */
@@ -29,20 +33,21 @@ public class Deck {
     for (i = 0; i < territories.length; i++) {
       // Add new cards to deck
       deck.add(new Card(territories[i], typesArray[generator.nextInt(3)]));
-      System.out.println("Added new card to deck: " + deck.get(i).getTerritoryName());
+      System.out.println("new cards on deck: " + deck.get(i).getTerritoryName());
     }
     Collections.shuffle(deck);
   }
 
+
   /**
-   * Removes a card from the deck and return it
+   * Removes a card and return it
    **/
   public Card draw() {
-
-    Card drawCard = deck.get(0);
+    Card draw = deck.get(0);
     deck.remove(0);
-    return drawCard;
+    return draw;
   }
+
 
 }
 
