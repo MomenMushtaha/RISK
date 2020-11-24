@@ -11,4 +11,4 @@ all he/she needs to know. The comments should usually include at least:
 * AUTHORS: Mo'men Mushtaha
 * PURPOSE OF PROJECT: Implementation of Classic Risk board Game
 
-![](ScreenShotOfRisk)
+![](ScreenShotOfRisk.PNG)
