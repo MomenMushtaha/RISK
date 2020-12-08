@@ -2,17 +2,20 @@ package Control;
 
 import Logic.Gameplay;
 import View.AIView;
+import View.BoardView;
 import View.GameView;
-
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Objects;
 
 
 public class GameControl implements ActionListener {
-
-  public final Gameplay game;
-  private final GameView view;
+    public Gameplay game;
+    private final GameView view;
 
   //Constructor
   public GameControl(GameView view, Gameplay game) {
@@ -49,6 +52,29 @@ public class GameControl implements ActionListener {
             System.out.println("Error: " + actionEvent + " actionEvent not found!");
             new GameControl(new GameView(), game);
         }
+    } else if (actionEvent.equals("loadGameBtn")) {
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+            try {
+            load(fileChooser);
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+        }
+    }}
+
+    private void load(JFileChooser fileChooser) throws IOException, ClassNotFoundException {
+        ObjectInputStream objectReader = new ObjectInputStream(new FileInputStream(fileChooser.getSelectedFile()));
+        game = (Gameplay) objectReader.readObject();
+        objectReader.close();
+        System.out.println("loading saved game file is done successfully");
+        new BoardViewControl(new BoardView(game),game);
+        game.getGameStatus();
+        System.out.println("Its is "  + game.getCurrentPlayer().getName() + " turn !");
+        if (game.getState().equals("")) {
+            System.out.println(game.getCurrentPlayer().getName() + " finished his/her deploying, attacking, and fortifying states");
+        } else {
+            System.out.println(game.getCurrentPlayer().getName() + " is in his/her " + game.getState());
+        }
     }
-  }
 }

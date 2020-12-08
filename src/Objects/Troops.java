@@ -1,6 +1,8 @@
 package Objects;
 
 
+import java.io.Serializable;
+
 /**
  * Class that all troops types will
  * be extending
@@ -8,7 +10,7 @@ package Objects;
  * @author Peter
  * @version Tanyous
  */
-public class Troops {
+public class Troops implements Serializable {
   private final int worth;
 
 

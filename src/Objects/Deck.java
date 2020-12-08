@@ -1,6 +1,7 @@
 package Objects;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,7 +14,7 @@ import java.util.Random;
  * @author Momin Mushtaha
  * @version 2
  */
-public class Deck {
+public class Deck implements Serializable {
   private final ArrayList<Card> deck;
 
 

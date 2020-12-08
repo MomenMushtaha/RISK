@@ -9,13 +9,14 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
 
-public class BoardView extends JDialog {
+public class BoardView extends JFrame {
   public JButton deployBtn;
   //initialize buttons
   private JButton tradeBtn;
   private JButton attackBtn;
   private JButton fortifyBtn;
   private JButton passBtn;
+  private JButton saveBtn;
   private JButton quitBtn;
   private JButton helpBtn;
   private JButton printBtn;
@@ -102,7 +103,7 @@ public class BoardView extends JDialog {
     JLabel map = new JLabel(riskImageIcon);
     // initialize scrolling panes
     JScrollPane riskScrollPane = new JScrollPane(map);
-    riskScrollPane.setPreferredSize(new Dimension(1200, 720));
+    riskScrollPane.setPreferredSize(new Dimension(1210, 720));
     riskMapPanel.add(riskScrollPane);
     toFront();
     return riskMapPanel;
@@ -124,6 +125,7 @@ public class BoardView extends JDialog {
     fortifyBtn = new JButton("FORTIFY");
     passBtn = new JButton("PASS");
     printBtn = new JButton("PRINT");
+    saveBtn = new JButton("SAVE");
     quitBtn = new JButton("QUIT");
     deployBtn = new JButton("DEPLOY");
     helpBtn = new JButton("HELP");
@@ -139,6 +141,8 @@ public class BoardView extends JDialog {
     passBtn.setActionCommand(passName);
     String printName = "printBtn";
     printBtn.setActionCommand(printName);
+    String saveName = "saveBtn";
+    saveBtn.setActionCommand(saveName);
     String quitName = "quitBtn";
     quitBtn.setActionCommand(quitName);
     String deployName = "deployBtn";
@@ -199,7 +203,7 @@ public class BoardView extends JDialog {
     cons.weighty = 0.5;
     cons.gridx = 0;
     cons.gridy = 5;
-    commandsPanel.add(quitBtn, cons);
+    commandsPanel.add(saveBtn, cons);
 
     cons.fill = GridBagConstraints.BOTH;
     cons.insets = new Insets(5, 5, 5, 5);
@@ -207,7 +211,7 @@ public class BoardView extends JDialog {
     cons.weighty = 0.5;
     cons.gridx = 0;
     cons.gridy = 6;
-    commandsPanel.add(helpBtn, cons);
+    commandsPanel.add(quitBtn, cons);
 
     cons.fill = GridBagConstraints.BOTH;
     cons.insets = new Insets(5, 5, 5, 5);
@@ -215,6 +219,14 @@ public class BoardView extends JDialog {
     cons.weighty = 0.5;
     cons.gridx = 0;
     cons.gridy = 7;
+    commandsPanel.add(helpBtn, cons);
+
+    cons.fill = GridBagConstraints.BOTH;
+    cons.insets = new Insets(5, 5, 5, 5);
+    cons.weightx = 0.5;
+    cons.weighty = 0.5;
+    cons.gridx = 0;
+    cons.gridy = 8;
     commandsPanel.add(printBtn, cons);
 
     return commandsPanel;
@@ -228,6 +240,7 @@ public class BoardView extends JDialog {
     attackBtn.addActionListener(evt1);
     fortifyBtn.addActionListener(evt1);
     passBtn.addActionListener(evt1);
+    saveBtn.addActionListener(evt1);
     printBtn.addActionListener(evt1);
     quitBtn.addActionListener(evt1);
     helpBtn.addActionListener(evt1);

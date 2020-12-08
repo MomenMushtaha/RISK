@@ -1,6 +1,7 @@
 package Objects;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * @author Momin Mushtaha
  * @version 2
  */
-public class Hand {
+public class Hand implements Serializable {
   private final ArrayList<Card> cards;
   private boolean condition;
 

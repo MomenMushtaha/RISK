@@ -1,6 +1,7 @@
 package Objects;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * @author Peter Tanyous, Momin Mushtaha
  * @version 2
  */
-public class Territory {
+public class Territory implements Serializable {
   private final String name;
   private final ArrayList<Territory> borderingTerritories;
   private Player owner;

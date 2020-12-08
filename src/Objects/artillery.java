@@ -1,6 +1,8 @@
 package Objects;
 
 
+import java.io.Serializable;
+
 /**
  * is a type of troop that is worth 10 infantry
  *

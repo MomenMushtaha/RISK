@@ -3,6 +3,7 @@ package Logic;
 
 import Objects.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import java.util.LinkedList;
  * @author Momin Mushtaha
  * @version 2
  */
-public class Gameplay {
+public class Gameplay implements Serializable {
   private final Board board;
   public final ArrayList<Player> players;
   private Player currentPlayer;
@@ -158,7 +159,7 @@ public class Gameplay {
    * @param attackingTerritory is the attacking Territory
    */
   public void attackResult(Territory targetTerritory, Territory attackingTerritory) {
-    state = "attacked";
+    state = "fortifying";
     if (attackingTerritory.getTroops() == 1) {
       System.out.println("cant attack daug common have some sense, you got nobody there");
     } else if (targetTerritory.getTroops() <= 0) {
@@ -221,7 +222,7 @@ public class Gameplay {
    * Fortifies the troops when the command is passed
    */
   public void fortify(Territory sourceTerritory, Territory targetTerritory, int fortifiedTroops) {
-    state = "fortified";
+    state = "";
     sourceTerritory.removeTroops(fortifiedTroops);
     targetTerritory.addTroops(fortifiedTroops);
   }
@@ -281,7 +282,7 @@ public class Gameplay {
    * @param terr     is the Territory to be deployed at
    */
   public void deploy(Territory terr, int newTroop) {
-    state = "deployed";
+    state = "attacking";
     terr.addTroops(newTroop);
   }
 
@@ -698,7 +699,7 @@ public class Gameplay {
       System.out.println(getCurrentPlayer().getName() + " has won");
     }
     System.out.println("NEXTTTTT!!");
-    state = "";
+    state = "deploying";
     troopsNewTurn = get_bonus(getCurrentPlayer());
     addCard = false;
     checkTradeCards();

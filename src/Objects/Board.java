@@ -1,6 +1,7 @@
 package Objects;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Desmond Blake, Raul Hoyos, Momin Mushtaha
  */
-public class Board {
+public class Board implements Serializable {
   public final Objects.Deck deck;
   public Territory[] territoriesList;
   private ArrayList<Continent> continentsList;

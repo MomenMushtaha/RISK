@@ -20,6 +20,7 @@ public class GameView extends JFrame {
   public JComboBox<String> playerComboBox;
   //initialize buttons
   private JButton newGameButton;
+  private JButton loadGameButton;
 
 
   /**
@@ -50,19 +51,23 @@ public class GameView extends JFrame {
     label = new JLabel("Please select how many players are playing ");
     // Sets Layout
     //initialize layout
-    GridLayout startLayout = new GridLayout(3, 1, 5, 5);
+    GridLayout startLayout = new GridLayout(4, 1, 5, 5);
     startPanel.setLayout(startLayout);
     //new Combobox for players size
     playerComboBox = new JComboBox<>(players);
     // Creating buttons
     newGameButton = new JButton("New Game");
+    loadGameButton = new JButton("Load Game");
     // Setting button commands
     String newGameString = "newGameBtn";
+    String loadGameString = "loadGameBtn";
     newGameButton.setActionCommand(newGameString);
+    loadGameButton.setActionCommand(loadGameString);
     //buttons on startPanel
     startPanel.add(label);
     startPanel.add(playerComboBox);
     startPanel.add(newGameButton);
+    startPanel.add(loadGameButton);
     return startPanel;
   }
 
@@ -73,5 +78,6 @@ public class GameView extends JFrame {
    */
   public void GameViewActionListeners(ActionListener evt) {
     newGameButton.addActionListener(evt);
+    loadGameButton.addActionListener(evt);
   }
 }

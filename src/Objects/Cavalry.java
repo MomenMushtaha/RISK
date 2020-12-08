@@ -1,6 +1,8 @@
 package Objects;
 
 
+import java.io.Serializable;
+
 /**
  * Cavalry class is a type of troop that is worth 5 infantry
  *

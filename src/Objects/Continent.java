@@ -1,6 +1,7 @@
 package Objects;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @author Peter Tanyous
  * @version 1.01 October 24, 2020
  */
-public class Continent {
+public class Continent implements Serializable {
   private final String name;
   private final int bonusArmies;
   private final ArrayList<Territory> territories;

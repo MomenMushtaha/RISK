@@ -1,6 +1,8 @@
 package Objects;
 
 
+import java.io.Serializable;
+
 /**
  * Card is a class used to represent the cards to be available in the deck
  * that will be used when creating the board there are 42 normal cards and 2 wildCards
@@ -8,7 +10,7 @@ package Objects;
  * @author Peter Tanyous
  * @version 1
  */
-public class Card {
+public class Card implements Serializable {
   private final Territory territory;
   private final Troops type;
 

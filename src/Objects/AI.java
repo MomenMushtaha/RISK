@@ -2,6 +2,8 @@ package Objects;
 
 
 import Logic.Gameplay;
+
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -12,7 +14,7 @@ import java.util.Random;
  * @author Momin Mushtaha
  * @version 1
  */
-public class AI {
+public class AI implements Serializable {
   private final Gameplay game;
   private final Random r;
 
