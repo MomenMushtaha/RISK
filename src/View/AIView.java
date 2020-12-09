@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
- * GameView of the GUI of Risk!.
+ * AIView of the GUI of Risk!.
  *
  * @author Momin Mushtaha
  **/
@@ -35,7 +35,7 @@ public class AIView extends JFrame {
 
 
   private JPanel AIDialog() {
-    // Creates the panel, Labels and Layouts
+    //Creates the panel, Labels and Layouts
     //initialize panel
     JPanel AIPanel = new JPanel();
     label = new JLabel("Please select how many players are AI ");
@@ -56,7 +56,7 @@ public class AIView extends JFrame {
     return AIPanel;
   }
 
-  // Action listeners for GameView
+  // Action listeners for AIView
   public void AIViewActionListeners(ActionListener evt) {
     AIButton.addActionListener(evt);
   }

@@ -1,6 +1,7 @@
 package Control;
 
 import Logic.Gameplay;
+import Logic.Serialization;
 import View.BoardView;
 import View.DeployView;
 import View.TerritoryView;
@@ -15,12 +16,14 @@ class BoardViewControl implements ActionListener {
 
   public final Gameplay game;
   public BoardView view;
+  private Serialization serialization;
   public String passed;
   public String[] options;
 
   public BoardViewControl(BoardView view, Gameplay game) {
     this.game = game;
     this.view = view;
+    serialization = new Serialization();
     options = new String[]{"first Card, second Card , third Card", "first Card, second Card , fourth Card", "first Card, second Card, fifth Card",
       "first Card, third Card, fourth Card", "first Card, third Card, fifth Card", "first Card, fourth Card, fifth Card", "second Card, third Card, fourth Card"
       , "second Card, third Card, fifth Card", "second Card, fourth Card, fifth Card"};
@@ -92,7 +95,10 @@ class BoardViewControl implements ActionListener {
       JFileChooser fileChooser = new JFileChooser();
       if (fileChooser.showSaveDialog(view) == JFileChooser.APPROVE_OPTION) {
         try {
-          save(fileChooser);
+         ObjectOutputStream objectWriter = serialization.save(fileChooser);
+          objectWriter.writeObject(game);
+          System.out.println("Game Saved Successfully");
+          objectWriter.close();
         } catch (ClassNotFoundException | IOException e) {
           e.printStackTrace();
         }
@@ -109,10 +115,5 @@ class BoardViewControl implements ActionListener {
   }
 
 
-  private void save(JFileChooser fileChooser) throws IOException, ClassNotFoundException {
-    ObjectOutputStream objectWriter = new ObjectOutputStream(new FileOutputStream(fileChooser.getSelectedFile()));
-    objectWriter.writeObject(game);
-    System.out.println("Game Saved Successfully");
-    objectWriter.close();
-  }
+
 }

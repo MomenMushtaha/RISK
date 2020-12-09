@@ -27,9 +27,9 @@ public class BoardView extends JFrame {
    * Constructs the Risk game board.
    **/
   public BoardView(Gameplay game) {
-    setTitle("Java-Risk");
+    setTitle("RISK!");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    //  GridBagLayout allows a flexible sizing of components
+    //GridBagLayout allows a flexible sizing of components
     //initialize Layouts
     GridBagLayout gameLayout = new GridBagLayout();
     setLayout(gameLayout);
@@ -58,7 +58,6 @@ public class BoardView extends JFrame {
     cons.gridx = 2;
     cons.gridy = 0;
     add(commandsPanel());
-    setResizable(false);
     setVisible(true);
     pack();
     toFront();

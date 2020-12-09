@@ -32,7 +32,6 @@ public class Gameplay implements Serializable {
   public Gameplay() {
     this.board = new Board();
     this.players = new ArrayList<>();
-    state = "";
     addCard = false;
   }
 
@@ -883,6 +882,7 @@ public class Gameplay implements Serializable {
     NumberInitialTroops(numPlayers);
     setCurrentPlayer(0);
     get_bonus(getCurrentPlayer());
+    state = "deploying";
   }
 
 
