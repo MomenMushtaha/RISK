@@ -1,0 +1,62 @@
+<?xml version = "1.0"?>
+<class>
+	<Continent  name = "NorthAmerica">
+	<Territory>Alaska</Territory>
+	<Territory>NorthWestTerritories</Territory>
+	<Territory>GreenLand</Territory>
+	<Territory>Alberta</Territory>
+	<Territory>Ontario</Territory>
+	<Territory>Quebec</Territory>
+	<Territory>WestUSA</Territory>
+	<Territory>EastUSA</Territory>
+	<Territory>CentralAmerica</Territory>
+   </Continent>
+
+   <Continent name = "SouthAmerica">
+	   <Territory>Venezuela</Territory>
+	   <Territory>Peru</Territory>
+	   <Territory>Brazil</Territory>
+	   <Territory>Argentina</Territory>
+   </Continent>
+
+   <Continent name = "Africa">
+	<Territory>NorthAfrica</Territory>
+	<Territory>Egypt</Territory>
+	<Territory>EastAfrica</Territory>
+	<Territory>Congo</Territory>
+	<Territory>SouthAfrica</Territory>
+	<Territory>Madagascar</Territory>
+   </Continent>
+
+   <Continent name = "Europe">
+<Territory>Iceland</Territory>
+	<Territory>Scandinavia</Territory>
+	<Territory>Ukraine</Territory>
+	<Territory>Great Britain</Territory>
+	<Territory>Northern Europe</Territory>
+	<Territory>Southern Europe</Territory>
+	   <Territory>Western Europe</Territory>
+   </Continent>
+
+   <Continent name="Oceania">
+      	<Territory>Indonesia</Territory>
+	<Territory>New Guinea</Territory>
+	<Territory>Western Australia</Territory>
+	<Territory>Eastern Australia</Territory>
+   </Continent>
+
+   <Continent name="Asia">
+	<Territory>Middle East</Territory>
+	<Territory>Afghanistan</Territory>
+	<Territory>Ural</Territory>
+	<Territory>Siberia</Territory>
+	<Territory>India</Territory>
+	   <Territory>SIAM</Territory>
+	<Territory>China</Territory>
+	<Territory>Mongolia</Territory>
+	<Territory>Japan</Territory>
+	<Territory>Irkutsk</Territory>
+	<Territory>Yakutsk</Territory>
+	   <Territory>Kamchatka</Territory>
+   </Continent>
+</class>
