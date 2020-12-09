@@ -7,6 +7,7 @@ import View.AIView;
 import View.BoardView;
 import View.GameView;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -57,7 +58,10 @@ public class GameControl implements ActionListener {
         }
     } else if (actionEvent.equals("loadGameBtn")) {
         JFileChooser fileChooser = new JFileChooser();
-        if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("*.sv", "sv"));
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 try (ObjectInputStream objectReader = serialization.load(fileChooser)) {
                     game = (Gameplay) objectReader.readObject();
                 System.out.println("loading saved game file is done successfully");

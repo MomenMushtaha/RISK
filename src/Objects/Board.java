@@ -259,8 +259,8 @@ public class Board implements Serializable {
     territoriesList[16].addBorderTerritories(territoriesList[15]);
     territoriesList[16].addBorderTerritories(territoriesList[17]);
     //SouthAFRICA
-    territoriesList[17].addBorderTerritories(territoriesList[16]);
     territoriesList[17].addBorderTerritories(territoriesList[15]);
+    territoriesList[17].addBorderTerritories(territoriesList[16]);
     territoriesList[17].addBorderTerritories(territoriesList[18]);
     //Madagascar
     territoriesList[18].addBorderTerritories(territoriesList[15]);

@@ -8,6 +8,7 @@ import View.TerritoryView;
 import View.TradeView;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -93,7 +94,10 @@ class BoardViewControl implements ActionListener {
       }
     } else if ("saveBtn".equals(actionEvent)) {
       JFileChooser fileChooser = new JFileChooser();
-      if (fileChooser.showSaveDialog(view) == JFileChooser.APPROVE_OPTION) {
+      fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+      fileChooser.setAcceptAllFileFilterUsed(false);
+      fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("*.sv", "sv"));
+      if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
         try {
          ObjectOutputStream objectWriter = serialization.save(fileChooser);
           objectWriter.writeObject(game);
