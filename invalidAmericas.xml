@@ -1,0 +1,82 @@
+<?xml version = "1.0"?>
+<Map continents = "2" territories = "13">
+	<Continent name = "NorthAmerica" bonus = "5">
+		<Territory number = "0"  name ="Alaska">
+			<bordering>1</bordering>
+			<bordering>3</bordering>
+			<bordering>41</bordering>
+		</Territory>
+		<Territory number = "1"  name ="NorthWestTerritories">
+			<bordering>0</bordering>
+			<bordering>2</bordering>
+			<bordering>3</bordering>
+			<bordering>4</bordering>
+		</Territory>
+		<Territory number = "2"  name ="GreenLand">
+			<bordering>1</bordering>
+			<bordering>4</bordering>
+			<bordering>5</bordering>
+			<bordering>19</bordering>
+		</Territory>
+		<Territory number = "3"  name ="Alberta">
+			<bordering>0</bordering>
+			<bordering>1</bordering>
+			<bordering>4</bordering>
+			<bordering>6</bordering>
+		</Territory>
+		<Territory number = "4"  name ="Ontario">
+			<bordering>1</bordering>
+			<bordering>2</bordering>
+			<bordering>3</bordering>
+			<bordering>5</bordering>
+			<bordering>6</bordering>
+			<bordering>7</bordering>
+		</Territory>
+		<Territory number = "5"  name ="Quebec">
+			<bordering>2</bordering>
+			<bordering>4</bordering>
+			<bordering>5</bordering>
+		</Territory>
+		<Territory number = "6"  name ="WestUSA">
+			<bordering>3</bordering>
+			<bordering>4</bordering>
+			<bordering>7</bordering>
+			<bordering>8</bordering>
+		</Territory>
+		<Territory number = "7"  name ="EastUSA">
+			<bordering>4</bordering>
+			<bordering>5</bordering>
+			<bordering>6</bordering>
+			<bordering>8</bordering>
+		</Territory>
+		<Territory number = "8"  name ="CentralAmerica">
+			<bordering>6</bordering>
+			<bordering>7</bordering>
+			<bordering>9</bordering>
+		</Territory>
+   </Continent>
+
+   <Continent name = "SouthAmerica" bonus = "2">
+	   <Territory number = "9"  name ="Venezuela">
+		   <bordering>8</bordering>
+		   <bordering>10</bordering>
+		   <bordering>11</bordering>
+	   </Territory>
+	   <Territory number = "10"  name ="Peru">
+		   <bordering>9</bordering>
+		   <bordering>11</bordering>
+		   <bordering>12</bordering>
+	   </Territory>
+	   <Territory number = "11"  name ="Brazil">
+		   <bordering>9</bordering>
+		   <bordering>10</bordering>
+		   <bordering>12</bordering>
+		   <bordering>13</bordering>
+	   </Territory>
+	   <Territory number = "12"  name ="Argentina">
+		   <bordering>10</bordering>
+		   <bordering>11</bordering>
+	   </Territory>
+   </Continent>
+
+</Map>

@@ -363,8 +363,12 @@ public class Gameplay implements Serializable {
       for (Player player : players) {
         ArrayList<Territory> playerTerritories = player.getTerritories();
         for (int Troops = playerTroops - playerTerritories.size();Troops > 0; Troops --) {
-          System.out.println(playerTerritories.size());
           int size = playerTerritories.size()-1;
+          for (int s = 0;s <= size;s++)
+          {
+            player.getTerritories().get(s).addTroops(1);
+            Troops = Troops-1;
+          }
           player.getTerritories().get(nextTerr.nextInt(size)).addTroops(1);
         }
       }

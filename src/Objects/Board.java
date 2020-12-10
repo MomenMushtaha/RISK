@@ -18,6 +18,7 @@ import java.util.ArrayList;
  */
 public class Board implements Serializable {
   public final Objects.Deck deck;
+  public Boolean valid;
   public Territory[] territoriesList;
   private ArrayList<Continent> continentsList;
 
@@ -26,8 +27,8 @@ public class Board implements Serializable {
    * Constructor for board class
    */
   public Board(File xml) {
-    setContinentsandTerritories(xml);
-    addBorderTerritories(xml);
+    valid = setContinentsandTerritories(xml);
+    valid = addBorderTerritories(xml);
     this.deck = new Deck(territoriesList);
   }
 
@@ -35,7 +36,7 @@ public class Board implements Serializable {
   /**
    * Creates the continents and territories for the game and assigns the territories to each Continent
    */
-  private void setContinentsandTerritories(File xml) {
+  private boolean setContinentsandTerritories(File xml) {
     try {
       continentsList = new ArrayList<>();
       String attribute1;
@@ -47,20 +48,56 @@ public class Board implements Serializable {
       xmlFile.getDocumentElement().normalize();
       NodeList mList = xmlFile.getElementsByTagName("Map");
       Node xmlMap = mList.item(0);
+      if (xmlMap == null)
+      {
+        System.out.println("this is an invalid map, failed to find map element");
+        return false;
+      }
+      else{
       if (xmlMap.getNodeType() == Node.ELEMENT_NODE) {
         Element mapElement = (Element) xmlMap;
         //figures out the size of the map
+        if (mapElement.getAttribute("territories") == null)
+        {
+          System.out.println("this is an invalid map, failed to find map attributes");
+          return false;
+        }
+        else{
         territoriesList = new Territory[Integer.parseInt(mapElement.getAttribute("territories"))];
         NodeList cList = mapElement.getElementsByTagName("Continent");
         for (int temp = 0; temp < cList.getLength(); temp++) {
           Node nodeXml = cList.item(temp);
+          if (nodeXml == null)
+          {
+            System.out.println("this is an invalid map, failed to find Continent element");
+            return false;
+          }
+          else{
           if (nodeXml.getNodeType() == Node.ELEMENT_NODE) {
             Element nodeElement = (Element) nodeXml;
+            if ( nodeElement == null)
+            {
+              System.out.println("this is an invalid map, failed to find Continent attributes");
+              return false;
+            }
+            else{
             NodeList tList = nodeElement.getElementsByTagName("Territory");
             for (int l = 0; l < tList.getLength(); l++) {
               Node nodeXmlT = tList.item(l);
+              if ( nodeXmlT == null)
+              {
+                System.out.println("this is an invalid map, failed to find Territory element");
+                return false;
+              }
+              else{
               if (nodeXmlT.getNodeType() == Node.ELEMENT_NODE) {
                 Element nodeElement2 = (Element) nodeXmlT;
+                if (nodeElement2 == null)
+                {
+                  System.out.println("this is an invalid map, failed to find territory attributes");
+                  return false;
+                }
+                else{
                 attribute1 = nodeElement2.getAttribute("name");
                 attribute2 = nodeElement2.getAttribute("number");
                 //figures out the name and the number of the territory
@@ -73,25 +110,18 @@ public class Board implements Serializable {
             //figures out the name and the number of bonus troops of the continent
             Continent con = new Continent(attribute1,Integer.parseInt(attribute2),tempTerritores);
             continentsList.add(con);
-            /*
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println(con.getName());
-            System.out.println("######################################################");
-            System.out.println("######################################################");
-            for(int r =0;r< continentsList.size();r++)
-            {
-              System.out.println(continentsList.get(r));
-            }*/
             tempTerritores.clear();
-          }}}} catch (Exception e) {
-      e.printStackTrace();
+          }}}}}}}}}} catch (Exception e) {
+      System.out.println("INVALID MAP");
+      return false;
     }
+    return true;
   }
 
 /**
 sets the bordering territories for each territory
  */
-  private void addBorderTerritories(File xml)
+  private boolean addBorderTerritories(File xml)
   {
   try{
     String attribute1;
@@ -108,19 +138,27 @@ sets the bordering territories for each territory
         Element nodeElement2 = (Element) nodeXmlPT;
         attribute1 = nodeElement2.getAttribute("number");
         NodeList pTBList = nodeElement2.getElementsByTagName("bordering");
+        if ( pTBList == null)
+        {
+          System.out.println("this is an invalid map, failed to find any bordering territory for each territory element");
+          return false;
+        }else{
         for (int b =0;b < pTBList.getLength();b++) {
           Node nodeXmlPTB = pTBList.item(b);
           if (nodeXmlPTB.getNodeType() == Node.ELEMENT_NODE) {
             Element nodeElement3 = (Element) nodeXmlPTB;
             attribute2 = nodeElement3.getTextContent();
+            if (Integer.parseInt(attribute2) >= territoriesList.length)
+            {
+              System.out.println("this is an invalid map, failed to find any bordering territory is out of bound");
+              return false;
+            }else{
             territoriesList[Integer.parseInt(attribute1)].addBorderTerritories(territoriesList[Integer.parseInt(attribute2)]);
+  }}}}}}} catch (Exception e) {
+    System.out.println("INVALID MAP");
+    return false;
   }
-        }
-      }
-    }
-  } catch (Exception e) {
-    e.printStackTrace();}
-  }
+  return true;}
 
   /**
    * Method to return the Territory list in the Class

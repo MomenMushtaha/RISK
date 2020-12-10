@@ -5,6 +5,7 @@ import Logic.Serialization;
 import View.MapView;
 import View.BoardView;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -40,15 +41,23 @@ public class MapControl implements ActionListener {
             }
         else if (actionEvent.equals("uploadBtn")) {
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("*.xml", "xml"));
             if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
-            //try (FileInputStream fileInput = new FileInputStream(fileChooser.getSelectedFile()) {
                 game.setBoard(fileChooser.getSelectedFile());
+                view.setVisible(false);
+                if (game.board.valid ==false)
+                {
+                    System.out.println("Please choose a valid map");
+                    new MapControl(game,new MapView());
+                }
+                else{
                 game.startGame();
                 System.out.println("loading xml map file is done successfully");
-                view.setVisible(false);
                 new BoardViewControl(new BoardView(game),game);
                 System.out.println("Loading BoardViewControl...");
-            }
+            }}
         }
         }
     }
