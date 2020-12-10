@@ -1,6 +1,6 @@
 <?xml version = "1.0"?>
-<class>
-	<Continent name = "NorthAmerica">
+<Map continents = "6" territories = "42">
+	<Continent name = "NorthAmerica" bonus = "5">
 		<Territory number = "0"  name ="Alaska">
 			<bordering>1</bordering>
 			<bordering>3</bordering>
@@ -56,7 +56,7 @@
 		</Territory>
    </Continent>
 
-   <Continent name = "SouthAmerica">
+   <Continent name = "SouthAmerica" bonus = "2">
 	   <Territory number = "9"  name ="Venezuela">
 		   <bordering>8</bordering>
 		   <bordering>10</bordering>
@@ -79,7 +79,7 @@
 	   </Territory>
    </Continent>
 
-   <Continent name = "Africa">
+   <Continent name = "Africa" bonus ="5">
 		<Territory number = "13"  name ="NorthAfrica">
 		   <bordering>11</bordering>
 		   <bordering>14</bordering>
@@ -118,7 +118,7 @@
 	   </Territory>
    </Continent>
 
-   <Continent name = "Europe">
+   <Continent name = "Europe" bonus = "5">
 	   <Territory number = "19"  name ="Iceland">
 		   <bordering>2</bordering>
 		   <bordering>20</bordering>
@@ -167,7 +167,7 @@
 	   </Territory>
    </Continent>
 
-   <Continent name = "Oceania">
+   <Continent name = "Oceania" bonus = "2">
 	   <Territory number = "26"  name ="Indonesia">
 		   <bordering>27</bordering>
 		   <bordering>28</bordering>
@@ -189,7 +189,7 @@
 	   </Territory>
    </Continent>
 
-   <Continent name = "Asia">
+   <Continent name = "Asia" bonus = "7">
 	   <Territory number = "30"  name ="Middle East">
 		   <bordering>14</bordering>
 		   <bordering>15</bordering>
@@ -267,4 +267,4 @@
 		   <bordering>40</bordering>
 	   </Territory>
    </Continent>
-</class>
+</Map>

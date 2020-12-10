@@ -16,8 +16,7 @@ public class Serialization {
 
 
     public ObjectInputStream load(JFileChooser fileChooser) throws IOException, ClassNotFoundException {
-        ObjectInputStream objectReader = new ObjectInputStream(new FileInputStream(fileChooser.getSelectedFile()));
-        return objectReader;
+        return new ObjectInputStream(new FileInputStream(fileChooser.getSelectedFile()));
     }
 
 

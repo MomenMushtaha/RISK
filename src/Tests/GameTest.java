@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.*;
 import static org.junit.Assert.*;
 
@@ -21,7 +22,9 @@ public class GameTest {
      @Before
     public void setUp() {
         gameTest = new Gameplay();
-    }
+         gameTest.setBoard(new File("Continents.xml"));
+
+     }
 
     @After
     public void tearDown() {
@@ -30,7 +33,8 @@ public class GameTest {
 
     @Test
     public void testGetCurrentPlayer(){
-         gameTest.startGame(2);
+         gameTest.setNumPlayers(2);
+         gameTest.startGame();
         assertEquals(gameTest.getPlayers(0),gameTest.getCurrentPlayer());
     }
 
@@ -133,7 +137,8 @@ public class GameTest {
     @Test
     public void testBoardTerritoriesSize()
     {
-        gameTest.startGame(2);
+        gameTest.setNumPlayers(2);
+        gameTest.startGame();
         assertEquals(42,gameTest.getBoard().territoriesList.length);
     }
 
@@ -145,7 +150,8 @@ public class GameTest {
 
     @Test
     public void testNewTroopersForThreeTradesMade() {
-         gameTest.startGame(2);
+        gameTest.setNumPlayers(2);
+        gameTest.startGame();
          gameTest.trade();
          gameTest.trade();
          gameTest.trade();
@@ -154,7 +160,8 @@ public class GameTest {
 
     @Test
     public void testBonusTroopCalculationOneContinent() {
-         gameTest.startGame(2);
+        gameTest.setNumPlayers(2);
+        gameTest.startGame();
         Continent NorthAmerica = new Continent("North", 5,new ArrayList<>());
         gameTest.getCurrentPlayer().addContinents(NorthAmerica);
         assertEquals(12,gameTest.get_bonus(gameTest.getCurrentPlayer()));

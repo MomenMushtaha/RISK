@@ -1,7 +1,6 @@
 package Control;
 
 import Logic.Gameplay;
-import Logic.JdomParser;
 import Logic.Serialization;
 import View.AIView;
 import View.BoardView;
@@ -47,7 +46,8 @@ public class GameControl implements ActionListener {
         if ("2".equals(s) || "3".equals(s) || "4".equals(s) || "5".equals(s) || "6".equals(s)) {
             String selected = view.playerComboBox.getSelectedItem().toString();
             int numPlayers = Integer.parseInt(selected);
-            game.startGame(numPlayers);
+            game.setNumPlayers(numPlayers);
+            game.InitializePlayers(numPlayers);
             view.setVisible(false);
             new AIControl(game, new AIView(numPlayers));
             System.out.println("Loading AIControl...");

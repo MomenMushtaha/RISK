@@ -3,10 +3,12 @@ package Logic;
 
 import Objects.*;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Random;
 
 
 /**
@@ -16,8 +18,9 @@ import java.util.LinkedList;
  * @version 2
  */
 public class Gameplay implements Serializable {
-  private final Board board;
+  public Board board;
   public final ArrayList<Player> players;
+  public int numPlayers;
   private Player currentPlayer;
   private int troopsNewTurn;
   public ArrayList<Territory> pathListing;
@@ -30,7 +33,6 @@ public class Gameplay implements Serializable {
    * Constructor for objects of class Gameplay
    */
   public Gameplay() {
-    this.board = new Board();
     this.players = new ArrayList<>();
     addCard = false;
   }
@@ -343,71 +345,30 @@ public class Gameplay implements Serializable {
    */
   public void NumberInitialTroops(int numPlayers) {
     //2 : 50 troops each, 3: 35 troops each, 4: 30 troops, 5: 25, 6: 20
-    int m;
-    for (int pl = 0; pl < numPlayers; pl++)
-      if (numPlayers == 2) {
-        for (m = 0; m < 13; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-        }
-        for (m = 13; m < 21; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
-        }
-      } else if (numPlayers == 3) {
-        for (m = 0; m < 7; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-        }
-        for (m = 7; m < 14; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
-        }
-      } else if (numPlayers == 4) {
-        if (getPlayers(pl).getTerritories().size() < 11) {
-          for (m = 0; m < 3; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-          }
-          for (m = 3; m < 7; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
-          }
-          for (m = 7; m < 10; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
-          }
-        } else if (getPlayers(pl).getTerritories().size() == 11) {
-          for (m = 0; m < 5; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-          }
-          for (m = 5; m < 9; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
-          }
-          for (m = 9; m < 11; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
-          }
-        }
-      } else if (numPlayers == 5) {
-        if (getPlayers(pl).getTerritories().size() < 9) {
-          for (m = 0; m < 3; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-          }
-          getPlayers(pl).getTerritoyAtIndex(3).addTroops(3);
-          for (m = 4; m < 7; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
-          }
-        } else if (getPlayers(pl).getTerritories().size() == 9) {
-          for (m = 0; m < 2; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(2);
-          }
-          for (m = 2; m < 5; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
-          }
-          for (m = 5; m < 8; m++) {
-            getPlayers(pl).getTerritoyAtIndex(m).addTroops(4);
-          }
-        }
-      } else if (numPlayers == 6) {
-        getPlayers(pl).getTerritoyAtIndex(0).addTroops(2);
-        for (m = 1; m < 7; m++) {
-          getPlayers(pl).getTerritoyAtIndex(m).addTroops(3);
+    if(numPlayers == 2) shuffleTroops(50);
+    else if(numPlayers == 3) shuffleTroops(35);
+    else if(numPlayers == 4) shuffleTroops(30);
+    else if(numPlayers == 5) shuffleTroops(25);
+    else if(numPlayers == 6) shuffleTroops(20);
+    }
+
+
+  /**
+   * randomly shuffles the troops around the territories
+   * @param playerTroops is the amount of troops each player will get
+   */
+    private void shuffleTroops(int playerTroops)
+    {
+      Random nextTerr = new Random();
+      for (Player player : players) {
+        ArrayList<Territory> playerTerritories = player.getTerritories();
+        for (int Troops = playerTroops - playerTerritories.size();Troops > 0; Troops --) {
+          System.out.println(playerTerritories.size());
+          int size = playerTerritories.size()-1;
+          player.getTerritories().get(nextTerr.nextInt(size)).addTroops(1);
         }
       }
-  }
+    }
 
   /**
    * looks for the territory using its String name
@@ -870,20 +831,33 @@ public class Gameplay implements Serializable {
     return x;
   }
 
+  /**
+   * set the number of players playing
+   * @param num is an integer indicating the number of players
+   */
+  public void setNumPlayers(int num)
+  {
+    numPlayers = num;
+  }
+
+  /**
+   * sets the bord of risk based on the xml file passed
+   * @param xml is the file passed
+   */
+  public void setBoard(File xml)
+{
+  this.board = new Board(xml);
+}
 
   /**
    * initialize the game at its start
    *
-   * @param numPlayers is the number of players playing
    */
-  public void startGame(int numPlayers) {
-    InitializePlayers(numPlayers);
+  public void startGame() {
     addInitialTerritories(numPlayers);
     NumberInitialTroops(numPlayers);
     setCurrentPlayer(0);
     get_bonus(getCurrentPlayer());
     state = "deploying";
   }
-
-
 }
