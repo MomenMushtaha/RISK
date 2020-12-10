@@ -524,33 +524,25 @@ public class Gameplay implements Serializable {
    * Prints the commands possible for the game
    */
   public void printCommands() {
-    System.out.println("""
-      THESE ARE THE POSSIBLE COMMANDS:
-      ATTACK: ATTACKS A COUNTRY
-      PASS: PASSES YOUR TURN
-      PRINT: PRINTS THE STATE OF THE MAP
-      QUIT: QUITS THE GAME SESSION
-      HELP: SHOWS HELP
-      FORTIFY: MOVE TROOPS BETWEEN YOUR TERRITORIES (ONLY ONE MOVE IS ALLOWED)\s
-      """);
+    System.out.println("THESE ARE THE POSSIBLE COMMANDS:ATTACK: ATTACKS A COUNTRY");
+      System.out.println("PASS: PASSES YOUR TURN");
+      System.out.println("PRINT: PRINTS THE STATE OF THE MAP");
+      System.out.println("QUIT: QUITS THE GAME SESSION");
+      System.out.println("HELP: SHOWS HELP");
+      System.out.println("FORTIFY: MOVE TROOPS BETWEEN YOUR TERRITORIES (ONLY ONE MOVE IS ALLOWED)");
   }
 
   /**
    * Prints the rules of the game
    */
   public void printRules() {
-    System.out.println
-      ("""
-        Rules\s
-        1. The winner is the first player to eliminate every opponent by capturing all 42 territories on the board.
-        2. You can only attack a country that is adjacent to a country you control.
-        3. At the start of each turn you will receive at least 3 armies or the # of territories you own divided by 3 (which ever one is higher).
-        4. You can only attack a country if you own at least 2 armies in the attacking country.
-        5. When attacking the person who is attacking can choose to roll up to 3 dice.
-        6. The person defending can roll up to 3 dice if the have more that 3 troops, 2 if they have at least 2 troops in the defending country (if not they can only roll one dice).
-        7. When you capture a territory, you must move at least as many armies as dice you rolled in your last attack.
-                                         \s"""
-      );
+    System.out.println("1. The winner is the first player to eliminate every opponent by capturing all 42 territories on the board.");
+        System.out.println("2. You can only attack a country that is adjacent to a country you control.");
+        System.out.println("3. At the start of each turn you will receive at least 3 armies or the # of territories you own divided by 3 (which ever one is higher).");
+        System.out.println("4. You can only attack a country if you own at least 2 armies in the attacking country.");
+        System.out.println("5. When attacking the person who is attacking can choose to roll up to 3 dice.");
+        System.out.println("6. The person defending can roll up to 3 dice if the have more that 3 troops, 2 if they have at least 2 troops in the defending country (if not they can only roll one dice).");
+        System.out.println("7. When you capture a territory, you must move at least as many armies as dice you rolled in your last attack.");        
   }
 
   /**
