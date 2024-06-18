@@ -1,22 +1,8 @@
 # RISK
 
-------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
-------------------------------------------------------------------------
-
-* PROJECT TITLE: RISK
-* VERSION or DATE: DEC 09, 2020
-* AUTHORS: Mo'men Mushtaha
-* PURPOSE OF PROJECT: Implementation of Classic Risk board Game
-
-![](ScreenShotOfRisk.PNG)
-
-# RISK
-
 ## Description
 The 'RISK' project is a strategic board game simulation based on the classic game of Risk. This project simulates the gameplay of Risk, where players aim to conquer territories and dominate the world through strategy, alliances, and battles.
+![](ScreenShotOfRisk.PNG)
 
 ## Key Features
 - **Gameplay Mechanics:** Implements the core mechanics of Risk, including territory acquisition, troop deployment, and combat resolution.
