@@ -21,6 +21,3 @@ The 'RISK' project is a strategic board game simulation based on the classic gam
 - **Starting a New Game:** Use the GUI to set up a new game, configure player settings, and start playing.
 - **Game Controls:** Interact with the game board through the GUI to deploy troops, attack territories, and move forces.
 - **AI Difficulty:** Choose the difficulty level of AI opponents before starting the game.
-
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request with your changes. Ensure that your code follows the project's style guidelines and includes appropriate documentation.
