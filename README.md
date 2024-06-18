@@ -16,23 +16,6 @@ The 'RISK' project is a strategic board game simulation based on the classic gam
 - **GUI Framework:** JavaFX
 - **Game Logic:** Custom-built using Java for game mechanics and rules
 
-## Installation and Setup
-1. **Clone the repository:**
-   \`\`\`sh
-   git clone https://github.com/MomenMushtaha/RISK.git
-   \`\`\`
-2. **Navigate to the project directory:**
-   \`\`\`sh
-   cd RISK
-   \`\`\`
-3. **Compile the Java files:**
-   \`\`\`sh
-   javac -d bin src/*.java
-   \`\`\`
-4. **Run the game:**
-   \`\`\`sh
-   java -cp bin Main
-   \`\`\`
 
 ## Usage
 - **Starting a New Game:** Use the GUI to set up a new game, configure player settings, and start playing.
@@ -41,6 +24,3 @@ The 'RISK' project is a strategic board game simulation based on the classic gam
 
 ## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request with your changes. Ensure that your code follows the project's style guidelines and includes appropriate documentation.
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/MomenMushtaha/RISK/blob/main/LICENSE) file for more details.
